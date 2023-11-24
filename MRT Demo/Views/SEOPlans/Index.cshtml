@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MRT_Demo.Models.SEOPlan>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartEndYear)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartEndYear)
+        </td>
+        <td>
+            @Html.ActionLink("แก้ไข", "Edit", new { id =item.ID },new { @class = "btn" }) |
+            @Html.ActionLink("วัตถุประสงค์เชิงยุทธศาสตร์", "Index", "StrategicObjectives", new { id = item.ID, a = "" }, new { @class = "btn" }) |
+            @Html.ActionLink("ลบ", "DeleteConfirmed", new { id =item.ID }, new { @class = "btn" })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<script>
+    function ToStrategicObjectives(id, a) {
+        $("#SEOform").attr("action", '@Url.Action("Index","StrategicObjectives")');
+        $("#SEOform").submit();
+    }
+</script>

@@ -1,0 +1,83 @@
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\MRT Demo.dll.config
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\MRT Demo.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\MRT Demo.pdb
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\csc.exe
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\csc.exe.config
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\csc.rsp
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\csi.exe
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\csi.exe.config
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\csi.rsp
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\Microsoft.Managed.Core.targets
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.AppContext.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Collections.Immutable.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Console.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Globalization.Calendars.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.IO.Compression.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.IO.FileSystem.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Net.Http.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Net.Sockets.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Reflection.Metadata.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.ValueTuple.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Xml.XmlDocument.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Xml.XPath.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\vbc.exe
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\vbc.exe.config
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\vbc.rsp
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\VBCSCompiler.exe
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\roslyn\VBCSCompiler.exe.config
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\Antlr3.Runtime.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\EntityFramework.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\EntityFramework.SqlServer.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\Microsoft.Web.Infrastructure.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\Newtonsoft.Json.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.Helpers.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.Mvc.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.Optimization.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.Razor.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.WebPages.Deployment.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.WebPages.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.WebPages.Razor.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\WebGrease.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\EntityFramework.xml
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\EntityFramework.SqlServer.xml
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.Helpers.xml
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.Mvc.xml
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.Optimization.xml
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.Razor.xml
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.WebPages.xml
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.WebPages.Deployment.xml
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\System.Web.WebPages.Razor.xml
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\Newtonsoft.Json.xml
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\Antlr3.Runtime.pdb
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\obj\Debug\MRT Demo.csproj.AssemblyReference.cache
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\obj\Debug\MRT Demo.csproj.CoreCompileInputs.cache
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\obj\Debug\MRT Demo.csproj.CopyComplete
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\obj\Debug\MRT Demo.dll
+D:\63114540387\ASPdotNet\MRT Demo\MRT Demo\obj\Debug\MRT Demo.pdb

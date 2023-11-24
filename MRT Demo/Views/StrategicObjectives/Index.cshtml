@@ -1,0 +1,42 @@
+﻿@model IEnumerable<MRT_Demo.Models.StrategicObjective>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@Html.Hidden("SEOPlanID")
+<input id="SEOPlanID" name="SEOPlanID" value=@ViewBag.SEOPlanID type="hidden"/>
+
+<p>
+    @Html.ActionLink("Create New", "Create",new {SEOPlanID = ViewBag.SEOPlanID})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StrategicObjective1)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StrategicObjective1)
+            </td>
+            <td>
+                @Html.ActionLink("แก้ไข", "Edit", new { id = item.ID }, new { @class = "btn" }) |
+                @Html.ActionLink("เป้าประสงค์", "Manage","Goals", new { id = item.ID }, new { @class = "btn" }) |
+                @Html.ActionLink("ยุทธศาสตร์", "Index", "Stategies", new { id = item.ID, a = "" }, new { @class = "btn" }) |
+                @Html.ActionLink("ลบ", "DeleteConfirmed", new { id = item.ID }, new { @class = "btn" })
+            </td>
+        </tr>
+    }
+
+</table>

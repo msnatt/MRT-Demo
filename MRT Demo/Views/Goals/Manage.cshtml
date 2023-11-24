@@ -1,0 +1,70 @@
+﻿@model MRT_Demo.Models.StrategicObjective
+
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>Manage</h2>
+
+
+@using (Html.BeginForm("Manage", "Goals", FormMethod.Post, new { @class = "form-horizontal", id = "Goalform", name = "Goalform" }))
+{
+    @*@Html.AntiForgeryToken()*@
+    @Html.HiddenFor(m => m.StrategicObjective1)
+    @Html.HiddenFor(m => m.SEOPlanID)
+    @Html.HiddenFor(m => m.ID)
+    @Html.HiddenFor(m => m.CreateBy)
+    @Html.HiddenFor(m => m.UpdateBy)
+    @Html.HiddenFor(m => m.CreateDate)
+    @Html.HiddenFor(m => m.UpdateDate)
+    @Html.HiddenFor(m => m.IsDelete)
+    @Html.HiddenFor(m => m.IsLastDelete)
+    @*@Html.HiddenFor(m => m.Goals)*@
+    <div>
+        <div class="row ">
+            @Html.DisplayName("วัตถุประสงค์เชิงยุทธศาสตร์ (Strategic Objectives) : ")
+            @Html.DisplayFor(m => m.StrategicObjective1)
+        </div><br />
+        <div class="offset-md-10 col-md-2">
+            @*@Html.ActionLink("เพิ่ม", "AddGoal", Model, new { @class = "btn btn-primary" })*@
+            <input value="เพิ่ม" onclick="funcAddGoal()" type="button" class="btn btn-primary" />
+        </div>
+        <div class="row">
+            <div class=" offset-md-2 col-md-10">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>
+                            @Html.DisplayName("เป้าประสงค์ (Goals)")
+                        </th>
+                        <th>
+                            @Html.DisplayName("ตัวชี้วัด (KPIs)")
+                        </th>
+                        <th></th>
+                    </tr>
+                    @Html.EditorFor(m => m.Goals)
+                </table>
+            </div>
+        </div>
+        <input type="submit" value="Create" class="btn btn-default" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    function funcAddGoal() {
+        $("#Goalform").attr("action", '@Url.Action("AddGoal","Goals")');
+        $("#Goalform").submit();
+    }
+    function funcDeleteGoal(e) {
+        e.value = true;
+        $("#Goalform").attr("action", '@Url.Action("DeleteGoal","Goals")');
+        $("#Goalform").submit();
+    }
+
+</script>

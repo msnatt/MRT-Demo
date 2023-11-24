@@ -1,0 +1,22 @@
+﻿@model MRT_Demo.Models.Goal
+
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.IsLastDelete)
+@Html.HiddenFor(m => m.No)
+@Html.HiddenFor(m => m.UpdateDate)
+@Html.HiddenFor(m => m.CreateDate)
+@Html.HiddenFor(m => m.IsDelete)
+@Html.HiddenFor(m => m.CreateAndUpdate)
+@if (Model.IsDelete != true)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(m => m.CreateAndUpdate)
+            @Html.EditorFor(m => m.Goal1, new { htmlAttributes = new { @class = "form-control" } })
+        </td>
+        <td></td>
+        <td>
+            <input value="ลบ" type="button" class="btn" onclick="funcDeleteGoal(@Html.IdFor(m=>m.IsDelete))" />
+        </td>
+    </tr>
+}

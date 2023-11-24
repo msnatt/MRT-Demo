@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MRTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Goal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="No" Type="int" />
+          <Property Name="Goal" Type="nvarchar(max)" />
+          <Property Name="StrategicObjectiveID" Type="int" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="IsDelete" Type="bit" />
+          <Property Name="IsLastDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="SEOPlan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartYear" Type="int" />
+          <Property Name="EndYear" Type="int" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="IsDelete" Type="bit" />
+          <Property Name="IsLastDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="Stategy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="No" Type="int" Nullable="false" />
+          <Property Name="Stategy" Type="nvarchar(max)" />
+          <Property Name="StrategicObjectiveID" Type="int" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="IsDelete" Type="bit" />
+          <Property Name="IsLastDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="StrategicObjective">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="No" Type="int" />
+          <Property Name="StrategicObjective" Type="nvarchar(max)" />
+          <Property Name="SEOPlanID" Type="int" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="IsDelete" Type="bit" />
+          <Property Name="IsLastDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tactic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="No" Type="int" />
+          <Property Name="Tactic" Type="nvarchar(max)" />
+          <Property Name="StategyID" Type="int" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="IsDelete" Type="bit" />
+          <Property Name="IsLastDelete" Type="bit" />
+        </EntityType>
+        <Association Name="FK_SEOPlanID_StrategicObjectiveSEOPlanID">
+          <End Role="SEOPlan" Type="Self.SEOPlan" Multiplicity="0..1" />
+          <End Role="StrategicObjective" Type="Self.StrategicObjective" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEOPlan">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StrategicObjective">
+              <PropertyRef Name="SEOPlanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stategy_ID__Tactic_StategyID">
+          <End Role="Stategy" Type="Self.Stategy" Multiplicity="0..1" />
+          <End Role="Tactic" Type="Self.Tactic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stategy">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tactic">
+              <PropertyRef Name="StategyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StrategicObjective_ID__Stategy_StrategicObjectiveID">
+          <End Role="StrategicObjective" Type="Self.StrategicObjective" Multiplicity="0..1" />
+          <End Role="Stategy" Type="Self.Stategy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StrategicObjective">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Stategy">
+              <PropertyRef Name="StrategicObjectiveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StrategicObjective_ID_Goal_StrategicObjectiveID">
+          <End Role="StrategicObjective" Type="Self.StrategicObjective" Multiplicity="0..1" />
+          <End Role="Goal" Type="Self.Goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StrategicObjective">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Goal">
+              <PropertyRef Name="StrategicObjectiveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MRTModelStoreContainer">
+          <EntitySet Name="Goal" EntityType="Self.Goal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SEOPlan" EntityType="Self.SEOPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stategy" EntityType="Self.Stategy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StrategicObjective" EntityType="Self.StrategicObjective" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tactic" EntityType="Self.Tactic" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SEOPlanID_StrategicObjectiveSEOPlanID" Association="Self.FK_SEOPlanID_StrategicObjectiveSEOPlanID">
+            <End Role="SEOPlan" EntitySet="SEOPlan" />
+            <End Role="StrategicObjective" EntitySet="StrategicObjective" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stategy_ID__Tactic_StategyID" Association="Self.FK_Stategy_ID__Tactic_StategyID">
+            <End Role="Stategy" EntitySet="Stategy" />
+            <End Role="Tactic" EntitySet="Tactic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StrategicObjective_ID__Stategy_StrategicObjectiveID" Association="Self.FK_StrategicObjective_ID__Stategy_StrategicObjectiveID">
+            <End Role="StrategicObjective" EntitySet="StrategicObjective" />
+            <End Role="Stategy" EntitySet="Stategy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StrategicObjective_ID_Goal_StrategicObjectiveID" Association="Self.FK_StrategicObjective_ID_Goal_StrategicObjectiveID">
+            <End Role="StrategicObjective" EntitySet="StrategicObjective" />
+            <End Role="Goal" EntitySet="Goal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MRTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Goal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="No" Type="Int32" />
+          <Property Name="Goal1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StrategicObjectiveID" Type="Int32" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="IsLastDelete" Type="Boolean" />
+          <NavigationProperty Name="StrategicObjective" Relationship="Self.FK_StrategicObjective_ID_Goal_StrategicObjectiveID" FromRole="Goal" ToRole="StrategicObjective" />
+        </EntityType>
+        <EntityType Name="SEOPlan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartYear" Type="Int32" />
+          <Property Name="EndYear" Type="Int32" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="IsLastDelete" Type="Boolean" />
+          <NavigationProperty Name="StrategicObjectives" Relationship="Self.FK_SEOPlanID_StrategicObjectiveSEOPlanID" FromRole="SEOPlan" ToRole="StrategicObjective" />
+        </EntityType>
+        <EntityType Name="Stategy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="No" Type="Int32" Nullable="false" />
+          <Property Name="Stategy1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StrategicObjectiveID" Type="Int32" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="IsLastDelete" Type="Boolean" />
+          <NavigationProperty Name="Tactics" Relationship="Self.FK_Stategy_ID__Tactic_StategyID" FromRole="Stategy" ToRole="Tactic" />
+          <NavigationProperty Name="StrategicObjective" Relationship="Self.FK_StrategicObjective_ID__Stategy_StrategicObjectiveID" FromRole="Stategy" ToRole="StrategicObjective" />
+        </EntityType>
+        <EntityType Name="StrategicObjective">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="No" Type="Int32" />
+          <Property Name="StrategicObjective1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SEOPlanID" Type="Int32" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="IsLastDelete" Type="Boolean" />
+          <NavigationProperty Name="Goals" Relationship="Self.FK_StrategicObjective_ID_Goal_StrategicObjectiveID" FromRole="StrategicObjective" ToRole="Goal" />
+          <NavigationProperty Name="SEOPlan" Relationship="Self.FK_SEOPlanID_StrategicObjectiveSEOPlanID" FromRole="StrategicObjective" ToRole="SEOPlan" />
+          <NavigationProperty Name="Stategies" Relationship="Self.FK_StrategicObjective_ID__Stategy_StrategicObjectiveID" FromRole="StrategicObjective" ToRole="Stategy" />
+        </EntityType>
+        <EntityType Name="Tactic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="No" Type="Int32" />
+          <Property Name="Tactic1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StategyID" Type="Int32" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="IsLastDelete" Type="Boolean" />
+          <NavigationProperty Name="Stategy" Relationship="Self.FK_Stategy_ID__Tactic_StategyID" FromRole="Tactic" ToRole="Stategy" />
+        </EntityType>
+        <Association Name="FK_StrategicObjective_ID_Goal_StrategicObjectiveID">
+          <End Role="StrategicObjective" Type="Self.StrategicObjective" Multiplicity="0..1" />
+          <End Role="Goal" Type="Self.Goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StrategicObjective">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Goal">
+              <PropertyRef Name="StrategicObjectiveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEOPlanID_StrategicObjectiveSEOPlanID">
+          <End Role="SEOPlan" Type="Self.SEOPlan" Multiplicity="0..1" />
+          <End Role="StrategicObjective" Type="Self.StrategicObjective" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEOPlan">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StrategicObjective">
+              <PropertyRef Name="SEOPlanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stategy_ID__Tactic_StategyID">
+          <End Role="Stategy" Type="Self.Stategy" Multiplicity="0..1" />
+          <End Role="Tactic" Type="Self.Tactic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stategy">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tactic">
+              <PropertyRef Name="StategyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StrategicObjective_ID__Stategy_StrategicObjectiveID">
+          <End Role="StrategicObjective" Type="Self.StrategicObjective" Multiplicity="0..1" />
+          <End Role="Stategy" Type="Self.Stategy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StrategicObjective">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Stategy">
+              <PropertyRef Name="StrategicObjectiveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MRTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Goals" EntityType="Self.Goal" />
+          <EntitySet Name="SEOPlans" EntityType="Self.SEOPlan" />
+          <EntitySet Name="Stategies" EntityType="Self.Stategy" />
+          <EntitySet Name="StrategicObjectives" EntityType="Self.StrategicObjective" />
+          <EntitySet Name="Tactics" EntityType="Self.Tactic" />
+          <AssociationSet Name="FK_StrategicObjective_ID_Goal_StrategicObjectiveID" Association="Self.FK_StrategicObjective_ID_Goal_StrategicObjectiveID">
+            <End Role="StrategicObjective" EntitySet="StrategicObjectives" />
+            <End Role="Goal" EntitySet="Goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEOPlanID_StrategicObjectiveSEOPlanID" Association="Self.FK_SEOPlanID_StrategicObjectiveSEOPlanID">
+            <End Role="SEOPlan" EntitySet="SEOPlans" />
+            <End Role="StrategicObjective" EntitySet="StrategicObjectives" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stategy_ID__Tactic_StategyID" Association="Self.FK_Stategy_ID__Tactic_StategyID">
+            <End Role="Stategy" EntitySet="Stategies" />
+            <End Role="Tactic" EntitySet="Tactics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StrategicObjective_ID__Stategy_StrategicObjectiveID" Association="Self.FK_StrategicObjective_ID__Stategy_StrategicObjectiveID">
+            <End Role="StrategicObjective" EntitySet="StrategicObjectives" />
+            <End Role="Stategy" EntitySet="Stategies" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MRTModelStoreContainer" CdmEntityContainer="MRTEntities">
+          <EntitySetMapping Name="Goals">
+            <EntityTypeMapping TypeName="MRTModel.Goal">
+              <MappingFragment StoreEntitySet="Goal">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="Goal1" ColumnName="Goal" />
+                <ScalarProperty Name="StrategicObjectiveID" ColumnName="StrategicObjectiveID" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SEOPlans">
+            <EntityTypeMapping TypeName="MRTModel.SEOPlan">
+              <MappingFragment StoreEntitySet="SEOPlan">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StartYear" ColumnName="StartYear" />
+                <ScalarProperty Name="EndYear" ColumnName="EndYear" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stategies">
+            <EntityTypeMapping TypeName="MRTModel.Stategy">
+              <MappingFragment StoreEntitySet="Stategy">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="Stategy1" ColumnName="Stategy" />
+                <ScalarProperty Name="StrategicObjectiveID" ColumnName="StrategicObjectiveID" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StrategicObjectives">
+            <EntityTypeMapping TypeName="MRTModel.StrategicObjective">
+              <MappingFragment StoreEntitySet="StrategicObjective">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="StrategicObjective1" ColumnName="StrategicObjective" />
+                <ScalarProperty Name="SEOPlanID" ColumnName="SEOPlanID" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tactics">
+            <EntityTypeMapping TypeName="MRTModel.Tactic">
+              <MappingFragment StoreEntitySet="Tactic">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="Tactic1" ColumnName="Tactic" />
+                <ScalarProperty Name="StategyID" ColumnName="StategyID" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MRTModelStoreContainer" CdmEntityContainer="MRTEntities">
+    <EntitySetMapping Name="Goals">
+      <EntityTypeMapping TypeName="MRTModel.Goal">
+        <MappingFragment StoreEntitySet="Goal">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="No" ColumnName="No" />
+          <ScalarProperty Name="Goal1" ColumnName="Goal" />
+          <ScalarProperty Name="StrategicObjectiveID" ColumnName="StrategicObjectiveID" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEOPlans">
+      <EntityTypeMapping TypeName="MRTModel.SEOPlan">
+        <MappingFragment StoreEntitySet="SEOPlan">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="StartYear" ColumnName="StartYear" />
+          <ScalarProperty Name="EndYear" ColumnName="EndYear" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stategies">
+      <EntityTypeMapping TypeName="MRTModel.Stategy">
+        <MappingFragment StoreEntitySet="Stategy">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="No" ColumnName="No" />
+          <ScalarProperty Name="Stategy1" ColumnName="Stategy" />
+          <ScalarProperty Name="StrategicObjectiveID" ColumnName="StrategicObjectiveID" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StrategicObjectives">
+      <EntityTypeMapping TypeName="MRTModel.StrategicObjective">
+        <MappingFragment StoreEntitySet="StrategicObjective">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="No" ColumnName="No" />
+          <ScalarProperty Name="StrategicObjective1" ColumnName="StrategicObjective" />
+          <ScalarProperty Name="SEOPlanID" ColumnName="SEOPlanID" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tactics">
+      <EntityTypeMapping TypeName="MRTModel.Tactic">
+        <MappingFragment StoreEntitySet="Tactic">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="No" ColumnName="No" />
+          <ScalarProperty Name="Tactic1" ColumnName="Tactic" />
+          <ScalarProperty Name="StategyID" ColumnName="StategyID" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
