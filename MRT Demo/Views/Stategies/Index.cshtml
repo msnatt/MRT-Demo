@@ -1,81 +1,63 @@
-﻿@model IEnumerable<MRT_Demo.Models.Stategy>
+﻿@model MRT_Demo.Models.StrategicObjective
+@Html.HiddenFor(m => m.ID)
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Stategy List";
 }
 
-<h2>Index</h2>
+<h2>จัดการยุทธศาสตร์ตามแผนวิสาหกิจ</h2>
+<br />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="row ">
+    @Html.DisplayName("วัตถุประสงค์เชิงยุทธศาสตร์ (Strategic Objectives) : ")
+    @Html.DisplayFor(m => m.StrategicObjective1)
+</div>
+<br />
+
+
+<div class="row">
+    <div class="col-md-2">
+        @Html.ActionLink("ย้อนกลับ", "Index", "StrategicObjectives", new { id = Model.SEOPlanID }, new { @class = "btn btn-secondary" })
+    </div>
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-4">
+        @Html.ActionLink("เพิ่ม", "Create", "Stategies", new { Model.ID }, new { @class = "btn btn-primary col-md-2" })
+        @Html.ActionLink("กล่องขยะ", "RecycleBin", "Stategies", new { strategicID = Model.ID }, new { @class = "btn btn-secondary col-md-3" })
+    </div>
+</div>
+<br />
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.No)
+            @Html.DisplayNameFor(model => model.Stategies.First().UpdateDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Stategy1)
+            @Html.DisplayNameFor(model => model.Stategies.First().Stategy1)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreateBy)
+            @Html.DisplayName("การจัดการ")
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdateBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdateDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsDelete)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsLastDelete)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StrategicObjective.StrategicObjective1)
-        </th>
-        <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.No)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stategy1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdateBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdateDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsDelete)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsLastDelete)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StrategicObjective.StrategicObjective1)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.Stategies)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stategy1)
+            </td>
+            <td>
+                @Html.ActionLink("แก้ไข", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("ลบ", "DeleteConfirmed", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
+<br />
+<br />
+<br />
+

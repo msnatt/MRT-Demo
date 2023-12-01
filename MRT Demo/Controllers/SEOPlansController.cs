@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using MRT_Demo.Models;
 
 namespace MRT_Demo.Controllers
@@ -17,7 +18,7 @@ namespace MRT_Demo.Controllers
         // GET: SEOPlans
         public ActionResult Index()
         {
-            var seoplans = db.SEOPlans.Where(s => s.IsDelete==false).ToList();
+            var seoplans = db.SEOPlans.Where(s => s.IsDelete == false).ToList();
             return View(seoplans);
         }
 
@@ -36,9 +37,20 @@ namespace MRT_Demo.Controllers
             return View(sEOPlan);
         }
 
+
         // GET: SEOPlans/Create
         public ActionResult Create()
         {
+            List<int> ListYear = new List<int>();
+            for (var i = DateTime.Now.Year; i < DateTime.Now.Year + 10; i++) { ListYear.Add(i); }
+            var x = ListYear.Select(i => new SelectListItem
+            {
+                Text = i.ToString(),
+                Value = i.ToString()
+            });
+            SelectList selectListsYear = new SelectList(x,"Value","Text");
+            ViewBag.StartYear = selectListsYear;
+
             return View();
         }
 
@@ -57,7 +69,7 @@ namespace MRT_Demo.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -69,6 +81,16 @@ namespace MRT_Demo.Controllers
             {
                 return HttpNotFound();
             }
+            List<int> ListYear = new List<int>();
+            for (var i = DateTime.Now.Year; i < DateTime.Now.Year + 10; i++) { ListYear.Add(i); }
+            var x = ListYear.Select(i => new SelectListItem
+            {
+                Text = i.ToString(),
+                Value = i.ToString()
+            });
+            SelectList selectListsYear = new SelectList(x,"Value","Text");
+            ViewBag.StartYear = selectListsYear;
+
             return View(sEOPlan);
         }
 
@@ -119,6 +141,34 @@ namespace MRT_Demo.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult RecycleBin()
+        {
+            var seoplans = db.SEOPlans.Where(s => s.IsDelete == true && s.IsLastDelete==false).ToList();
+
+            return View(seoplans);
+        }
+        public ActionResult Revert(int id)
+        {
+            var seo = db.SEOPlans.Find(id);
+            seo.IsDelete = false;
+
+            db.Entry(seo).State = EntityState.Modified;
+
+            db.SaveChanges();
+            return RedirectToAction("RecycleBin");
+        }
+        public ActionResult LastDelete(int id)
+        {
+            var seo = db.SEOPlans.Find(id);
+            seo.IsLastDelete = true;
+
+            db.Entry(seo).State = EntityState.Modified;
+
+            db.SaveChanges();
+
+            return RedirectToAction("RecycleBin");
         }
     }
 }

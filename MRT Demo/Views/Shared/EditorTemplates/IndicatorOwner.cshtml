@@ -1,0 +1,19 @@
+﻿@model MRT_Demo.Models.IndicatorOwner
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.IndicatorID)
+@Html.HiddenFor(m => m.IsDelete)
+@Html.HiddenFor(m => m.IsLastDelete)
+@Html.HiddenFor(m => m.CreateDate)
+@Html.HiddenFor(m => m.UpdateDate)
+@Html.HiddenFor(m => m.UpdateBy)
+@Html.HiddenFor(m => m.CreateBy)
+
+<tr>
+    <td>
+        @Html.EditorFor(m => m.Division, new { htmlAttributes = new { @class = "form-control" } })
+    </td>
+    <td>
+        <input type="button" class="btn btn-outline-danger" value="ลบ" onclick="FuncDelIndicatorOwner(@Html.IdFor(m=>m.IsDelete))" />
+    </td>
+</tr>
+

@@ -1,0 +1,52 @@
+﻿@model MRT_Demo.Models.Indicator
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Indicators", FormMethod.Post, new { @class = "form-control", id = "indiform", name = "indiform" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Indicator</h4>
+        <hr />
+        @Html.EditorFor(m => m)
+        <hr />
+
+        <div class="row">
+            <div class="offset-md-3 col-md-3">
+                <input type="submit" class="btn btn-primary" value="บันทึก" />
+            </div>
+
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script>
+    function FuncAddindicatorOwner() {
+        $("#indiform").attr("action", '@Url.Action("AddIndicatorOwnerEdit","Indicators")');
+        $("#indiform").submit();
+    }
+    function FuncDelIndicatorOwner(e) {
+        e.value = true;
+        $("#indiform").attr("action", '@Url.Action("DelIndicatorOwnerEdit","Indicators")');
+        $("#indiform").submit();
+    }
+    function FuncAddindicatorUnit() {
+        $("#indiform").attr("action", '@Url.Action("AddIndicatorUnitEdit","Indicators")');
+        $("#indiform").submit();
+    }
+    function FuncDelIndicatorUnit(e) {
+        e.value = true;
+        $("#indiform").attr("action", '@Url.Action("DelIndicatorUnitEdit","Indicators")');
+        $("#indiform").submit();
+    }
+
+</script>

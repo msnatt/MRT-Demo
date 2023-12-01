@@ -1,0 +1,119 @@
+﻿@model MRT_Demo.Models.Indicator
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.CreateBy)
+@Html.HiddenFor(m => m.UpdateBy)
+@Html.HiddenFor(m => m.CreateDate)
+@Html.HiddenFor(m => m.UpdateDate)
+@Html.HiddenFor(m => m.IsDelete)
+@Html.HiddenFor(m => m.IsLastDelete)
+
+
+
+<div class="row">
+    @Html.LabelFor(model => model.Indicator1, htmlAttributes: new { @class = "control-label col-md-3 text-end" })
+    <div class="col-md-9">
+        @Html.EditorFor(model => model.Indicator1, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Indicator1, "", new { @class = "text-danger" })
+    </div>
+</div>
+<hr />
+<div class="row offset-md-10 col-md-1">
+    <input class="btn btn-primary" type="submit" value="เพิ่ม" onclick="FuncAddindicatorOwner()" />
+</div>
+<div class="row">
+    <div class="col-md-3 text-end">
+        @Html.DisplayName("หน่วยงานผู้รับผิดชอบตัวชีวัด")
+    </div>
+    <div class="col-md-8">
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    @Html.DisplayName("หน่วยงาน")
+                </th>
+                <th>
+                    @Html.DisplayName("จัดการ")
+                </th>
+            </tr>
+            @Html.EditorFor(m => m.IndicatorOwners)
+        </table>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-3 text-end">
+        @Html.DisplayName("ประเภทตัวชี้วัด")
+    </div>
+    <div class="col-md-8">
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    @Html.DisplayName("เลือกประเภทตัวชี้วัด")
+                </th>
+                <th>
+                    @Html.DisplayName("คำจำกัดความตัวชี้วัด")
+                </th>
+            </tr>
+            @Html.EditorFor(m => m.IndicatorXIndicatorTypes)
+        </table>
+    </div>
+    <div class="col-md-1"></div>
+
+</div>
+<hr />
+<div class="row">
+    @Html.LabelFor(model => model.Formula, htmlAttributes: new { @class = "control-label col-md-3 text-end" })
+    <div class="col-md-9">
+        @Html.EditorFor(model => model.Formula, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Formula, "", new { @class = "text-danger" })
+    </div>
+</div>
+<hr />
+<div class="row offset-md-10 col-md-1">
+    <input class="btn btn-primary" type="submit" value="เพิ่ม" onclick="FuncAddindicatorUnit()" />
+</div>
+<div class="row">
+    <div class="col-md-3 text-end">
+        @Html.DisplayName("หน่วยวัด")
+    </div>
+    <div class="col-md-8">
+        <table class="table table-responsive-md">
+            <tr>
+                <th>
+                    @Html.DisplayName("หน่วยวัด")
+                </th>
+                <th>
+                    @Html.DisplayName("จัดการ")
+                </th>
+            </tr>
+            @Html.EditorFor(m => m.IndicatorUnits)
+        </table>
+    </div>
+    <div class="col-md-1">
+    </div>
+</div>
+<br />
+<hr />
+<div class="row">
+    <div class="col-md-3 text-end">
+        @Html.DisplayName("รายละเอียดตัวชี้วัด")
+    </div>
+    <div class="col-md-8">
+        @Html.DropDownListFor(m => m.IndicatorDetailStatus, new SelectList(ViewBag.SelectListStatus, "Value", "Text"), "Please Select", new { @class = "form-control" })
+    </div>
+    <div class="col-md-1"></div>
+
+</div>
+<br />
+<hr />
+<div class="row">
+    @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-3 text-end" })
+    <div class="col-1" style="padding:0px;">
+        @Html.CheckBoxFor(m => m.IsActive, new { @Class = "col-3" })
+        @Html.DisplayName("ใช้งาน")
+    </div>
+    <div class="col-md-1  text-end" style="padding:0px;">
+        @Html.CheckBox("IsDeactive", new { @Class = "col-3" })
+        @Html.DisplayName("ไม่ใช้งาน")
+    </div>
+</div>

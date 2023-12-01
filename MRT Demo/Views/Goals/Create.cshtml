@@ -1,4 +1,4 @@
-﻿@model MRT_Demo.Models.Goal
+﻿@model MRT_Demo.Models.StrategicObjective
 
 @{
     ViewBag.Title = "Create";
@@ -7,10 +7,15 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    <div class="row ">
+        @Html.DisplayName("วัตถุประสงค์เชิงยุทธศาสตร์ (Strategic Objectives) : ")
+        @Html.DisplayFor(m => m.StrategicObjective1)
+    </div>
+    <br />
+
     <div class="form-horizontal">
         <h4>Goal</h4>
         <hr />

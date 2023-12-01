@@ -136,7 +136,33 @@ namespace MRT_Demo.Controllers
 
             return View(strategicObjective);
         }
-        
+        [HttpPost]
+        public ActionResult Manage(StrategicObjective strategic)
+        {
+            var goal = strategic.Goals;
+            SaveGoalToDB(goal);
+            db.SaveChanges();
+            return RedirectToAction("Index", "StrategicObjectives", new { id = strategic.SEOPlanID});
+        }
+
+        private void SaveGoalToDB(ICollection<Goal> goals)
+        {
+            foreach (var goal in goals)
+            {
+                if (goal.ID == 0)
+                {
+                    if (goal.IsDelete == false)
+                    {
+                        db.Goals.Add(goal);
+                    }
+                }
+                else
+                {
+                    db.Entry(goal).State = EntityState.Modified;
+                }
+            }
+        }
+
         public ActionResult AddGoal(StrategicObjective strategic)
         {
 
@@ -145,11 +171,9 @@ namespace MRT_Demo.Controllers
             goal.UpdateDate = DateTime.Now;
             goal.IsDelete = false;
             goal.IsLastDelete = false;
-            var last = new Goal();
-            try
-            {
-                last = db.Goals.LastOrDefault();
-            }catch(Exception ex)
+            goal.StrategicObjectiveID = strategic.ID;
+            var last = db.Goals.ToList().LastOrDefault();
+            if (last == null)
             {
                 last.No = 0;
             }

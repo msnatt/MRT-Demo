@@ -1,0 +1,74 @@
+﻿@model IEnumerable<MRT_Demo.Models.Indicator>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>ข้อมูลตัวชี้วัดที่สำคัญขององค์กร</h2>
+<br />
+<div class="row">
+    <div class="col-md-1">
+        <span class="col-md-12 form-control-plaintext ">ชื่อตัวชี้วัด : </span>
+    </div>
+    <div class="col-md-8">
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="col-md-7">
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="col-md-5">
+                    "Wait"
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-3">
+        @Html.ActionLink("ค้นหา", "Search", "", new { @Class = " btn btn-outline-secondary col-md-3" }) &nbsp;
+        @Html.ActionLink("เพิ่ม", "Create", "", new { @Class = " btn btn-primary col-md-3" }) &nbsp;
+        @Html.ActionLink("ถังขยะ", "RecycleBin", "", new { @Class = " btn btn-secondary col-md-3" })
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Indicator1)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.IndicatorOwners)*@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayName("จัดการ")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Indicator1)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.IndicatorOwners)*@
+            </td>
+            <td>
+                @Html.CheckBoxFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "DeleteConfirmed", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

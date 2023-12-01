@@ -6,20 +6,34 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .navbar-text-black {
+            color: black;
+        }
+        .navbar-text-black:hover {
+            color: dimgrey;
+            stroke: black;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-light">
         <div class="container">
-            @Html.ActionLink("Application name", "Index", "SEOPlans", new { area = "" }, new { @class = "navbar-brand" })
+            @*@Html.ActionLink("Application name", "Index", "SEOPlans", new { area = "" }, new { @class = "navbar-brand" })*@
+            <a href="/SEOPlans"><img src="~/Image/LogoMRT.png" /></a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("About", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contact", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("ผู้ดูแลระบบ", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
+                    <li>@Html.ActionLink("จัดการหลักเกณฑ์ CBEs", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
+                    <li>@Html.ActionLink("จัดการแผนวิสาหกิจ", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
+                    <li>@Html.ActionLink("จัดการแผนแม่บท", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
+                    <li>@Html.ActionLink("ข้อมูลตัวชี้วัด", "Index", "Indicators", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
+                    <li>@Html.ActionLink("จัดการโครงการ", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
+                    <li>@Html.ActionLink("รายงาน", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
                 </ul>
             </div>
         </div>

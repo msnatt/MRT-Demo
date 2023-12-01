@@ -9,8 +9,19 @@ namespace MRT_Demo.Models
 {
     public class GoalMetadata
     {
-        [DisplayName("รหัส"),Required]
+        [DisplayName("รหัส")]
+        public Nullable<int> No { get; set; }
+
+        [DisplayName("เป้าประสงค์")]
+        [Required]
         public Nullable<int> Goal1 { get; set; }
+        public Nullable<int> StrategicObjectiveID { get; set; }
+
+        [DisplayName("วันที่สร้าง")]
+        public Nullable<System.DateTime> CreateDate { get; set; }
+        [DisplayName("วันที่ปรับปรุง")]
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+
 
 
     }

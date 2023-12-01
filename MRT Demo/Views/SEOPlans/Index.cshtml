@@ -1,14 +1,20 @@
 ﻿@model IEnumerable<MRT_Demo.Models.SEOPlan>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SOEPlan";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2>การจัดการแผนวิสาหกิจ</h2>
+<div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-4">
+        @Html.ActionLink("เพิ่ม", "Create", "SEOPlans","", new { @class = "btn btn-primary col-md-2" })
+        @Html.ActionLink("กล่องขยะ", "RecycleBin", "SEOPlans", "", new { @class = "btn btn-secondary col-md-3" })
+    </div>
+</div>
 <table class="table">
     <tr>
         <th>
@@ -17,7 +23,9 @@
         <th>
             @Html.DisplayNameFor(model => model.StartEndYear)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayName("การจัดการ")
+        </th>
     </tr>
 
 @foreach (var item in Model) {

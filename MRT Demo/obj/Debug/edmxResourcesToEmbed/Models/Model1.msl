@@ -80,5 +80,97 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Indicators">
+      <EntityTypeMapping TypeName="MRTModel.Indicator">
+        <MappingFragment StoreEntitySet="Indicator">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IndicatorDetailStatusID" ColumnName="IndicatorDetailStatusID" />
+          <ScalarProperty Name="Formula" ColumnName="Formula" />
+          <ScalarProperty Name="Indicator1" ColumnName="Indicator" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IndicatorOwners">
+      <EntityTypeMapping TypeName="MRTModel.IndicatorOwner">
+        <MappingFragment StoreEntitySet="IndicatorOwner">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Division" ColumnName="Division" />
+          <ScalarProperty Name="IndicatorID" ColumnName="IndicatorID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IndicatorUnits">
+      <EntityTypeMapping TypeName="MRTModel.IndicatorUnit">
+        <MappingFragment StoreEntitySet="IndicatorUnit">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="IndicatorID" ColumnName="IndicatorID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IndicatorXIndicatorTypes">
+      <EntityTypeMapping TypeName="MRTModel.IndicatorXIndicatorType">
+        <MappingFragment StoreEntitySet="IndicatorXIndicatorType">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Definition" ColumnName="Definition" />
+          <ScalarProperty Name="IsCheck" ColumnName="IsCheck" />
+          <ScalarProperty Name="IndicatorTypeID" ColumnName="IndicatorTypeID" />
+          <ScalarProperty Name="IndicatorID" ColumnName="IndicatorID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IndicatorTypes">
+      <EntityTypeMapping TypeName="MRTModel.IndicatorType">
+        <MappingFragment StoreEntitySet="IndicatorType">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="IndicatorType1" ColumnName="IndicatorType" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IndicatorDetailStatus">
+      <EntityTypeMapping TypeName="MRTModel.IndicatorDetailStatus">
+        <MappingFragment StoreEntitySet="IndicatorDetailStatus">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -18,15 +18,22 @@ namespace MRT_Demo.Controllers
         public ActionResult Index(int? id, string a)
         {
             var seoplans = db.SEOPlans.Find(id);
-            
+            ViewBag.SYandEY = seoplans.StartEndYear;
             ViewBag.SEOPlanID = id;
 
-            var strategicObjectives = db.StrategicObjectives.Where(s => s.IsDelete != true);
+            var strategicObjectives = db.StrategicObjectives.Where(s => s.IsDelete != true && s.SEOPlanID == id);
             if (a != null)
             {
-                strategicObjectives = strategicObjectives.Where(s => s.StrategicObjective1 == a);
+                strategicObjectives = strategicObjectives.Where(s=>s.StrategicObjective1.Contains(a));
             }
             return View(strategicObjectives);
+        }
+
+        [HttpPost]
+        public ActionResult SearchTextFunc(string isAcc ,StrategicObjective strategic)
+        {
+
+            return RedirectToAction("Index", new { id = strategic.SEOPlanID, a = isAcc });
         }
 
         // GET: StrategicObjectives/Details/5
@@ -60,13 +67,17 @@ namespace MRT_Demo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(StrategicObjective strategicObjective)
         {
-            var last = db.StrategicObjectives.LastOrDefault();
-
+            var last = db.StrategicObjectives.ToList().LastOrDefault();
+            if (last == null)
+            {
+                last = new StrategicObjective();
+                last.No = 0;
+            }
             strategicObjective.IsDelete = false;
             strategicObjective.IsLastDelete = false;
             strategicObjective.CreateDate = DateTime.Now;
             strategicObjective.UpdateDate = DateTime.Now;
-            strategicObjective.No = last.No+1;
+            strategicObjective.No = last.No + 1;
             db.StrategicObjectives.Add(strategicObjective);
             db.SaveChanges();
             ViewBag.SEOPlanID = new SelectList(db.SEOPlans, "ID", "ID", strategicObjective.SEOPlanID);
@@ -101,7 +112,7 @@ namespace MRT_Demo.Controllers
             {
                 db.Entry(strategicObjective).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = strategicObjective.SEOPlanID });
             }
             ViewBag.SEOPlanID = new SelectList(db.SEOPlans, "ID", "ID", strategicObjective.SEOPlanID);
             return View(strategicObjective);
@@ -130,7 +141,7 @@ namespace MRT_Demo.Controllers
             //db.StrategicObjectives.Remove(strategicObjective);
             strategicObjective.IsDelete = true;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index",new { id = strategicObjective.SEOPlanID, a = "" });
         }
 
         protected override void Dispose(bool disposing)
@@ -140,6 +151,34 @@ namespace MRT_Demo.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult RecycleBin(int SEOPlanID)
+        {
+            var strategic = db.StrategicObjectives.Where(s => s.IsDelete == true && s.SEOPlanID == SEOPlanID && s.IsLastDelete==false).ToList();
+            ViewBag.SEOPlanID = SEOPlanID;
+            return View(strategic);
+        }
+        public ActionResult Revert(int id)
+        {
+            var strategic = db.StrategicObjectives.Find(id);
+            strategic.IsDelete = false;
+
+            db.Entry(strategic).State = EntityState.Modified;
+
+            db.SaveChanges();
+             
+            return RedirectToAction("RecycleBin",new { SEOPlanID = strategic.SEOPlanID });
+        }
+        public ActionResult LastDelete(int id)
+        {
+            var strategic = db.StrategicObjectives.Find(id);
+            strategic.IsLastDelete = true;
+
+            db.Entry(strategic).State = EntityState.Modified;
+
+            db.SaveChanges();
+
+            return RedirectToAction("RecycleBin",new { SEOPlanID = strategic.SEOPlanID });
         }
     }
 }

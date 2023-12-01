@@ -30,5 +30,11 @@ namespace MRT_Demo.Models
         public virtual DbSet<Stategy> Stategies { get; set; }
         public virtual DbSet<StrategicObjective> StrategicObjectives { get; set; }
         public virtual DbSet<Tactic> Tactics { get; set; }
+        public virtual DbSet<Indicator> Indicators { get; set; }
+        public virtual DbSet<IndicatorOwner> IndicatorOwners { get; set; }
+        public virtual DbSet<IndicatorUnit> IndicatorUnits { get; set; }
+        public virtual DbSet<IndicatorXIndicatorType> IndicatorXIndicatorTypes { get; set; }
+        public virtual DbSet<IndicatorType> IndicatorTypes { get; set; }
+        public virtual DbSet<IndicatorDetailStatus> IndicatorDetailStatus { get; set; }
     }
 }

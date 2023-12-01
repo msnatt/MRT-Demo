@@ -1,0 +1,23 @@
+﻿@model MRT_Demo.Models.IndicatorXIndicatorType
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.CreateDate)
+@Html.HiddenFor(m => m.CreateBy)
+@Html.HiddenFor(m => m.UpdateDate)
+@Html.HiddenFor(m => m.UpdateBy)
+@Html.HiddenFor(m => m.Indicator)
+@Html.HiddenFor(m => m.IndicatorID)
+@Html.HiddenFor(m => m.IndicatorType.IndicatorType1)
+@Html.HiddenFor(m => m.IndicatorTypeID)
+@Html.HiddenFor(m => m.IsDelete)
+@*@Html.HiddenFor(m => m.IsCheck)*@
+@Html.HiddenFor(m => m.IsLastDelete)
+
+<tr>
+    <td>
+        @Html.CheckBoxFor(m=>m.IsCheck)
+        @Html.DisplayFor(m => m.IndicatorType.IndicatorType1)
+    </td>
+    <td>
+        @Html.EditorFor(m => m.Definition, new { htmlAttributes = new { @class = "form-control" } })
+    </td>
+</tr>

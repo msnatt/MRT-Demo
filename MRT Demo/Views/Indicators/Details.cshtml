@@ -1,30 +1,37 @@
-﻿@model MRT_Demo.Models.Goal
+﻿@model MRT_Demo.Models.Indicator
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Details";
 }
 
-<h2>Delete</h2>
+<h2>Details</h2>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Goal</h4>
+    <h4>Indicator</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.No)
+            @Html.DisplayNameFor(model => model.Indicator1)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.No)
+            @Html.DisplayFor(model => model.Indicator1)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Goal1)
+            @Html.DisplayNameFor(model => model.Formula)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Goal1)
+            @Html.DisplayFor(model => model.Formula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
         </dd>
 
         <dt>
@@ -76,21 +83,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StrategicObjective.StrategicObjective1)
+            @Html.DisplayNameFor(model => model.IndicatorDetailStatu.Status)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StrategicObjective.StrategicObjective1)
+            @Html.DisplayFor(model => model.IndicatorDetailStatu.Status)
         </dd>
 
     </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
 </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

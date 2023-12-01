@@ -2,14 +2,54 @@
 @{
     ViewBag.Title = "Index";
 }
+<h2>จัดการวัตถุประสงค์เชิงยุทธศาสตร์ตามแผนวิสาหกิจ</h2>
+@*@Html.Hidden("SEOPlanID")
+    <input id="SEOPlanID" name="SEOPlanID" value=@ViewBag.SEOPlanID type="hidden" />*@
+<br />
+@Html.Hidden("SYandEY", new { ViewBag.SYandEY })
+<div class="row">
+    <div class="col-md-2">
+        @Html.DisplayName("แผนวิสาหกิจ ปีงบประมาณ : ")
+    </div>
+    <div class="col-md-3">
+        @Html.Display("SYandEY")
+    </div>
+</div>
+<br />
 
-<h2>Index</h2>
-@Html.Hidden("SEOPlanID")
-<input id="SEOPlanID" name="SEOPlanID" value=@ViewBag.SEOPlanID type="hidden"/>
+<div class="row">
+    <div class="col-md-1">
+        @Html.ActionLink("ย้อนกลับ", "Index", "SEOPlans", "", new { @class = "btn btn-secondary" })
+    </div>
+    <div class="col-md-7">
+        @using (Html.BeginForm("Index", "StrategicObjectives", FormMethod.Get, new { @class = "form-horizontal", id = "Searchform", name = "Searchform" }))
+        {
+            @*@Html.Hidden("a")*@
+            <div class="row">
+                    @*@Html.Label("ค้นหา", new { @class = "control-label" })*@
+                <div class="col-md-4 ">
+                    @Html.Editor("a")
+                    @*<input type="text" id="texts" name="texts" class="form-label " style="width:100%;" />*@
+                </div>
+                <div class="col-md-3">
+                    @*@Html.ActionLink("ค้นหา", "Index", new { a = Model.First().SearchText }, new { @class = "btn btn-outline-primary" ,type="submit" })*@
+                    <input type="submit" value="ค้นหา" class="btn btn-outline-primary" />
+                </div>
+            </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create",new {SEOPlanID = ViewBag.SEOPlanID})
-</p>
+        }
+    </div>
+    <div class="col-md-4">
+        @Html.ActionLink("เพิ่ม", "Create", "StrategicObjectives", new { SEOPlanID = ViewBag.SEOPlanID }, new { @class = "btn btn-primary col-md-2" })
+        @Html.ActionLink("กล่องขยะ", "RecycleBin", "StrategicObjectives", new { SEOPlanID = ViewBag.SEOPlanID }, new { @class = "btn btn-secondary col-md-3" })
+    </div>
+</div>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create", new { SEOPlanID = ViewBag.SEOPlanID })
+    </p>*@
+<br />
+<br />
 <table class="table">
     <tr>
         <th>
@@ -32,7 +72,7 @@
             </td>
             <td>
                 @Html.ActionLink("แก้ไข", "Edit", new { id = item.ID }, new { @class = "btn" }) |
-                @Html.ActionLink("เป้าประสงค์", "Manage","Goals", new { id = item.ID }, new { @class = "btn" }) |
+                @Html.ActionLink("เป้าประสงค์", "Manage", "Goals", new { id = item.ID }, new { @class = "btn" }) |
                 @Html.ActionLink("ยุทธศาสตร์", "Index", "Stategies", new { id = item.ID, a = "" }, new { @class = "btn" }) |
                 @Html.ActionLink("ลบ", "DeleteConfirmed", new { id = item.ID }, new { @class = "btn" })
             </td>

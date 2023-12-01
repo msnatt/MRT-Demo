@@ -4,107 +4,43 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>แก้ไขยุทธศาสตร์ (Strategies)</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Stategies", FormMethod.Post, new { @class = "form-horizontal", id = "stategyform", name = "stategyform" }))
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(m => m.ID)
+
+    <br />
     <div class="form-horizontal">
-        <h4>Stategy</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+        @Html.EditorFor(m => m)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.No, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.No, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.No, "", new { @class = "text-danger" })
-            </div>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            @Html.ActionLink("ย้อนกลับ", "Index", "Stategies", new { id = Model.StrategicObjectiveID }, new { @class = "btn btn-secondary col-md-1" })
+            <div class="col-sm-1"></div>
+            <input type="submit" value="บันทึก" class="btn  col-md-2 btn-success" />
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Stategy1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Stategy1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Stategy1, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StrategicObjectiveID, "StrategicObjectiveID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("StrategicObjectiveID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StrategicObjectiveID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreateBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreateBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreateBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UpdateBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UpdateBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UpdateBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreateDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UpdateDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UpdateDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UpdateDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsDelete, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsDelete)
-                    @Html.ValidationMessageFor(model => model.IsDelete, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsLastDelete, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsLastDelete)
-                    @Html.ValidationMessageFor(model => model.IsLastDelete, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<br />
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+    function funcAddTactic(e) {
+        e.value = true;
+        $("#stategyform").attr("action", '@Url.Action("AddTacticEdit","Stategies")');
+        $("#stategyform").submit();
+    }
+    function funcDelTactic(e) {
+        e.value = true;
+        $("#stategyform").attr("action", '@Url.Action("DelTacticEdit","Stategies")');
+        $("#stategyform").submit();
+    }
+</script>
+

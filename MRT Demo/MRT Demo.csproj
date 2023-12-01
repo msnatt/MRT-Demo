@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\GoalsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndicatorsController.cs" />
     <Compile Include="Controllers\SEOPlansController.cs" />
     <Compile Include="Controllers\StategiesController.cs" />
     <Compile Include="Controllers\StrategicObjectivesController.cs" />
@@ -141,6 +142,25 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GoalMetadata.cs" />
+    <Compile Include="Models\Indicator.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IndicatorDetailStatus.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IndicatorMetadata.cs" />
+    <Compile Include="Models\IndicatorOwner.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IndicatorType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IndicatorUnit.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IndicatorXIndicatorType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -163,12 +183,15 @@
     <Compile Include="Models\Stategy.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StategyMetadata.cs" />
     <Compile Include="Models\StrategicObjective.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StrategicObjectiveMetadata.cs" />
     <Compile Include="Models\Tactic.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TacticMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +214,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\LogoMRT.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
@@ -250,7 +274,6 @@
     <Content Include="Views\StrategicObjectives\Edit.cshtml" />
     <Content Include="Views\StrategicObjectives\Index.cshtml" />
     <Content Include="Views\Goals\Create.cshtml" />
-    <Content Include="Views\Goals\Delete.cshtml" />
     <Content Include="Views\Goals\Details.cshtml" />
     <Content Include="Views\Goals\Edit.cshtml" />
     <Content Include="Views\Goals\Index.cshtml" />
@@ -261,6 +284,21 @@
     <Content Include="Views\Stategies\Index.cshtml" />
     <Content Include="Views\Goals\Manage.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Goal.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Stategy.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Tactic.cshtml" />
+    <Content Include="Views\SEOPlans\RecycleBin.cshtml" />
+    <Content Include="Views\StrategicObjectives\RecycleBin.cshtml" />
+    <Content Include="Views\Stategies\RecycleBin.cshtml" />
+    <Content Include="Views\Indicators\Create.cshtml" />
+    <Content Include="Views\Indicators\Delete.cshtml" />
+    <Content Include="Views\Indicators\Details.cshtml" />
+    <Content Include="Views\Indicators\Edit.cshtml" />
+    <Content Include="Views\Indicators\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Indicator.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\IndicatorOwner.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\IndicatorXIndicatorType.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\IndicatorType.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\IndicatorUnit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

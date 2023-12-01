@@ -152,5 +152,187 @@
       <End Role="StrategicObjective" EntitySet="StrategicObjectives" />
       <End Role="Stategy" EntitySet="Stategies" />
     </AssociationSet>
+    <EntitySet Name="Indicators" EntityType="MRTModel.Indicator" />
+    <EntitySet Name="IndicatorOwners" EntityType="MRTModel.IndicatorOwner" />
+    <AssociationSet Name="FK_Indicator_ID__IndicatorOwner_IndicatorID" Association="MRTModel.FK_Indicator_ID__IndicatorOwner_IndicatorID">
+      <End Role="Indicator" EntitySet="Indicators" />
+      <End Role="IndicatorOwner" EntitySet="IndicatorOwners" />
+    </AssociationSet>
+    <EntitySet Name="IndicatorUnits" EntityType="MRTModel.IndicatorUnit" />
+    <EntitySet Name="IndicatorXIndicatorTypes" EntityType="MRTModel.IndicatorXIndicatorType" />
+    <AssociationSet Name="FK_Indicator_ID__IndicatorUnit_IndicatorID" Association="MRTModel.FK_Indicator_ID__IndicatorUnit_IndicatorID">
+      <End Role="Indicator" EntitySet="Indicators" />
+      <End Role="IndicatorUnit" EntitySet="IndicatorUnits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID" Association="MRTModel.FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID">
+      <End Role="Indicator" EntitySet="Indicators" />
+      <End Role="IndicatorXIndicatorType" EntitySet="IndicatorXIndicatorTypes" />
+    </AssociationSet>
+    <EntitySet Name="IndicatorTypes" EntityType="MRTModel.IndicatorType" />
+    <AssociationSet Name="FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID" Association="MRTModel.FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID">
+      <End Role="IndicatorType" EntitySet="IndicatorTypes" />
+      <End Role="IndicatorXIndicatorType" EntitySet="IndicatorXIndicatorTypes" />
+    </AssociationSet>
+    <EntitySet Name="IndicatorDetailStatus" EntityType="MRTModel.IndicatorDetailStatus" />
+    <AssociationSet Name="FK_IndicatorDetailStatus_ID__Indicator_IndicatorDetailStatusID" Association="MRTModel.FK_IndicatorDetailStatus_ID__Indicator_IndicatorDetailStatusID">
+      <End Role="IndicatorDetailStatus" EntitySet="IndicatorDetailStatus" />
+      <End Role="Indicator" EntitySet="Indicators" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Indicator">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Indicator1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Formula" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IndicatorDetailStatusID" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="IsLastDelete" Type="Boolean" />
+    <NavigationProperty Name="IndicatorOwners" Relationship="MRTModel.FK_Indicator_ID__IndicatorOwner_IndicatorID" FromRole="Indicator" ToRole="IndicatorOwner" />
+    <NavigationProperty Name="IndicatorUnits" Relationship="MRTModel.FK_Indicator_ID__IndicatorUnit_IndicatorID" FromRole="Indicator" ToRole="IndicatorUnit" />
+    <NavigationProperty Name="IndicatorXIndicatorTypes" Relationship="MRTModel.FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID" FromRole="Indicator" ToRole="IndicatorXIndicatorType" />
+    <NavigationProperty Name="IndicatorDetailStatus" Relationship="MRTModel.FK_IndicatorDetailStatus_ID__Indicator_IndicatorDetailStatusID" FromRole="Indicator" ToRole="IndicatorDetailStatus" />
+  </EntityType>
+  <EntityType Name="IndicatorOwner">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IndicatorID" Type="Int32" />
+    <Property Name="Division" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="IsLastDelete" Type="Boolean" />
+    <NavigationProperty Name="Indicator" Relationship="MRTModel.FK_Indicator_ID__IndicatorOwner_IndicatorID" FromRole="IndicatorOwner" ToRole="Indicator" />
+  </EntityType>
+  <Association Name="FK_Indicator_ID__IndicatorOwner_IndicatorID">
+    <End Type="MRTModel.Indicator" Role="Indicator" Multiplicity="0..1" />
+    <End Type="MRTModel.IndicatorOwner" Role="IndicatorOwner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicator">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="IndicatorOwner">
+        <PropertyRef Name="IndicatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="IndicatorUnit">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IndicatorID" Type="Int32" />
+    <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="IsLastDelete" Type="Boolean" />
+    <NavigationProperty Name="Indicator" Relationship="MRTModel.FK_Indicator_ID__IndicatorUnit_IndicatorID" FromRole="IndicatorUnit" ToRole="Indicator" />
+  </EntityType>
+  <EntityType Name="IndicatorXIndicatorType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IndicatorID" Type="Int32" />
+    <Property Name="IndicatorTypeID" Type="Int32" />
+    <Property Name="IsCheck" Type="Boolean" Nullable="false" />
+    <Property Name="Definition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="IsLastDelete" Type="Boolean" />
+    <NavigationProperty Name="Indicator" Relationship="MRTModel.FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID" FromRole="IndicatorXIndicatorType" ToRole="Indicator" />
+    <NavigationProperty Name="IndicatorType" Relationship="MRTModel.FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID" FromRole="IndicatorXIndicatorType" ToRole="IndicatorType" />
+  </EntityType>
+  <Association Name="FK_Indicator_ID__IndicatorUnit_IndicatorID">
+    <End Type="MRTModel.Indicator" Role="Indicator" Multiplicity="0..1" />
+    <End Type="MRTModel.IndicatorUnit" Role="IndicatorUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicator">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="IndicatorUnit">
+        <PropertyRef Name="IndicatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID">
+    <End Type="MRTModel.Indicator" Role="Indicator" Multiplicity="0..1" />
+    <End Type="MRTModel.IndicatorXIndicatorType" Role="IndicatorXIndicatorType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicator">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="IndicatorXIndicatorType">
+        <PropertyRef Name="IndicatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="IndicatorType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IndicatorType1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="IsLastDelete" Type="Boolean" />
+    <NavigationProperty Name="IndicatorXIndicatorTypes" Relationship="MRTModel.FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID" FromRole="IndicatorType" ToRole="IndicatorXIndicatorType" />
+  </EntityType>
+  <Association Name="FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID">
+    <End Type="MRTModel.IndicatorType" Role="IndicatorType" Multiplicity="0..1" />
+    <End Type="MRTModel.IndicatorXIndicatorType" Role="IndicatorXIndicatorType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IndicatorType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="IndicatorXIndicatorType">
+        <PropertyRef Name="IndicatorTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="IndicatorDetailStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="IsLastDelete" Type="Boolean" />
+    <NavigationProperty Name="Indicator" Relationship="MRTModel.FK_IndicatorDetailStatus_ID__Indicator_IndicatorDetailStatusID" FromRole="IndicatorDetailStatus" ToRole="Indicator" />
+  </EntityType>
+  <Association Name="FK_IndicatorDetailStatus_ID__Indicator_IndicatorDetailStatusID">
+    <End Type="MRTModel.IndicatorDetailStatus" Role="IndicatorDetailStatus" Multiplicity="0..1" />
+    <End Type="MRTModel.Indicator" Role="Indicator" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IndicatorDetailStatus">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Indicator">
+        <PropertyRef Name="IndicatorDetailStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

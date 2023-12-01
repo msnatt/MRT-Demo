@@ -4,7 +4,7 @@
     ViewBag.Title = "Manage";
 }
 
-<h2>Manage</h2>
+<h2>การจัดการ</h2>
 
 
 @using (Html.BeginForm("Manage", "Goals", FormMethod.Post, new { @class = "form-horizontal", id = "Goalform", name = "Goalform" }))
@@ -25,12 +25,13 @@
             @Html.DisplayName("วัตถุประสงค์เชิงยุทธศาสตร์ (Strategic Objectives) : ")
             @Html.DisplayFor(m => m.StrategicObjective1)
         </div><br />
-        <div class="offset-md-10 col-md-2">
+        <div class="offset-md-10">
             @*@Html.ActionLink("เพิ่ม", "AddGoal", Model, new { @class = "btn btn-primary" })*@
-            <input value="เพิ่ม" onclick="funcAddGoal()" type="button" class="btn btn-primary" />
+            <input value="เพิ่ม" onclick="funcAddGoal()" type="button" class="btn btn-primary  col-md-8" />
         </div>
+        <br />
         <div class="row">
-            <div class=" offset-md-2 col-md-10">
+            <div class=" offset-md-1 col-md-10">
                 <table class="table table-bordered">
                     <tr>
                         <th>
@@ -39,19 +40,22 @@
                         <th>
                             @Html.DisplayName("ตัวชี้วัด (KPIs)")
                         </th>
-                        <th></th>
+                        <th>
+                            @Html.DisplayName("ตัวจัดการ (Manage)")
+                        </th>
                     </tr>
                     @Html.EditorFor(m => m.Goals)
                 </table>
             </div>
         </div>
-        <input type="submit" value="Create" class="btn btn-default" />
+        <div class="row">
+            @Html.ActionLink("Back to List", "Index", "StrategicObjectives", new { id = Model.SEOPlanID }, new {@class= "btn btn-secondary col-md-1" })
+            <input type="submit" value="บันทึก" class="btn  col-md-2 btn-success" />
+        </div>
+
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
