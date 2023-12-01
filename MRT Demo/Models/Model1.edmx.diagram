@@ -5,27 +5,27 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="393674cc3caf4c12b787c563eaad57a5" Name="Diagram1" ZoomLevel="77">
-        <EntityTypeShape EntityType="MRTModel.Goal" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MRTModel.SEOPlan" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MRTModel.Stategy" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MRTModel.StrategicObjective" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="MRTModel.Tactic" Width="1.5" PointX="7.375" PointY="3.125" IsExpanded="true" />
-        <AssociationConnector Association="MRTModel.FK_StrategicObjective_ID_Goal_StrategicObjectiveID" ManuallyRouted="false" />
-        <AssociationConnector Association="MRTModel.FK_SEOPlanID_StrategicObjectiveSEOPlanID" ManuallyRouted="false" />
-        <AssociationConnector Association="MRTModel.FK_Stategy_ID__Tactic_StategyID" ManuallyRouted="false" />
-        <AssociationConnector Association="MRTModel.FK_StrategicObjective_ID__Stategy_StrategicObjectiveID" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MRTModel.Indicator" Width="1.5" PointX="12.375" PointY="1" />
-        <EntityTypeShape EntityType="MRTModel.IndicatorOwner" Width="1.5" PointX="14.625" PointY="1.25" />
+        <EntityTypeShape EntityType="MRTModel.Goal" Width="1.5" PointX="13.25" PointY="10.125" />
+        <EntityTypeShape EntityType="MRTModel.Indicator" Width="1.5" PointX="3" PointY="4.875" />
+        <EntityTypeShape EntityType="MRTModel.IndicatorOwner" Width="1.5" PointX="5.25" PointY="11.5" />
+        <EntityTypeShape EntityType="MRTModel.IndicatorType" Width="1.5" PointX="6" PointY="7.5" />
+        <EntityTypeShape EntityType="MRTModel.IndicatorUnit" Width="1.5" PointX="5.25" PointY="3.5" />
+        <EntityTypeShape EntityType="MRTModel.IndicatorXIndicatorType" Width="1.5" PointX="8.25" PointY="5" />
+        <EntityTypeShape EntityType="MRTModel.SEOPlan" Width="1.5" PointX="8.75" PointY="12.375" />
+        <EntityTypeShape EntityType="MRTModel.Stategy" Width="1.5" PointX="13.25" PointY="14.125" />
+        <EntityTypeShape EntityType="MRTModel.StrategicObjective" Width="1.5" PointX="11" PointY="12" />
+        <EntityTypeShape EntityType="MRTModel.Tactic" Width="1.5" PointX="15.5" PointY="14.125" />
+        <AssociationConnector Association="MRTModel.FK_StrategicObjective_ID_Goal_StrategicObjectiveID" />
         <AssociationConnector Association="MRTModel.FK_Indicator_ID__IndicatorOwner_IndicatorID" />
-        <EntityTypeShape EntityType="MRTModel.IndicatorUnit" Width="1.5" PointX="10.25" PointY="4.75" />
-        <EntityTypeShape EntityType="MRTModel.IndicatorXIndicatorType" Width="1.5" PointX="14.625" PointY="4.75" />
         <AssociationConnector Association="MRTModel.FK_Indicator_ID__IndicatorUnit_IndicatorID" />
-        <AssociationConnector Association="MRTModel.FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID" ManuallyRouted="false" >
-        </AssociationConnector>
-        <EntityTypeShape EntityType="MRTModel.IndicatorType" Width="1.5" PointX="12" PointY="7.875" />
+        <AssociationConnector Association="MRTModel.FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID" />
         <AssociationConnector Association="MRTModel.FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID" />
-        <EntityTypeShape EntityType="MRTModel.IndicatorDetailStatus" Width="1.5" PointX="10.125" PointY="1" />
+        <AssociationConnector Association="MRTModel.FK_SEOPlanID_StrategicObjectiveSEOPlanID" />
+        <AssociationConnector Association="MRTModel.FK_Stategy_ID__Tactic_StategyID" />
+        <AssociationConnector Association="MRTModel.FK_StrategicObjective_ID__Stategy_StrategicObjectiveID" />
+        <EntityTypeShape EntityType="MRTModel.IndicatorDetailStatus" Width="1.5" PointX="0.75" PointY="5.5" />
         <AssociationConnector Association="MRTModel.FK_IndicatorDetailStatus_ID__Indicator_IndicatorDetailStatusID" />
+        <EntityTypeShape EntityType="MRTModel.DataOwner" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -8,12 +8,17 @@
 @Html.HiddenFor(m => m.UpdateBy)
 @Html.HiddenFor(m => m.CreateBy)
 
-<tr>
-    <td>
-        @Html.EditorFor(m => m.Division, new { htmlAttributes = new { @class = "form-control" } })
-    </td>
-    <td>
-        <input type="button" class="btn btn-outline-danger" value="ลบ" onclick="FuncDelIndicatorOwner(@Html.IdFor(m=>m.IsDelete))" />
-    </td>
-</tr>
+@if (Model.IsDelete == false)
+{
+    <tr>
+        <td>
+            @Html.DropDownListFor(m => m.Division, new SelectList(ViewBag.DivisionBag, "Value", "Text"), "Select Owner", new { @class = "form-control" })
+        </td>
+        <td>
+            <input type="button" class="btn btn-outline-danger" value="ลบ" onclick="FuncDelIndicatorOwner(@Html.IdFor(m=>m.IsDelete))" />
+        </td>
+    </tr>
+
+}
+
 

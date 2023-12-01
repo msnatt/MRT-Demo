@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using MRT_Demo.Models;
 
 namespace MRT_Demo.Controllers
@@ -14,9 +15,27 @@ namespace MRT_Demo.Controllers
     {
         private MRTEntities db = new MRTEntities();
 
-        public ActionResult Index()
+        public ActionResult Index(String Division, string Indicator, int? IndicatorDetailStatusID)
         {
-            var indicators = db.Indicators.Include(i => i.IndicatorDetailStatus).Where(s => s.IsDelete == false);
+            if (Division == "") { Division = null; }
+            if (Indicator == "") { Indicator = null; }
+            var indicators = db.Indicators.Where(s => s.IsDelete == false);
+            if (Indicator != null)
+            {
+                indicators = indicators.Where(s => s.Indicator1.Contains(Indicator));
+            }
+            if (Division != null)
+            {
+                indicators = indicators.Where(s => s.IndicatorOwners.Where(q => q.Division == Division).Count() > 0);
+            }
+            if (IndicatorDetailStatusID != null)
+            {
+                indicators = indicators.Where(s => s.IndicatorDetailStatusID == IndicatorDetailStatusID);
+            }
+
+            ViewBag.DivisionBag = IndicatorOwnerSelectList();
+            ViewBag.SelectListStatus = indicatorDetailStatuses();
+
             return View(indicators.ToList());
         }
         public ActionResult Details(int? id)
@@ -58,6 +77,7 @@ namespace MRT_Demo.Controllers
             }
 
             ViewBag.SelectListStatus = indicatorDetailStatuses();
+            ViewBag.DivisionBag = IndicatorOwnerSelectList();
 
             return View(indicator);
         }
@@ -68,7 +88,6 @@ namespace MRT_Demo.Controllers
             var x = indicator.IndicatorXIndicatorTypes.ToList();
             indicator.IndicatorXIndicatorTypes = null;
             db.Indicators.Add(indicator);
-            //db.SaveChanges();
             foreach (var temp in x)
             {
                 temp.IndicatorType = null;
@@ -93,6 +112,7 @@ namespace MRT_Demo.Controllers
                 return HttpNotFound();
             }
             //ViewBag.IndicatorDetailStatusID = new SelectList(db.IndicatorDetailStatus, "ID", "Status", indicator.IndicatorDetailStatusID);
+            ViewBag.DivisionBag = IndicatorOwnerSelectList();
             ViewBag.SelectListStatus = indicatorDetailStatuses();
             return View(indicator);
         }
@@ -132,7 +152,7 @@ namespace MRT_Demo.Controllers
                 }
                 else
                 {
-                    UnitItem.UpdateDate= DateTime.Now;
+                    UnitItem.UpdateDate = DateTime.Now;
                     db.Entry(UnitItem).State = EntityState.Modified;
                 }
             }
@@ -177,6 +197,7 @@ namespace MRT_Demo.Controllers
             indicator.IsDelete = true;
             db.SaveChanges();
             ViewBag.SelectListStatus = indicatorDetailStatuses();
+            ViewBag.DivisionBag = IndicatorOwnerSelectList();
 
             return RedirectToAction("Index");
         }
@@ -187,6 +208,17 @@ namespace MRT_Demo.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public SelectList IndicatorOwnerSelectList()
+        {
+            var Owner = db.DataOwner.Select(i => new SelectListItem
+            {
+                Text = i.Division,
+                Value = i.Division
+            });
+            SelectList selectListOwners = new SelectList(Owner, "Value", "Text");
+
+            return selectListOwners;
         }
         public SelectList indicatorDetailStatuses()
         {
@@ -205,12 +237,14 @@ namespace MRT_Demo.Controllers
         {
             VoidAddIndicatorOwner(indicator);
             ViewBag.SelectListStatus = indicatorDetailStatuses();
+            ViewBag.DivisionBag = IndicatorOwnerSelectList();
             return View("Edit", indicator);
         }
         public ActionResult AddIndicatorOwner(Indicator indicator)
         {
             VoidAddIndicatorOwner(indicator);
             ViewBag.SelectListStatus = indicatorDetailStatuses();
+            ViewBag.DivisionBag = IndicatorOwnerSelectList();
             return View("Create", indicator);
         }
         private void VoidAddIndicatorOwner(Indicator indicator)
@@ -226,6 +260,7 @@ namespace MRT_Demo.Controllers
         {
             VoidDelIndicatorOwner(indicator);
             ViewBag.SelectListStatus = indicatorDetailStatuses();
+            ViewBag.DivisionBag = IndicatorOwnerSelectList();
             ModelState.Clear();
             return View("Create", indicator);
         }
@@ -233,10 +268,10 @@ namespace MRT_Demo.Controllers
         {
             VoidDelIndicatorOwner(indicator);
             ViewBag.SelectListStatus = indicatorDetailStatuses();
+            ViewBag.DivisionBag = IndicatorOwnerSelectList();
             ModelState.Clear();
             return View("Edit", indicator);
         }
-
         private void VoidDelIndicatorOwner(Indicator indicator)
         {
             foreach (var item in indicator.IndicatorOwners)
@@ -258,12 +293,14 @@ namespace MRT_Demo.Controllers
         {
             VoidAddIndicatorUnit(indicator);
             ViewBag.SelectListStatus = indicatorDetailStatuses();
+            ViewBag.DivisionBag = IndicatorOwnerSelectList();
             return View("Create", indicator);
         }
         public ActionResult AddIndicatorUnitEdit(Indicator indicator)
         {
             VoidAddIndicatorUnit(indicator);
             ViewBag.SelectListStatus = indicatorDetailStatuses();
+            ViewBag.DivisionBag = IndicatorOwnerSelectList();
             return View("Edit", indicator);
         }
         private void VoidAddIndicatorUnit(Indicator indicator)
@@ -275,12 +312,12 @@ namespace MRT_Demo.Controllers
             indicatorUnit.IsLastDelete = false;
             indicator.IndicatorUnits.Add(indicatorUnit);
         }
-
         public ActionResult DelIndicatorUnit(Indicator indicator)
         {
             VoidDelIndicatorUnit(indicator);
             ModelState.Clear();
             ViewBag.SelectListStatus = indicatorDetailStatuses();
+            ViewBag.DivisionBag = IndicatorOwnerSelectList();
             return View("Create", indicator);
         }
         public ActionResult DelIndicatorUnitEdit(Indicator indicator)
@@ -288,10 +325,9 @@ namespace MRT_Demo.Controllers
             VoidDelIndicatorUnit(indicator);
             ModelState.Clear();
             ViewBag.SelectListStatus = indicatorDetailStatuses();
+            ViewBag.DivisionBag = IndicatorOwnerSelectList();
             return View("Edit", indicator);
         }
-
-
         private void VoidDelIndicatorUnit(Indicator indicator)
         {
             foreach (var item in indicator.IndicatorUnits)
@@ -306,6 +342,43 @@ namespace MRT_Demo.Controllers
                     }
                 }
             }
+        }
+
+        // ====================== Recycle =========================
+
+        public ActionResult RecycleBin(String Division, string Indicator)
+        {
+            var indicators = db.Indicators.Where(s => s.IsDelete == true && s.IsLastDelete == false);
+
+            if (Division == "") { Division = null; }
+            if (Indicator == "") { Indicator = null; }
+            if (Indicator != null)
+            {
+                indicators = indicators.Where(s => s.Indicator1.Contains(Indicator));
+            }
+            if (Division != null)
+            {
+                indicators = indicators.Where(s => s.IndicatorOwners.Where(q => q.Division == Division).Count() > 0);
+            }
+            ViewBag.DivisionBag = IndicatorOwnerSelectList();
+            ViewBag.SelectListStatus = indicatorDetailStatuses();
+            return View("RecycleBin", indicators);
+        }
+        public ActionResult Revert(int id)
+        {
+            var indicators = db.Indicators.Find(id);
+            indicators.IsDelete = false;
+            db.Entry(indicators).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("RecycleBin");
+        }
+        public ActionResult DeleteLast(int id)
+        {
+            var indicators = db.Indicators.Find(id);
+            indicators.IsLastDelete = true;
+            db.Entry(indicators).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("RecycleBin");
         }
     }
 }

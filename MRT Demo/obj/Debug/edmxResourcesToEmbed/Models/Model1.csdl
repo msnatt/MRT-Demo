@@ -1,5 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MRTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MRTEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Goals" EntityType="MRTModel.Goal" />
+    <EntitySet Name="Indicators" EntityType="MRTModel.Indicator" />
+    <EntitySet Name="IndicatorOwners" EntityType="MRTModel.IndicatorOwner" />
+    <EntitySet Name="IndicatorTypes" EntityType="MRTModel.IndicatorType" />
+    <EntitySet Name="IndicatorUnits" EntityType="MRTModel.IndicatorUnit" />
+    <EntitySet Name="IndicatorXIndicatorTypes" EntityType="MRTModel.IndicatorXIndicatorType" />
+    <EntitySet Name="SEOPlans" EntityType="MRTModel.SEOPlan" />
+    <EntitySet Name="Stategies" EntityType="MRTModel.Stategy" />
+    <EntitySet Name="StrategicObjectives" EntityType="MRTModel.StrategicObjective" />
+    <EntitySet Name="Tactics" EntityType="MRTModel.Tactic" />
+    <AssociationSet Name="FK_StrategicObjective_ID_Goal_StrategicObjectiveID" Association="MRTModel.FK_StrategicObjective_ID_Goal_StrategicObjectiveID">
+      <End Role="StrategicObjective" EntitySet="StrategicObjectives" />
+      <End Role="Goal" EntitySet="Goals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Indicator_ID__IndicatorOwner_IndicatorID" Association="MRTModel.FK_Indicator_ID__IndicatorOwner_IndicatorID">
+      <End Role="Indicator" EntitySet="Indicators" />
+      <End Role="IndicatorOwner" EntitySet="IndicatorOwners" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Indicator_ID__IndicatorUnit_IndicatorID" Association="MRTModel.FK_Indicator_ID__IndicatorUnit_IndicatorID">
+      <End Role="Indicator" EntitySet="Indicators" />
+      <End Role="IndicatorUnit" EntitySet="IndicatorUnits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID" Association="MRTModel.FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID">
+      <End Role="Indicator" EntitySet="Indicators" />
+      <End Role="IndicatorXIndicatorType" EntitySet="IndicatorXIndicatorTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID" Association="MRTModel.FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID">
+      <End Role="IndicatorType" EntitySet="IndicatorTypes" />
+      <End Role="IndicatorXIndicatorType" EntitySet="IndicatorXIndicatorTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SEOPlanID_StrategicObjectiveSEOPlanID" Association="MRTModel.FK_SEOPlanID_StrategicObjectiveSEOPlanID">
+      <End Role="SEOPlan" EntitySet="SEOPlans" />
+      <End Role="StrategicObjective" EntitySet="StrategicObjectives" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Stategy_ID__Tactic_StategyID" Association="MRTModel.FK_Stategy_ID__Tactic_StategyID">
+      <End Role="Stategy" EntitySet="Stategies" />
+      <End Role="Tactic" EntitySet="Tactics" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StrategicObjective_ID__Stategy_StrategicObjectiveID" Association="MRTModel.FK_StrategicObjective_ID__Stategy_StrategicObjectiveID">
+      <End Role="StrategicObjective" EntitySet="StrategicObjectives" />
+      <End Role="Stategy" EntitySet="Stategies" />
+    </AssociationSet>
+    <EntitySet Name="IndicatorDetailStatus" EntityType="MRTModel.IndicatorDetailStatus" />
+    <AssociationSet Name="FK_IndicatorDetailStatus_ID__Indicator_IndicatorDetailStatusID" Association="MRTModel.FK_IndicatorDetailStatus_ID__Indicator_IndicatorDetailStatusID">
+      <End Role="IndicatorDetailStatus" EntitySet="IndicatorDetailStatus" />
+      <End Role="Indicator" EntitySet="Indicators" />
+    </AssociationSet>
+    <EntitySet Name="DataOwner" EntityType="MRTModel.DataOwner" />
+  </EntityContainer>
   <EntityType Name="Goal">
     <Key>
       <PropertyRef Name="ID" />
@@ -14,171 +64,8 @@
     <Property Name="UpdateDate" Type="DateTime" Precision="3" />
     <Property Name="IsDelete" Type="Boolean" />
     <Property Name="IsLastDelete" Type="Boolean" />
-    <NavigationProperty Name="StrategicObjective" Relationship="Self.FK_StrategicObjective_ID_Goal_StrategicObjectiveID" FromRole="Goal" ToRole="StrategicObjective" />
+    <NavigationProperty Name="StrategicObjective" Relationship="MRTModel.FK_StrategicObjective_ID_Goal_StrategicObjectiveID" FromRole="Goal" ToRole="StrategicObjective" />
   </EntityType>
-  <EntityType Name="SEOPlan">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="StartYear" Type="Int32" />
-    <Property Name="EndYear" Type="Int32" />
-    <Property Name="CreateBy" Type="Int32" />
-    <Property Name="UpdateBy" Type="Int32" />
-    <Property Name="CreateDate" Type="DateTime" Precision="3" />
-    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-    <Property Name="IsDelete" Type="Boolean" />
-    <Property Name="IsLastDelete" Type="Boolean" />
-    <NavigationProperty Name="StrategicObjectives" Relationship="Self.FK_SEOPlanID_StrategicObjectiveSEOPlanID" FromRole="SEOPlan" ToRole="StrategicObjective" />
-  </EntityType>
-  <EntityType Name="Stategy">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="No" Type="Int32" Nullable="false" />
-    <Property Name="Stategy1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="StrategicObjectiveID" Type="Int32" />
-    <Property Name="CreateBy" Type="Int32" />
-    <Property Name="UpdateBy" Type="Int32" />
-    <Property Name="CreateDate" Type="DateTime" Precision="3" />
-    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-    <Property Name="IsDelete" Type="Boolean" />
-    <Property Name="IsLastDelete" Type="Boolean" />
-    <NavigationProperty Name="Tactics" Relationship="Self.FK_Stategy_ID__Tactic_StategyID" FromRole="Stategy" ToRole="Tactic" />
-    <NavigationProperty Name="StrategicObjective" Relationship="Self.FK_StrategicObjective_ID__Stategy_StrategicObjectiveID" FromRole="Stategy" ToRole="StrategicObjective" />
-  </EntityType>
-  <EntityType Name="StrategicObjective">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="No" Type="Int32" />
-    <Property Name="StrategicObjective1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="SEOPlanID" Type="Int32" />
-    <Property Name="CreateBy" Type="Int32" />
-    <Property Name="UpdateBy" Type="Int32" />
-    <Property Name="CreateDate" Type="DateTime" Precision="3" />
-    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-    <Property Name="IsDelete" Type="Boolean" />
-    <Property Name="IsLastDelete" Type="Boolean" />
-    <NavigationProperty Name="Goals" Relationship="Self.FK_StrategicObjective_ID_Goal_StrategicObjectiveID" FromRole="StrategicObjective" ToRole="Goal" />
-    <NavigationProperty Name="SEOPlan" Relationship="Self.FK_SEOPlanID_StrategicObjectiveSEOPlanID" FromRole="StrategicObjective" ToRole="SEOPlan" />
-    <NavigationProperty Name="Stategies" Relationship="Self.FK_StrategicObjective_ID__Stategy_StrategicObjectiveID" FromRole="StrategicObjective" ToRole="Stategy" />
-  </EntityType>
-  <EntityType Name="Tactic">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="No" Type="Int32" />
-    <Property Name="Tactic1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="StategyID" Type="Int32" />
-    <Property Name="CreateBy" Type="Int32" />
-    <Property Name="UpdateBy" Type="Int32" />
-    <Property Name="CreateDate" Type="DateTime" Precision="3" />
-    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-    <Property Name="IsDelete" Type="Boolean" />
-    <Property Name="IsLastDelete" Type="Boolean" />
-    <NavigationProperty Name="Stategy" Relationship="Self.FK_Stategy_ID__Tactic_StategyID" FromRole="Tactic" ToRole="Stategy" />
-  </EntityType>
-  <Association Name="FK_StrategicObjective_ID_Goal_StrategicObjectiveID">
-    <End Role="StrategicObjective" Type="Self.StrategicObjective" Multiplicity="0..1" />
-    <End Role="Goal" Type="Self.Goal" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="StrategicObjective">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Goal">
-        <PropertyRef Name="StrategicObjectiveID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SEOPlanID_StrategicObjectiveSEOPlanID">
-    <End Role="SEOPlan" Type="Self.SEOPlan" Multiplicity="0..1" />
-    <End Role="StrategicObjective" Type="Self.StrategicObjective" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SEOPlan">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="StrategicObjective">
-        <PropertyRef Name="SEOPlanID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Stategy_ID__Tactic_StategyID">
-    <End Role="Stategy" Type="Self.Stategy" Multiplicity="0..1" />
-    <End Role="Tactic" Type="Self.Tactic" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Stategy">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Tactic">
-        <PropertyRef Name="StategyID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_StrategicObjective_ID__Stategy_StrategicObjectiveID">
-    <End Role="StrategicObjective" Type="Self.StrategicObjective" Multiplicity="0..1" />
-    <End Role="Stategy" Type="Self.Stategy" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="StrategicObjective">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Stategy">
-        <PropertyRef Name="StrategicObjectiveID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityContainer Name="MRTEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Goals" EntityType="Self.Goal" />
-    <EntitySet Name="SEOPlans" EntityType="Self.SEOPlan" />
-    <EntitySet Name="Stategies" EntityType="Self.Stategy" />
-    <EntitySet Name="StrategicObjectives" EntityType="Self.StrategicObjective" />
-    <EntitySet Name="Tactics" EntityType="Self.Tactic" />
-    <AssociationSet Name="FK_StrategicObjective_ID_Goal_StrategicObjectiveID" Association="Self.FK_StrategicObjective_ID_Goal_StrategicObjectiveID">
-      <End Role="StrategicObjective" EntitySet="StrategicObjectives" />
-      <End Role="Goal" EntitySet="Goals" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SEOPlanID_StrategicObjectiveSEOPlanID" Association="Self.FK_SEOPlanID_StrategicObjectiveSEOPlanID">
-      <End Role="SEOPlan" EntitySet="SEOPlans" />
-      <End Role="StrategicObjective" EntitySet="StrategicObjectives" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Stategy_ID__Tactic_StategyID" Association="Self.FK_Stategy_ID__Tactic_StategyID">
-      <End Role="Stategy" EntitySet="Stategies" />
-      <End Role="Tactic" EntitySet="Tactics" />
-    </AssociationSet>
-    <AssociationSet Name="FK_StrategicObjective_ID__Stategy_StrategicObjectiveID" Association="Self.FK_StrategicObjective_ID__Stategy_StrategicObjectiveID">
-      <End Role="StrategicObjective" EntitySet="StrategicObjectives" />
-      <End Role="Stategy" EntitySet="Stategies" />
-    </AssociationSet>
-    <EntitySet Name="Indicators" EntityType="MRTModel.Indicator" />
-    <EntitySet Name="IndicatorOwners" EntityType="MRTModel.IndicatorOwner" />
-    <AssociationSet Name="FK_Indicator_ID__IndicatorOwner_IndicatorID" Association="MRTModel.FK_Indicator_ID__IndicatorOwner_IndicatorID">
-      <End Role="Indicator" EntitySet="Indicators" />
-      <End Role="IndicatorOwner" EntitySet="IndicatorOwners" />
-    </AssociationSet>
-    <EntitySet Name="IndicatorUnits" EntityType="MRTModel.IndicatorUnit" />
-    <EntitySet Name="IndicatorXIndicatorTypes" EntityType="MRTModel.IndicatorXIndicatorType" />
-    <AssociationSet Name="FK_Indicator_ID__IndicatorUnit_IndicatorID" Association="MRTModel.FK_Indicator_ID__IndicatorUnit_IndicatorID">
-      <End Role="Indicator" EntitySet="Indicators" />
-      <End Role="IndicatorUnit" EntitySet="IndicatorUnits" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID" Association="MRTModel.FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID">
-      <End Role="Indicator" EntitySet="Indicators" />
-      <End Role="IndicatorXIndicatorType" EntitySet="IndicatorXIndicatorTypes" />
-    </AssociationSet>
-    <EntitySet Name="IndicatorTypes" EntityType="MRTModel.IndicatorType" />
-    <AssociationSet Name="FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID" Association="MRTModel.FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID">
-      <End Role="IndicatorType" EntitySet="IndicatorTypes" />
-      <End Role="IndicatorXIndicatorType" EntitySet="IndicatorXIndicatorTypes" />
-    </AssociationSet>
-    <EntitySet Name="IndicatorDetailStatus" EntityType="MRTModel.IndicatorDetailStatus" />
-    <AssociationSet Name="FK_IndicatorDetailStatus_ID__Indicator_IndicatorDetailStatusID" Association="MRTModel.FK_IndicatorDetailStatus_ID__Indicator_IndicatorDetailStatusID">
-      <End Role="IndicatorDetailStatus" EntitySet="IndicatorDetailStatus" />
-      <End Role="Indicator" EntitySet="Indicators" />
-    </AssociationSet>
-  </EntityContainer>
   <EntityType Name="Indicator">
     <Key>
       <PropertyRef Name="ID" />
@@ -214,18 +101,20 @@
     <Property Name="IsLastDelete" Type="Boolean" />
     <NavigationProperty Name="Indicator" Relationship="MRTModel.FK_Indicator_ID__IndicatorOwner_IndicatorID" FromRole="IndicatorOwner" ToRole="Indicator" />
   </EntityType>
-  <Association Name="FK_Indicator_ID__IndicatorOwner_IndicatorID">
-    <End Type="MRTModel.Indicator" Role="Indicator" Multiplicity="0..1" />
-    <End Type="MRTModel.IndicatorOwner" Role="IndicatorOwner" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Indicator">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="IndicatorOwner">
-        <PropertyRef Name="IndicatorID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <EntityType Name="IndicatorType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="IndicatorType1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="IsLastDelete" Type="Boolean" />
+    <NavigationProperty Name="IndicatorXIndicatorTypes" Relationship="MRTModel.FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID" FromRole="IndicatorType" ToRole="IndicatorXIndicatorType" />
+  </EntityType>
   <EntityType Name="IndicatorUnit">
     <Key>
       <PropertyRef Name="ID" />
@@ -259,6 +148,96 @@
     <NavigationProperty Name="Indicator" Relationship="MRTModel.FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID" FromRole="IndicatorXIndicatorType" ToRole="Indicator" />
     <NavigationProperty Name="IndicatorType" Relationship="MRTModel.FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID" FromRole="IndicatorXIndicatorType" ToRole="IndicatorType" />
   </EntityType>
+  <EntityType Name="SEOPlan">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StartYear" Type="Int32" />
+    <Property Name="EndYear" Type="Int32" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="IsLastDelete" Type="Boolean" />
+    <NavigationProperty Name="StrategicObjectives" Relationship="MRTModel.FK_SEOPlanID_StrategicObjectiveSEOPlanID" FromRole="SEOPlan" ToRole="StrategicObjective" />
+  </EntityType>
+  <EntityType Name="Stategy">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="No" Type="Int32" Nullable="false" />
+    <Property Name="Stategy1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StrategicObjectiveID" Type="Int32" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="IsLastDelete" Type="Boolean" />
+    <NavigationProperty Name="Tactics" Relationship="MRTModel.FK_Stategy_ID__Tactic_StategyID" FromRole="Stategy" ToRole="Tactic" />
+    <NavigationProperty Name="StrategicObjective" Relationship="MRTModel.FK_StrategicObjective_ID__Stategy_StrategicObjectiveID" FromRole="Stategy" ToRole="StrategicObjective" />
+  </EntityType>
+  <EntityType Name="StrategicObjective">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="No" Type="Int32" />
+    <Property Name="StrategicObjective1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SEOPlanID" Type="Int32" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="IsLastDelete" Type="Boolean" />
+    <NavigationProperty Name="Goals" Relationship="MRTModel.FK_StrategicObjective_ID_Goal_StrategicObjectiveID" FromRole="StrategicObjective" ToRole="Goal" />
+    <NavigationProperty Name="SEOPlan" Relationship="MRTModel.FK_SEOPlanID_StrategicObjectiveSEOPlanID" FromRole="StrategicObjective" ToRole="SEOPlan" />
+    <NavigationProperty Name="Stategies" Relationship="MRTModel.FK_StrategicObjective_ID__Stategy_StrategicObjectiveID" FromRole="StrategicObjective" ToRole="Stategy" />
+  </EntityType>
+  <EntityType Name="Tactic">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="No" Type="Int32" />
+    <Property Name="Tactic1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StategyID" Type="Int32" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="IsLastDelete" Type="Boolean" />
+    <NavigationProperty Name="Stategy" Relationship="MRTModel.FK_Stategy_ID__Tactic_StategyID" FromRole="Tactic" ToRole="Stategy" />
+  </EntityType>
+  <Association Name="FK_StrategicObjective_ID_Goal_StrategicObjectiveID">
+    <End Type="MRTModel.StrategicObjective" Role="StrategicObjective" Multiplicity="0..1" />
+    <End Type="MRTModel.Goal" Role="Goal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StrategicObjective">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Goal">
+        <PropertyRef Name="StrategicObjectiveID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Indicator_ID__IndicatorOwner_IndicatorID">
+    <End Type="MRTModel.Indicator" Role="Indicator" Multiplicity="0..1" />
+    <End Type="MRTModel.IndicatorOwner" Role="IndicatorOwner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicator">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="IndicatorOwner">
+        <PropertyRef Name="IndicatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Indicator_ID__IndicatorUnit_IndicatorID">
     <End Type="MRTModel.Indicator" Role="Indicator" Multiplicity="0..1" />
     <End Type="MRTModel.IndicatorUnit" Role="IndicatorUnit" Multiplicity="*" />
@@ -283,20 +262,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="IndicatorType">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IndicatorType1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="CreateBy" Type="Int32" />
-    <Property Name="UpdateBy" Type="Int32" />
-    <Property Name="CreateDate" Type="DateTime" Precision="3" />
-    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-    <Property Name="IsDelete" Type="Boolean" />
-    <Property Name="IsLastDelete" Type="Boolean" />
-    <NavigationProperty Name="IndicatorXIndicatorTypes" Relationship="MRTModel.FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID" FromRole="IndicatorType" ToRole="IndicatorXIndicatorType" />
-  </EntityType>
   <Association Name="FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID">
     <End Type="MRTModel.IndicatorType" Role="IndicatorType" Multiplicity="0..1" />
     <End Type="MRTModel.IndicatorXIndicatorType" Role="IndicatorXIndicatorType" Multiplicity="*" />
@@ -306,6 +271,42 @@
       </Principal>
       <Dependent Role="IndicatorXIndicatorType">
         <PropertyRef Name="IndicatorTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SEOPlanID_StrategicObjectiveSEOPlanID">
+    <End Type="MRTModel.SEOPlan" Role="SEOPlan" Multiplicity="0..1" />
+    <End Type="MRTModel.StrategicObjective" Role="StrategicObjective" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SEOPlan">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="StrategicObjective">
+        <PropertyRef Name="SEOPlanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Stategy_ID__Tactic_StategyID">
+    <End Type="MRTModel.Stategy" Role="Stategy" Multiplicity="0..1" />
+    <End Type="MRTModel.Tactic" Role="Tactic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stategy">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tactic">
+        <PropertyRef Name="StategyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StrategicObjective_ID__Stategy_StrategicObjectiveID">
+    <End Type="MRTModel.StrategicObjective" Role="StrategicObjective" Multiplicity="0..1" />
+    <End Type="MRTModel.Stategy" Role="Stategy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StrategicObjective">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Stategy">
+        <PropertyRef Name="StrategicObjectiveID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -335,4 +336,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="DataOwner">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Division" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MRTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DataOwner">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Division" Type="nvarchar(max)" />
+  </EntityType>
   <EntityType Name="Goal">
     <Key>
       <PropertyRef Name="ID" />
@@ -62,7 +69,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="IndicatorType" Type="nvarchar" MaxLength="50" />
     <Property Name="CreateBy" Type="int" />
     <Property Name="UpdateBy" Type="int" />
@@ -269,6 +276,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="MRTModelStoreContainer">
+    <EntitySet Name="DataOwner" EntityType="Self.DataOwner" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Goal" EntityType="Self.Goal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Indicator" EntityType="Self.Indicator" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="IndicatorDetailStatus" EntityType="Self.IndicatorDetailStatus" Schema="dbo" store:Type="Tables" />

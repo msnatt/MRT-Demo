@@ -1,12 +1,9 @@
 ﻿@model IEnumerable<MRT_Demo.Models.Indicator>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>ข้อมูลตัวชี้วัดที่สำคัญขององค์กร</h2>
+<h2>กล่องขยะข้อมูลตัวชี้วัดที่สำคัญขององค์กร</h2>
 <br />
-@using (Html.BeginForm("Index","Indicators",FormMethod.Get, new { @class = "form-horizontal", id = "IndexForm", name = "IndexForm" }))
+<br />
+@using (Html.BeginForm("RecycleBin","Indicators",FormMethod.Get, new { @class = "form-horizontal", id = "IndexForm", name = "IndexForm" }))
 {
     <div class="row">
         <div class="col-md-1 text-end">
@@ -23,26 +20,20 @@
         <div class="col-md-8">
 
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-7">
                     @Html.Editor("Indicator", new { htmlAttributes = new { @class = "form-control" } })
                 </div>
-                <div class="col-md-3 text-end">
-                    @Html.DisplayName("สถานะของตัวชี้วัด : ")
-                </div>
-                <div class="col-md-5">
-                    @Html.DropDownList("IndicatorDetailStatusID", new SelectList(ViewBag.SelectListStatus, "Value", "Text"),"All",new { @class = "form-control" })
+                <div class="col-md-5">    
                 </div>
             </div>
 
         </div>
-        <div class="col-md-3">
-            <input value="ค้นหา" class="btn btn-outline-secondary col-md-3" type="submit"/> &nbsp;
-            @*@Html.ActionLink("ค้นหา", "Index", new { Division =  }, new { @Class = " btn btn-outline-secondary col-md-3" })*@
-            @Html.ActionLink("เพิ่ม", "Create", "", new { @Class = " btn btn-primary col-md-3" }) &nbsp;
-            @Html.ActionLink("ถังขยะ", "RecycleBin", "", new { @Class = " btn btn-secondary col-md-3" })
+        <div class="offset-md-2 col-md-1">
+            <input value="ค้นหา" class="btn btn-outline-secondary col-md-12" type="submit"/> &nbsp;
         </div>
     </div>
 }
+
 <table class="table">
     <tr>
         <th>
@@ -52,7 +43,7 @@
             @Html.DisplayNameFor(model => model.Indicator1)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IndicatorOwners)
+            @*@Html.DisplayNameFor(model => model.IndicatorOwners)*@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IsActive)
@@ -72,16 +63,17 @@
                 @Html.DisplayFor(modelItem => item.Indicator1)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IndicatorOwnersText)
+                @*@Html.DisplayFor(modelItem => item.IndicatorOwners)*@
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.isActiveText)
+                @Html.CheckBoxFor(modelItem => item.IsActive)
             </td>
             <td>
-                @Html.ActionLink("แก้ไข", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("ลบ", "DeleteConfirmed", new { id = item.ID })
+                @Html.ActionLink("คืนค่า", "Revert", new { id = item.ID }) |
+                @Html.ActionLink("ลบ", "DeleteLast", new { id = item.ID })
             </td>
         </tr>
     }
 
 </table>
+
