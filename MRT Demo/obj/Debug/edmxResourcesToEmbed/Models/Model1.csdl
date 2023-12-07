@@ -2,6 +2,7 @@
 <Schema Namespace="MRTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="MRTEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Goals" EntityType="MRTModel.Goal" />
+    <EntitySet Name="ImportantIndicatorTargetMeasurements" EntityType="MRTModel.ImportantIndicatorTargetMeasurement" />
     <EntitySet Name="Indicators" EntityType="MRTModel.Indicator" />
     <EntitySet Name="IndicatorOwners" EntityType="MRTModel.IndicatorOwner" />
     <EntitySet Name="IndicatorTypes" EntityType="MRTModel.IndicatorType" />
@@ -48,6 +49,18 @@
       <End Role="IndicatorDetailStatus" EntitySet="IndicatorDetailStatus" />
       <End Role="Indicator" EntitySet="Indicators" />
     </AssociationSet>
+    <AssociationSet Name="FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID" Association="MRTModel.FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID">
+      <End Role="Indicator" EntitySet="Indicators" />
+      <End Role="ImportantIndicatorTargetMeasurement" EntitySet="ImportantIndicatorTargetMeasurements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IndicatorType_ID__ImportantIndicatorTargetMeasurement_IndicatorTypeID" Association="MRTModel.FK_IndicatorType_ID__ImportantIndicatorTargetMeasurement_IndicatorTypeID">
+      <End Role="IndicatorType" EntitySet="IndicatorTypes" />
+      <End Role="ImportantIndicatorTargetMeasurement" EntitySet="ImportantIndicatorTargetMeasurements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IndicatorUnit_ID__ImportantIndicatorTargetMeasurement_IndicatorUnitID" Association="MRTModel.FK_IndicatorUnit_ID__ImportantIndicatorTargetMeasurement_IndicatorUnitID">
+      <End Role="IndicatorUnit" EntitySet="IndicatorUnits" />
+      <End Role="ImportantIndicatorTargetMeasurement" EntitySet="ImportantIndicatorTargetMeasurements" />
+    </AssociationSet>
     <EntitySet Name="DataOwner" EntityType="MRTModel.DataOwner" />
   </EntityContainer>
   <EntityType Name="Goal">
@@ -65,6 +78,27 @@
     <Property Name="IsDelete" Type="Boolean" />
     <Property Name="IsLastDelete" Type="Boolean" />
     <NavigationProperty Name="StrategicObjective" Relationship="MRTModel.FK_StrategicObjective_ID_Goal_StrategicObjectiveID" FromRole="Goal" ToRole="StrategicObjective" />
+  </EntityType>
+  <EntityType Name="ImportantIndicatorTargetMeasurement">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IndicatorID" Type="Int32" />
+    <Property Name="IndicatorTypeID" Type="Int32" />
+    <Property Name="IndicatorUnitID" Type="Int32" />
+    <Property Name="IndicatorLevel" Type="Int32" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="Target" Type="Double" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="IsLastDelete" Type="Boolean" />
+    <NavigationProperty Name="Indicator" Relationship="MRTModel.FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID" FromRole="ImportantIndicatorTargetMeasurement" ToRole="Indicator" />
+    <NavigationProperty Name="IndicatorType" Relationship="MRTModel.FK_IndicatorType_ID__ImportantIndicatorTargetMeasurement_IndicatorTypeID" FromRole="ImportantIndicatorTargetMeasurement" ToRole="IndicatorType" />
+    <NavigationProperty Name="IndicatorUnit" Relationship="MRTModel.FK_IndicatorUnit_ID__ImportantIndicatorTargetMeasurement_IndicatorUnitID" FromRole="ImportantIndicatorTargetMeasurement" ToRole="IndicatorUnit" />
   </EntityType>
   <EntityType Name="Indicator">
     <Key>
@@ -85,6 +119,7 @@
     <NavigationProperty Name="IndicatorUnits" Relationship="MRTModel.FK_Indicator_ID__IndicatorUnit_IndicatorID" FromRole="Indicator" ToRole="IndicatorUnit" />
     <NavigationProperty Name="IndicatorXIndicatorTypes" Relationship="MRTModel.FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID" FromRole="Indicator" ToRole="IndicatorXIndicatorType" />
     <NavigationProperty Name="IndicatorDetailStatus" Relationship="MRTModel.FK_IndicatorDetailStatus_ID__Indicator_IndicatorDetailStatusID" FromRole="Indicator" ToRole="IndicatorDetailStatus" />
+    <NavigationProperty Name="ImportantIndicatorTargetMeasurement" Relationship="MRTModel.FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID" FromRole="Indicator" ToRole="ImportantIndicatorTargetMeasurement" />
   </EntityType>
   <EntityType Name="IndicatorOwner">
     <Key>
@@ -114,6 +149,7 @@
     <Property Name="IsDelete" Type="Boolean" />
     <Property Name="IsLastDelete" Type="Boolean" />
     <NavigationProperty Name="IndicatorXIndicatorTypes" Relationship="MRTModel.FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID" FromRole="IndicatorType" ToRole="IndicatorXIndicatorType" />
+    <NavigationProperty Name="ImportantIndicatorTargetMeasurement" Relationship="MRTModel.FK_IndicatorType_ID__ImportantIndicatorTargetMeasurement_IndicatorTypeID" FromRole="IndicatorType" ToRole="ImportantIndicatorTargetMeasurement" />
   </EntityType>
   <EntityType Name="IndicatorUnit">
     <Key>
@@ -129,6 +165,7 @@
     <Property Name="IsDelete" Type="Boolean" />
     <Property Name="IsLastDelete" Type="Boolean" />
     <NavigationProperty Name="Indicator" Relationship="MRTModel.FK_Indicator_ID__IndicatorUnit_IndicatorID" FromRole="IndicatorUnit" ToRole="Indicator" />
+    <NavigationProperty Name="ImportantIndicatorTargetMeasurement" Relationship="MRTModel.FK_IndicatorUnit_ID__ImportantIndicatorTargetMeasurement_IndicatorUnitID" FromRole="IndicatorUnit" ToRole="ImportantIndicatorTargetMeasurement" />
   </EntityType>
   <EntityType Name="IndicatorXIndicatorType">
     <Key>
@@ -333,6 +370,42 @@
       </Principal>
       <Dependent Role="Indicator">
         <PropertyRef Name="IndicatorDetailStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID">
+    <End Type="MRTModel.Indicator" Role="Indicator" Multiplicity="0..1" />
+    <End Type="MRTModel.ImportantIndicatorTargetMeasurement" Role="ImportantIndicatorTargetMeasurement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicator">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ImportantIndicatorTargetMeasurement">
+        <PropertyRef Name="IndicatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IndicatorType_ID__ImportantIndicatorTargetMeasurement_IndicatorTypeID">
+    <End Type="MRTModel.IndicatorType" Role="IndicatorType" Multiplicity="0..1" />
+    <End Type="MRTModel.ImportantIndicatorTargetMeasurement" Role="ImportantIndicatorTargetMeasurement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IndicatorType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ImportantIndicatorTargetMeasurement">
+        <PropertyRef Name="IndicatorTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IndicatorUnit_ID__ImportantIndicatorTargetMeasurement_IndicatorUnitID">
+    <End Type="MRTModel.IndicatorUnit" Role="IndicatorUnit" Multiplicity="0..1" />
+    <End Type="MRTModel.ImportantIndicatorTargetMeasurement" Role="ImportantIndicatorTargetMeasurement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IndicatorUnit">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ImportantIndicatorTargetMeasurement">
+        <PropertyRef Name="IndicatorUnitID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

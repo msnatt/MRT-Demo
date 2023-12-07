@@ -12,17 +12,15 @@ namespace MRT_Demo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class IndicatorUnit
+    public partial class ImportantIndicatorTargetMeasurement
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public IndicatorUnit()
-        {
-            this.ImportantIndicatorTargetMeasurement = new HashSet<ImportantIndicatorTargetMeasurement>();
-        }
-    
         public int ID { get; set; }
         public Nullable<int> IndicatorID { get; set; }
-        public string Unit { get; set; }
+        public Nullable<int> IndicatorTypeID { get; set; }
+        public Nullable<int> IndicatorUnitID { get; set; }
+        public Nullable<int> IndicatorLevel { get; set; }
+        public Nullable<int> Year { get; set; }
+        public Nullable<double> Target { get; set; }
         public Nullable<int> CreateBy { get; set; }
         public Nullable<int> UpdateBy { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
@@ -31,7 +29,7 @@ namespace MRT_Demo.Models
         public Nullable<bool> IsLastDelete { get; set; }
     
         public virtual Indicator Indicator { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ImportantIndicatorTargetMeasurement> ImportantIndicatorTargetMeasurement { get; set; }
+        public virtual IndicatorType IndicatorType { get; set; }
+        public virtual IndicatorUnit IndicatorUnit { get; set; }
     }
 }

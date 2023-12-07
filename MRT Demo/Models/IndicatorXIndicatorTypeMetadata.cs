@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace MRT_Demo.Models
 {
@@ -15,6 +16,6 @@ namespace MRT_Demo.Models
     [MetadataType(typeof(IndicatorXIndicatorTypeMetadata))]
     public partial class IndicatorXIndicatorType
     {
-
+        public IndicatorUnit Xunit {  get; set; }
     }
 }

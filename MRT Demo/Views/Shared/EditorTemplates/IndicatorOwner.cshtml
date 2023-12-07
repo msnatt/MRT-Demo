@@ -12,7 +12,7 @@
 {
     <tr>
         <td>
-            @Html.DropDownListFor(m => m.Division, new SelectList(ViewBag.DivisionBag, "Value", "Text"), "Select Owner", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.Division, new SelectList(ViewBag.DivisionBag,"Value","Text",Model.Division), "Select Owner", new { @class = "form-control" })
         </td>
         <td>
             <input type="button" class="btn btn-outline-danger" value="ลบ" onclick="FuncDelIndicatorOwner(@Html.IdFor(m=>m.IsDelete))" />

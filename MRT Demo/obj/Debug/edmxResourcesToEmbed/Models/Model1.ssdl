@@ -22,6 +22,24 @@
     <Property Name="IsDelete" Type="bit" />
     <Property Name="IsLastDelete" Type="bit" />
   </EntityType>
+  <EntityType Name="ImportantIndicatorTargetMeasurement">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IndicatorID" Type="int" />
+    <Property Name="IndicatorTypeID" Type="int" />
+    <Property Name="IndicatorUnitID" Type="int" />
+    <Property Name="IndicatorLevel" Type="int" />
+    <Property Name="Year" Type="int" />
+    <Property Name="Target" Type="float" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" />
+    <Property Name="IsLastDelete" Type="bit" />
+  </EntityType>
   <EntityType Name="Indicator">
     <Key>
       <PropertyRef Name="ID" />
@@ -167,6 +185,18 @@
     <Property Name="IsDelete" Type="bit" />
     <Property Name="IsLastDelete" Type="bit" />
   </EntityType>
+  <Association Name="FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID">
+    <End Role="Indicator" Type="Self.Indicator" Multiplicity="0..1" />
+    <End Role="ImportantIndicatorTargetMeasurement" Type="Self.ImportantIndicatorTargetMeasurement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicator">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ImportantIndicatorTargetMeasurement">
+        <PropertyRef Name="IndicatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Indicator_ID__IndicatorOwner_IndicatorID">
     <End Role="Indicator" Type="Self.Indicator" Multiplicity="0..1" />
     <End Role="IndicatorOwner" Type="Self.IndicatorOwner" Multiplicity="*" />
@@ -215,6 +245,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_IndicatorType_ID__ImportantIndicatorTargetMeasurement_IndicatorTypeID">
+    <End Role="IndicatorType" Type="Self.IndicatorType" Multiplicity="0..1" />
+    <End Role="ImportantIndicatorTargetMeasurement" Type="Self.ImportantIndicatorTargetMeasurement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IndicatorType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ImportantIndicatorTargetMeasurement">
+        <PropertyRef Name="IndicatorTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID">
     <End Role="IndicatorType" Type="Self.IndicatorType" Multiplicity="0..1" />
     <End Role="IndicatorXIndicatorType" Type="Self.IndicatorXIndicatorType" Multiplicity="*" />
@@ -224,6 +266,18 @@
       </Principal>
       <Dependent Role="IndicatorXIndicatorType">
         <PropertyRef Name="IndicatorTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IndicatorUnit_ID__ImportantIndicatorTargetMeasurement_IndicatorUnitID">
+    <End Role="IndicatorUnit" Type="Self.IndicatorUnit" Multiplicity="0..1" />
+    <End Role="ImportantIndicatorTargetMeasurement" Type="Self.ImportantIndicatorTargetMeasurement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IndicatorUnit">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ImportantIndicatorTargetMeasurement">
+        <PropertyRef Name="IndicatorUnitID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -278,6 +332,7 @@
   <EntityContainer Name="MRTModelStoreContainer">
     <EntitySet Name="DataOwner" EntityType="Self.DataOwner" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Goal" EntityType="Self.Goal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ImportantIndicatorTargetMeasurement" EntityType="Self.ImportantIndicatorTargetMeasurement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Indicator" EntityType="Self.Indicator" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="IndicatorDetailStatus" EntityType="Self.IndicatorDetailStatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="IndicatorOwner" EntityType="Self.IndicatorOwner" Schema="dbo" store:Type="Tables" />
@@ -288,6 +343,10 @@
     <EntitySet Name="Stategy" EntityType="Self.Stategy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StrategicObjective" EntityType="Self.StrategicObjective" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tactic" EntityType="Self.Tactic" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID" Association="Self.FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID">
+      <End Role="Indicator" EntitySet="Indicator" />
+      <End Role="ImportantIndicatorTargetMeasurement" EntitySet="ImportantIndicatorTargetMeasurement" />
+    </AssociationSet>
     <AssociationSet Name="FK_Indicator_ID__IndicatorOwner_IndicatorID" Association="Self.FK_Indicator_ID__IndicatorOwner_IndicatorID">
       <End Role="Indicator" EntitySet="Indicator" />
       <End Role="IndicatorOwner" EntitySet="IndicatorOwner" />
@@ -304,9 +363,17 @@
       <End Role="IndicatorDetailStatus" EntitySet="IndicatorDetailStatus" />
       <End Role="Indicator" EntitySet="Indicator" />
     </AssociationSet>
+    <AssociationSet Name="FK_IndicatorType_ID__ImportantIndicatorTargetMeasurement_IndicatorTypeID" Association="Self.FK_IndicatorType_ID__ImportantIndicatorTargetMeasurement_IndicatorTypeID">
+      <End Role="IndicatorType" EntitySet="IndicatorType" />
+      <End Role="ImportantIndicatorTargetMeasurement" EntitySet="ImportantIndicatorTargetMeasurement" />
+    </AssociationSet>
     <AssociationSet Name="FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID" Association="Self.FK_IndicatorType_ID__IndicatorXIndicatorType_IndicatorTypeID">
       <End Role="IndicatorType" EntitySet="IndicatorType" />
       <End Role="IndicatorXIndicatorType" EntitySet="IndicatorXIndicatorType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IndicatorUnit_ID__ImportantIndicatorTargetMeasurement_IndicatorUnitID" Association="Self.FK_IndicatorUnit_ID__ImportantIndicatorTargetMeasurement_IndicatorUnitID">
+      <End Role="IndicatorUnit" EntitySet="IndicatorUnit" />
+      <End Role="ImportantIndicatorTargetMeasurement" EntitySet="ImportantIndicatorTargetMeasurement" />
     </AssociationSet>
     <AssociationSet Name="FK_SEOPlanID_StrategicObjectiveSEOPlanID" Association="Self.FK_SEOPlanID_StrategicObjectiveSEOPlanID">
       <End Role="SEOPlan" EntitySet="SEOPlan" />

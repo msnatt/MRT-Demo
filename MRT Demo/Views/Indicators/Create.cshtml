@@ -4,14 +4,13 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>จัดการตัวชี้วัด</h2>
 
 @using (Html.BeginForm("Create", "Indicators", FormMethod.Post, new { @class = "form-control", id = "indiform", name = "indiform" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Indicator</h4>
         <hr />
         @Html.EditorFor(m => m)
         <hr />

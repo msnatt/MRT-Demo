@@ -4,19 +4,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>*@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
         .navbar-text-black {
             color: black;
         }
-        .navbar-text-black:hover {
-            color: dimgrey;
-            stroke: black;
-        }
+
+            .navbar-text-black:hover {
+                color: dimgrey;
+                stroke: black;
+            }
     </style>
 </head>
 <body>
+
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-light">
         <div class="container">
             @*@Html.ActionLink("Application name", "Index", "SEOPlans", new { area = "" }, new { @class = "navbar-brand" })*@
@@ -25,13 +29,24 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+            <div class="collapse navbar-collapse navbar d-sm-inline-flex justify-content-between ">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("ผู้ดูแลระบบ", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
                     <li>@Html.ActionLink("จัดการหลักเกณฑ์ CBEs", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
                     <li>@Html.ActionLink("จัดการแผนวิสาหกิจ", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
                     <li>@Html.ActionLink("จัดการแผนแม่บท", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
-                    <li>@Html.ActionLink("ข้อมูลตัวชี้วัด", "Index", "Indicators", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
+                    <li>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class = "navbar-text-black">
+                                @Html.DisplayName("ข้อมูลตัวชี้วัด")
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>@Html.ActionLink("ข้อมูลตัวชี้วัด", "Index", "Indicators", new { area = "" }, new { @class = "nav-link navbar-text-black dropdown-item" })</li>
+                            <li>@Html.ActionLink("เป้า-ผลตัวชี้วัดที่สำคัญขององค์กร", "Index", "IndicatorTargetAndResults", new { Year=DateTime.Now.Year,Division="",Indicator="" }, new { @class = "nav-link navbar-text-black dropdown-item" })</li>
+                        </ul>
+                    </li>
+                    <li>@*@Html.ActionLink("ข้อมูลตัวชี้วัด", "Index", "Indicators", new { area = "" }, new { @class = "nav-link navbar-text-black" })*@</li>
                     <li>@Html.ActionLink("จัดการโครงการ", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
                     <li>@Html.ActionLink("รายงาน", "Index", "SEOPlans", new { area = "" }, new { @class = "nav-link navbar-text-black" })</li>
                 </ul>
@@ -45,6 +60,8 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
+
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

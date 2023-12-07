@@ -1,0 +1,20 @@
+﻿@model MRT_Demo.Models.Indicator
+
+
+@for (var i = 0; i < Model.IndicatorXIndicatorTypes.Count; i++)
+{
+    <tr>
+        <td class="w-25">
+            @Html.EditorFor(m => m.IndicatorXIndicatorTypes.ElementAt(i).IndicatorType.IndicatorType1, new { HtmlAttributes = new { @class = "form-control" } })
+        </td>
+        <td class="w-25">
+            @Html.DropDownListFor(m => m.ImportantIndicatorTargetMeasurement.ElementAt(i).IndicatorUnitID, new SelectList(ViewBag.Xunit, "Value", "Text"), new { @class = "form-control" })
+        </td>
+        @foreach (var item in Model.ImportantIndicatorTargetMeasurement.Where(b => b.IndicatorXIndicatorTypeID == Model.IndicatorXIndicatorTypes.ElementAt(i).ID))
+        {
+            @Html.EditorFor(m => item)
+        }
+    </tr>
+
+
+}

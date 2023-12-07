@@ -132,6 +132,7 @@
     <Compile Include="Controllers\GoalsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndicatorsController.cs" />
+    <Compile Include="Controllers\IndicatorTargetAndResultsController.cs" />
     <Compile Include="Controllers\SEOPlansController.cs" />
     <Compile Include="Controllers\StategiesController.cs" />
     <Compile Include="Controllers\StrategicObjectivesController.cs" />
@@ -145,6 +146,10 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GoalMetadata.cs" />
+    <Compile Include="Models\ImportantIndicatorTargetMeasurement.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ImportantIndicatorTargetMeasurementMetadata.cs" />
     <Compile Include="Models\Indicator.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -304,6 +309,13 @@
     <Content Include="Views\Shared\EditorTemplates\IndicatorType.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\IndicatorUnit.cshtml" />
     <Content Include="Views\Indicators\RecycleBin.cshtml" />
+    <Content Include="Views\IndicatorTargetAndResults\Target.cshtml" />
+    <Content Include="Views\IndicatorTargetAndResults\Delete.cshtml" />
+    <Content Include="Views\IndicatorTargetAndResults\Details.cshtml" />
+    <Content Include="Views\IndicatorTargetAndResults\Edit.cshtml" />
+    <Content Include="Views\IndicatorTargetAndResults\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ImportantIndicatorTargetMeasurement.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\IndicatorTarget.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

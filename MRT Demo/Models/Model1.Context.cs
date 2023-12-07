@@ -26,6 +26,7 @@ namespace MRT_Demo.Models
         }
     
         public virtual DbSet<Goal> Goals { get; set; }
+        public virtual DbSet<ImportantIndicatorTargetMeasurement> ImportantIndicatorTargetMeasurements { get; set; }
         public virtual DbSet<Indicator> Indicators { get; set; }
         public virtual DbSet<IndicatorOwner> IndicatorOwners { get; set; }
         public virtual DbSet<IndicatorType> IndicatorTypes { get; set; }

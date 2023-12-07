@@ -1,0 +1,182 @@
+﻿@model MRT_Demo.Models.Indicator
+
+@{
+    ViewBag.Title = "Target";
+}
+
+<h2>เป้าตัวชี้วัด</h2>
+
+@using (Html.BeginForm("Target", "IndicatorTargetAndResults", FormMethod.Post, new { @class = "form-control", id = "Targetform", name = "Targetform" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ID)
+    @Html.HiddenFor(m => m.isActiveText)
+    @Html.HiddenFor(m => m.CreateBy)
+    @Html.HiddenFor(m => m.UpdateBy)
+    @Html.HiddenFor(m => m.CreateDate)
+    @Html.HiddenFor(m => m.UpdateDate)
+    @Html.HiddenFor(m => m.IsDelete)
+    @Html.HiddenFor(m => m.IsLastDelete)
+    @*@Html.HiddenFor(m => m.IndicatorXIndicatorTypes)*@
+
+    <div class="form-horizontal">
+        <h4>Indicator</h4>
+        <hr />
+        <div class="row">
+            <div class=" col-md-3 text-end">
+                @Html.DisplayName("ปีงบประมาณ")
+            </div>
+            <div class="col-md-9">
+                @Html.EditorFor(m => m.indicatorYear, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-md-3 text-end">
+                @Html.DisplayName("ชื่อตัวชี้วัด")
+            </div>
+            <div class="col-md-9">
+                @Html.EditorFor(m => m.Indicator1, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.Indicator1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <div class="row offset-md-10 col-md-1">
+            <input class="btn btn-primary" type="submit" value="เพิ่ม" onclick="FuncAddindicatorOwner()" />
+        </div>
+        <div class="row">
+            <div class="col-md-3 text-end">
+                @Html.DisplayName("ส่วนงานทำการคาดการณ์ :")
+            </div>
+            <div class="col-md-8">
+                <table class="table table-responsive-md">
+                    <tr>
+                        <th>
+                            @Html.DisplayName("สังกัด")
+                        </th>
+                        <th>
+                            @Html.DisplayName("จัดการ")
+                        </th>
+                    </tr>
+                    @Html.EditorFor(m => m.IndicatorOwners)
+                </table>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-3 text-end">
+                @Html.DisplayName("ประเภทตัวชี้วัด")
+            </div>
+            <div class="col-md-8">
+                <table class="table table-bordered w-100">
+                    <tr>
+                        <th rowspan="2" class="text-center">
+                            @Html.DisplayName("ชื่อหน่วยวัด")
+                        </th>
+                        <th rowspan="2" class="text-center">
+                            @Html.DisplayName("หน่วยวัด")
+                        </th>
+                        <th colspan="5" class="text-center">
+                            @Html.DisplayName("ค่าเป้าหมาย/เกณฑ์วัด")
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">1</th>
+                        <th class="text-center">2</th>
+                        <th class="text-center">3</th>
+                        <th class="text-center">4</th>
+                        <th class="text-center">5</th>
+                    </tr>
+                    @*@Html.EditorFor(m => m, "IndicatorTarget")*@
+
+                    @{ 
+                        var temp = new List<MRT_Demo.Models.ImportantIndicatorTargetMeasurement>();
+                    }
+                    @for (var i = 0; i < Model.IndicatorXIndicatorTypes.Count; i++)
+                    {
+                        <tr>
+                            <td class="w-25">
+                                @Html.EditorFor(m => m.IndicatorXIndicatorTypes.ElementAt(i).IndicatorType.IndicatorType1, new { HtmlAttributes = new { @class = "form-control" } })
+                            </td>
+                            <td class="w-25">
+                                @Html.DropDownListFor(m => m.ImportantIndicatorTargetMeasurement.ElementAt(i).IndicatorUnitID, new SelectList(ViewBag.Xunit, "Value", "Text"), new { @class = "form-control" })
+                            </td>
+                            @{
+                                temp = Model.ImportantIndicatorTargetMeasurement.Where(b => b.IndicatorXIndicatorTypeID == Model.IndicatorXIndicatorTypes.ElementAt(i).ID).ToList();
+                                int x = 0;
+                            }
+                            @foreach (var item in temp)
+                            {
+                                @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurement", "ImportantIndicatorTargetMeasurement[" + ((i*5)+x++) + "]")
+                            }
+                            @*@Html.EditorFor(m => m.ImportantIndicatorTargetMeasurement)*@
+
+                        </tr>
+                    }
+                </table>
+            </div>
+
+        </div>
+        @*<hr />
+            <div class="row offset-md-10 col-md-1">
+                <input class="btn btn-primary" type="submit" value="เพิ่ม" onclick="FuncAddindicatorUnit()" />
+            </div>
+            <div class="row">
+                <div class="col-md-3 text-end">
+                    @Html.DisplayName("หน่วยวัด")
+                </div>
+                <div class="col-md-8">
+                    <table class="table table-responsive-md">
+                        <tr>
+                            <th>
+                                @Html.DisplayName("หน่วยวัด")
+                            </th>
+                            <th>
+                                @Html.DisplayName("จัดการ")
+                            </th>
+                        </tr>
+                        @Html.EditorFor(m => m.IndicatorUnits)
+                    </table>
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+            <hr />*@
+
+
+
+        @*@Html.EditorFor(m => m.ImportantIndicatorTargetMeasurement)*@
+
+
+        <div class="row">
+            <div class="offset-md-3 col-md-1">
+                <input value="บันทึก" class="btn btn-primary" type="submit" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script>
+    function FuncAddindicatorOwner() {
+        $("#Targetform").attr("action", '@Url.Action("AddIndicatorOwner", "IndicatorTargetAndResults")');
+        $("#Targetform").submit();
+    }
+    function FuncDelIndicatorOwner(e) {
+        e.value = true;
+        $("#indiform").attr("action", '@Url.Action("DelIndicatorOwner","IndicatorTargetAndResults")');
+        $("#indiform").submit();
+    }
+    function FuncAddindicatorUnit() {
+        $("#indiform").attr("action", '@Url.Action("AddIndicatorUnit","IndicatorTargetAndResults")');
+        $("#indiform").submit();
+    }
+    function FuncDelIndicatorUnit(e) {
+        e.value = true;
+        $("#indiform").attr("action", '@Url.Action("DelIndicatorUnit","IndicatorTargetAndResults")');
+        $("#indiform").submit();
+    }
+
+</script>

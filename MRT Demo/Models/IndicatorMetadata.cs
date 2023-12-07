@@ -40,14 +40,25 @@ namespace MRT_Demo.Models
         {
             get { if (IsActive) { return "ใช้งาน"; } else { return "ไม่ใช้งาน"; } }
         }
+        public int? indicatorYear { get; set; }
         public string IndicatorOwnersText
         {
             get
             {
-                var text = "";
-                foreach (var item in IndicatorOwners)
+                var x = IndicatorOwners.ToList();
+                int count = 1;
+                string text = "";
+                foreach (var item in x)
                 {
-                    text = text +" "+ item.Division;
+                    if (count == 1)
+                    {
+                        text = item.Division;
+                    }
+                    else
+                    {
+                        text = text + " , " + item.Division;
+                    }
+                    count++;
                 }
                 return text;
             }

@@ -1,0 +1,12 @@
+﻿@model MRT_Demo.Models.ImportantIndicatorTargetMeasurement
+@Html.HiddenFor(m=>m.ID)
+@Html.HiddenFor(m=>m.IndicatorUnitID)
+@Html.HiddenFor(m=>m.IndicatorID)
+@Html.HiddenFor(m=>m.IndicatorTypeID)
+@Html.HiddenFor(m=>m.CreateDate)
+@Html.HiddenFor(m=>m.UpdateDate)
+@Html.HiddenFor(m=>m.IsDelete)
+@Html.HiddenFor(m=>m.IsLastDelete)
+<td>
+    @Html.EditorFor(m=>m.Target, new {HtmlAttributes = new {@class = "form-control" } })
+</td>
