@@ -13,5 +13,8 @@ namespace MRT_Demo.Models
     public partial class ImportantIndicatorTargetMeasurement
     {
         public int IndicatorXIndicatorTypeID { get; set; }
+        
+        public List<ImportantIndicatorTargetMeasurement> SubTarget { get; set;}
+    
     }
 }

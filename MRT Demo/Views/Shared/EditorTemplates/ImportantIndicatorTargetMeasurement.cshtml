@@ -1,12 +1,25 @@
 ﻿@model MRT_Demo.Models.ImportantIndicatorTargetMeasurement
-@Html.HiddenFor(m=>m.ID)
-@Html.HiddenFor(m=>m.IndicatorUnitID)
-@Html.HiddenFor(m=>m.IndicatorID)
-@Html.HiddenFor(m=>m.IndicatorTypeID)
-@Html.HiddenFor(m=>m.CreateDate)
-@Html.HiddenFor(m=>m.UpdateDate)
-@Html.HiddenFor(m=>m.IsDelete)
-@Html.HiddenFor(m=>m.IsLastDelete)
-<td>
-    @Html.EditorFor(m=>m.Target, new {HtmlAttributes = new {@class = "form-control" } })
+@{
+    var i = 0;
+}
+
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.CreateDate)
+@Html.HiddenFor(m => m.UpdateDate)
+@Html.HiddenFor(m => m.IndicatorLevel)
+@Html.HiddenFor(m => m.IndicatorID)
+@Html.HiddenFor(m => m.IsDelete)
+@Html.HiddenFor(m => m.IsLastDelete)
+
+<td class="w-25">
+    @Html.DropDownListFor(m => m.IndicatorUnitID, new SelectList(ViewBag.Xunit, "Value", "Text"), "Please Select", new { @class = "form-control" })
 </td>
+
+@foreach (var item in Model.SubTarget)
+{
+    <td>
+        @Html.EditorFor(m => item, "SubTarget", "SubTarget[" + i++ + "]")
+    </td>
+}
+
+

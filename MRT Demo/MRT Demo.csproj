@@ -316,6 +316,7 @@
     <Content Include="Views\IndicatorTargetAndResults\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ImportantIndicatorTargetMeasurement.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\IndicatorTarget.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SubTarget.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
