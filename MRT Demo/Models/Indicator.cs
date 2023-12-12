@@ -21,6 +21,7 @@ namespace MRT_Demo.Models
             this.IndicatorUnits = new HashSet<IndicatorUnit>();
             this.IndicatorXIndicatorTypes = new HashSet<IndicatorXIndicatorType>();
             this.ImportantIndicatorTargetMeasurement = new HashSet<ImportantIndicatorTargetMeasurement>();
+            this.ImportantIndicatorResultMeasurement = new HashSet<ImportantIndicatorResultMeasurement>();
         }
     
         public int ID { get; set; }
@@ -44,5 +45,7 @@ namespace MRT_Demo.Models
         public virtual IndicatorDetailStatus IndicatorDetailStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ImportantIndicatorTargetMeasurement> ImportantIndicatorTargetMeasurement { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ImportantIndicatorResultMeasurement> ImportantIndicatorResultMeasurement { get; set; }
     }
 }

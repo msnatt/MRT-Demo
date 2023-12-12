@@ -4,9 +4,9 @@
     ViewBag.Title = "Target";
 }
 
-<h2>เป้าตัวชี้วัด</h2>
+<h2>การรายงานผลการดำเนิน/คาดการณ์ผลการดำเนินงานตามตัวชี้วัดที่สำคัญขององค์กร</h2>
 
-@using (Html.BeginForm("Target", "IndicatorTargetAndResults", FormMethod.Post, new { @class = "form-horizontal", id = "Targetform", name = "Targetform" }))
+@using (Html.BeginForm("Target", "IndicatorTargetAndResults", FormMethod.Post, new { @class = "form-horizontal", id = "Resultform", name = "Resultform" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.ID)
@@ -49,9 +49,6 @@
             </div>
         </div>
         <hr />
-        <div class="row offset-md-10 col-md-1">
-            <input class="btn btn-primary" type="submit" value="เพิ่ม" onclick="FuncAddindicatorOwner()" />
-        </div>
         <div class="row">
             <div class="col-md-3 text-end">
                 @Html.DisplayName("ส่วนงานทำการคาดการณ์ :")
@@ -62,23 +59,23 @@
                         <th>
                             @Html.DisplayName("สังกัด")
                         </th>
-                        <th>
-                            @Html.DisplayName("จัดการ")
-                        </th>
                     </tr>
-                    @Html.EditorFor(m => m.IndicatorOwners)
+                    @foreach (var item in Model.IndicatorOwners)
+                    {
+                        @Html.EditorFor(m => item, "IndicatorOwnerDisabled")
+                    }
+
                 </table>
             </div>
             <div class="col-md-1"></div>
         </div>
-        <hr />
-        <div class="row offset-md-10 col-md-1">
-            <input class="btn btn-primary" type="submit" value="เพิ่ม" onclick="FuncAddXType()" />
-        </div>
         <br />
+        @Html.EditorFor(m=>m.ImportantIndicatorResultMeasurement)
+        <br />
+
         <div class="row">
             <div class="col-md-3 text-end">
-                @Html.DisplayName("ประเภทตัวชี้วัด :")
+                @Html.DisplayName("ตัวชี้วัดที่สำคัญ :")
             </div>
             <div class="col-md-8">
                 <table class="table table-bordered w-100">
@@ -100,7 +97,7 @@
                         <th class="text-center">4</th>
                         <th class="text-center">5</th>
                     </tr>
-                    @{ 
+                    @{
                         var i = 0;
                     }
                     @foreach (var XType in Model.IndicatorXIndicatorTypes)
@@ -111,7 +108,7 @@
                             </td>
                             @foreach (var item in Model.ImportantIndicatorTargetMeasurement.Where(b => b.SubTarget.Where(ba => ba.IndicatorTypeID == XType.IndicatorTypeID).Count() > 0))
                             {
-                                @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurement", "ImportantIndicatorTargetMeasurement[" + i++ + "]")
+                                @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurementDisabled", "ImportantIndicatorTargetMeasurementDisabled[" + i++ + "]")
                             }
                         </tr>
                     }
@@ -133,13 +130,9 @@
 </div>
 
 <script>
-    function FuncAddXType() {
-        $("#Targetform").attr("action", '@Url.Action("AddXType", "IndicatorTargetAndResults")');
-        $("#Targetform").submit();
-    }
-    function FuncAddindicatorOwner() {
-        $("#Targetform").attr("action", '@Url.Action("AddIndicatorOwner","IndicatorTargetAndResults")');
-        $("#Targetform").submit();
+    function FuncChangePeriod() {
+        $("#Resultform").attr("action", '@Url.Action("ChangePeriod", "IndicatorTargetAndResults")');
+        $("#Resultform").submit();
     }
 
 </script>

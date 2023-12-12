@@ -150,12 +150,13 @@ namespace MRT_Demo.Controllers
             return selectListOwners;
         }
 
+        // ======================== Target ================================
         public ActionResult Target(int id, string Division)
         {
             var indicators = db.Indicators.Find(id);
             if (indicators.ImportantIndicatorTargetMeasurement.Count == 0)
             {
-                foreach (var item in db.IndicatorXIndicatorTypes.Where(b =>b.IndicatorID == indicators.ID))
+                foreach (var item in db.IndicatorXIndicatorTypes.Where(b => b.IndicatorID == indicators.ID))
                 {
                     var breaker = 0;
                     var important = new ImportantIndicatorTargetMeasurement();
@@ -184,6 +185,27 @@ namespace MRT_Demo.Controllers
             else
             {
 
+                List<ImportantIndicatorTargetMeasurement> NewListImportant = indicators.ImportantIndicatorTargetMeasurement.ToList();
+                indicators.ImportantIndicatorTargetMeasurement.Clear();
+
+
+                foreach (var item in indicators.IndicatorXIndicatorTypes)
+                {
+                    var breaker = 0;
+                    var important = new ImportantIndicatorTargetMeasurement();
+                    important.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
+                    foreach (var item2 in NewListImportant.Where(b => b.IndicatorTypeID == item.IndicatorTypeID))
+                    {
+                        item2.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
+                        item2.SubTarget.Add(item2);
+                        if (breaker <= 4)
+                        {
+                            important.SubTarget.Add(item2);
+                            item2.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
+                        }
+                    }
+                    indicators.ImportantIndicatorTargetMeasurement.Add(important);
+                }
             }
 
             var x = indicators.IndicatorXIndicatorTypes.ToList();
@@ -206,10 +228,8 @@ namespace MRT_Demo.Controllers
             ViewBag.DivisionBag = IndicatorOwnerSelectItem();
             ViewBag.Xunit = new SelectList(indicators.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
 
-            //var z = indicators.ImportantIndicatorTargetMeasurement.Where(b=>b.IndicatorTypeID == indicators.IndicatorXIndicatorTypes.First().IndicatorTypeID).ToList();
             return View("Target", indicators);
         }
-
         [HttpPost]
         public ActionResult Target(Indicator indicators)
         {
@@ -220,42 +240,24 @@ namespace MRT_Demo.Controllers
             db.Entry(indicators).State = EntityState.Modified;
             foreach (var item in important)
             {
-                if (item.ID == 0)
+                foreach (var item2 in item.SubTarget)
                 {
-                    foreach (var item2 in item.SubTarget)
+                    if (item2.ID == 0)
                     {
-                        if (item2.ID == 0)
-                        {
-                            item2.IndicatorUnitID = item.IndicatorUnitID;
-                            db.ImportantIndicatorTargetMeasurements.Add(item2);
-                        }
-                        //else
-                        //{
-                        //    db.Entry(item2).State = EntityState.Modified;
-                        //}
+                        item2.IndicatorUnitID = item.IndicatorUnitID;
+                        db.ImportantIndicatorTargetMeasurements.Add(item2);
                     }
-                }
-                else
-                {
-                    foreach (var item2 in item.SubTarget)
+                    else
                     {
-                        if (item2.ID == 0)
-                        {
-                            item2.IndicatorUnitID = item.IndicatorUnitID;
-                            db.ImportantIndicatorTargetMeasurements.Add(item2);
-                        }
-                        else
-                        {
-                            db.Entry(item2).State = EntityState.Modified;
-                        }
+                        item2.IndicatorUnitID = item.IndicatorUnitID;
+                        db.Entry(item2).State = EntityState.Modified;
                     }
                 }
             }
             db.SaveChanges();
             return RedirectToAction("Index", new { id = indicators.indicatorYear });
         }
-
-        // ======================== Add Owner =========================
+        // ---------------------------- Owner -----------------------------
         public ActionResult AddIndicatorOwner(Indicator indicator)
         {
             VoidAddIndicatorOwner(indicator);
@@ -295,7 +297,7 @@ namespace MRT_Demo.Controllers
                 }
             }
         }
-
+        // ---------------------------- Type ------------------------------
         public ActionResult AddXType(Indicator indicator)
         {
             IndicatorXIndicatorType indicatorXIndicatorType = new IndicatorXIndicatorType();
@@ -310,6 +312,58 @@ namespace MRT_Demo.Controllers
             ViewBag.DivisionBag = IndicatorOwnerSelectItem();
             ViewBag.Xunit = new SelectList(indicator.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
             return View("Target", indicator);
+        }
+
+
+
+        // ========================= Result ================================
+        public ActionResult Result(int id)
+        {
+            var indicators = db.Indicators.Find(id);
+            List<ImportantIndicatorTargetMeasurement> NewListImportant = indicators.ImportantIndicatorTargetMeasurement.ToList();
+            indicators.ImportantIndicatorTargetMeasurement.Clear();
+
+
+            foreach (var item in indicators.IndicatorXIndicatorTypes)
+            {
+                var breaker = 0;
+                var important = new ImportantIndicatorTargetMeasurement();
+                important.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
+                foreach (var item2 in NewListImportant.Where(b => b.IndicatorTypeID == item.IndicatorTypeID))
+                {
+                    item2.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
+                    item2.SubTarget.Add(item2);
+                    if (breaker <= 4)
+                    {
+                        important.SubTarget.Add(item2);
+                        item2.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
+                    }
+                    important.IndicatorUnitID = item2.IndicatorUnitID;
+
+                }
+                indicators.ImportantIndicatorTargetMeasurement.Add(important);
+
+            }
+            ImportantIndicatorResultMeasurement importantIndicatorResult = new ImportantIndicatorResultMeasurement();
+            importantIndicatorResult.IndicatorID = indicators.ID;
+            importantIndicatorResult.CreateDate = DateTime.Now;
+            importantIndicatorResult.UpdateDate = DateTime.Now;
+            importantIndicatorResult.Isdelete = false;
+            importantIndicatorResult.IsLastDelete = false;
+            indicators.ImportantIndicatorResultMeasurement.Add(importantIndicatorResult);
+
+            var a = indicators.IndicatorUnits;
+            ViewBag.Year = indicators.indicatorYear;
+            ViewBag.YearBag = IndicatorYearSelectItem();
+            ViewBag.DivisionBag = IndicatorOwnerSelectItem();
+            ViewBag.Xunit = new SelectList(indicators.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
+
+            return View("Result", indicators);
+        }
+
+        public ActionResult ChangePeriod(Indicator indicators)
+        {
+            return View("Result",indicators);
         }
     }
 }

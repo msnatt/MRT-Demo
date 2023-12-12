@@ -12,13 +12,13 @@
 @Html.HiddenFor(m => m.IsLastDelete)
 
 <td class="w-25">
-    @Html.DropDownListFor(m => m.IndicatorUnitID, new SelectList(ViewBag.Xunit, "Value", "Text",Model.IndicatorUnitID), "Please Select", new { @class = "form-control" })
+    @Html.DropDownListFor(m => m.IndicatorUnitID, new SelectList(ViewBag.Xunit, "Value", "Text",Model.IndicatorUnitID), "Please Select", new { @class = "form-control", disabled = "disabled" })
 </td>
 
 @foreach (var item in Model.SubTarget)
 {
     <td>
-        @Html.EditorFor(m => item, "SubTarget", "SubTarget[" + i++ + "]")
+        @Html.EditorFor(m => item, "SubTargetDisabled", "SubTargetDisabled[" + i++ + "]")
     </td>
 }
 

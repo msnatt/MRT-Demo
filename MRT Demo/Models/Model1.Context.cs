@@ -38,5 +38,16 @@ namespace MRT_Demo.Models
         public virtual DbSet<Tactic> Tactics { get; set; }
         public virtual DbSet<IndicatorDetailStatus> IndicatorDetailStatus { get; set; }
         public virtual DbSet<DataOwner> DataOwner { get; set; }
+        public virtual DbSet<ForecastAnalysisResultsFile> ForecastAnalysisResultsFile { get; set; }
+        public virtual DbSet<ForecastChangeActionPlanFile> ForecastChangeActionPlanFile { get; set; }
+        public virtual DbSet<ForecastPeriod> ForecastPeriod { get; set; }
+        public virtual DbSet<ForecastPeriodDocFile> ForecastPeriodDocFile { get; set; }
+        public virtual DbSet<ForecastPeriodResultRemark> ForecastPeriodResultRemark { get; set; }
+        public virtual DbSet<ForecastPeriodToolAndMethod> ForecastPeriodToolAndMethod { get; set; }
+        public virtual DbSet<ForecastTool> ForecastTool { get; set; }
+        public virtual DbSet<ForecastValueAndRealValue> ForecastValueAndRealValue { get; set; }
+        public virtual DbSet<ImportantIndicatorResultMeasurement> ImportantIndicatorResultMeasurement { get; set; }
+        public virtual DbSet<PeriodMonthOrQuaterOrYear> PeriodMonthOrQuaterOrYear { get; set; }
+        public virtual DbSet<ForecastPeriodCompetitorValue> ForecastPeriodCompetitorValue { get; set; }
     }
 }

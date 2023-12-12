@@ -142,10 +142,40 @@
     <Compile Include="Models\DataOwner.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForecastAnalysisResultsFile.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ForecastChangeActionPlanFile.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ForecastPeriod.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ForecastPeriodCompetitorValue.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ForecastPeriodDocFile.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ForecastPeriodResultRemark.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ForecastPeriodToolAndMethod.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ForecastTool.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ForecastValueAndRealValue.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Goal.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GoalMetadata.cs" />
+    <Compile Include="Models\ImportantIndicatorResultMeasurement.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ImportantIndicatorTargetMeasurement.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -184,6 +214,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PeriodMonthOrQuaterOrYear.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SEOPlan.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -317,6 +350,11 @@
     <Content Include="Views\Shared\EditorTemplates\ImportantIndicatorTargetMeasurement.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\IndicatorTarget.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SubTarget.cshtml" />
+    <Content Include="Views\IndicatorTargetAndResults\Result.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\IndicatorOwnerDisabled.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ImportantIndicatorTargetMeasurementDisabled.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SubTargetDisabled.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ImportantIndicatorResultMeasurement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,6 +7,146 @@
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="Division" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="ForecastAnalysisResultsFile">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ForecastPeriodResultRemarkID" Type="int" />
+    <Property Name="FilePathID" Type="int" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" Nullable="false" />
+    <Property Name="IsLastDelete" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ForecastChangeActionPlanFile">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ForecastPeriodResultRemarkID" Type="int" />
+    <Property Name="FilePathID" Type="int" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" Nullable="false" />
+    <Property Name="IsLastDelete" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ForecastPeriod">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ImportantIndicatorResultMeasurementID" Type="int" />
+    <Property Name="MonthOrQuaterOrYear" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" Nullable="false" />
+    <Property Name="IsLastDelete" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ForecastPeriodCompetitorValue">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ForecastPeriodID" Type="int" />
+    <Property Name="Detail" Type="nvarchar(max)" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" Nullable="false" />
+    <Property Name="IsLastDelete" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ForecastPeriodDocFile">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ForecastPeriodResultRemarkID" Type="int" />
+    <Property Name="FilePathID" Type="int" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" Nullable="false" />
+    <Property Name="IsLastDelete" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ForecastPeriodResultRemark">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ForecastPeriodID" Type="int" />
+    <Property Name="HelpImproveIndicator" Type="nvarchar(max)" />
+    <Property Name="ProblemAndCorrection" Type="nvarchar(max)" />
+    <Property Name="ImprotantFactorsAndEvents" Type="nvarchar(max)" />
+    <Property Name="ReasonForToolChange" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsAnalysisResults" Type="bit" Nullable="false" />
+    <Property Name="AnalysisResults" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsChangeActionPlan" Type="bit" Nullable="false" />
+    <Property Name="ChangeActionPlan" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsChangeOperation" Type="bit" Nullable="false" />
+    <Property Name="ChangeOperation" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsOther" Type="bit" Nullable="false" />
+    <Property Name="Other" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" Nullable="false" />
+    <Property Name="IsLastDelete" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ForecastPeriodToolAndMethod">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ForecastPeriodID" Type="int" />
+    <Property Name="IsUse" Type="bit" Nullable="false" />
+    <Property Name="ForecastToolID" Type="int" />
+    <Property Name="OtherTool" Type="nvarchar" MaxLength="50" />
+    <Property Name="Method" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" Nullable="false" />
+    <Property Name="IsLastDelete" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ForecastTool">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ForecastTool" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" Nullable="false" />
+    <Property Name="IsLastDelete" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ForecastValueAndRealValue">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ForecastPeriodID" Type="int" />
+    <Property Name="ForecastValue" Type="float" />
+    <Property Name="RealValue" Type="float" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" Nullable="false" />
+    <Property Name="IsLastDelete" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="Goal">
     <Key>
       <PropertyRef Name="ID" />
@@ -21,6 +161,21 @@
     <Property Name="UpdateDate" Type="datetime" />
     <Property Name="IsDelete" Type="bit" />
     <Property Name="IsLastDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="ImportantIndicatorResultMeasurement">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="IndicatorID" Type="int" />
+    <Property Name="Year" Type="int" />
+    <Property Name="PeriodMonthOrQuaterOrYearID" Type="int" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="Isdelete" Type="bit" Nullable="false" />
+    <Property Name="IsLastDelete" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="ImportantIndicatorTargetMeasurement">
     <Key>
@@ -126,6 +281,19 @@
     <Property Name="IsDelete" Type="bit" />
     <Property Name="IsLastDelete" Type="bit" />
   </EntityType>
+  <EntityType Name="PeriodMonthOrQuaterOrYear">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Period" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" Nullable="false" />
+    <Property Name="IsLastDelete" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="SEOPlan">
     <Key>
       <PropertyRef Name="ID" />
@@ -185,6 +353,126 @@
     <Property Name="IsDelete" Type="bit" />
     <Property Name="IsLastDelete" Type="bit" />
   </EntityType>
+  <Association Name="FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID">
+    <End Role="ForecastPeriod" Type="Self.ForecastPeriod" Multiplicity="0..1" />
+    <End Role="ForecastPeriodCompetitorValue" Type="Self.ForecastPeriodCompetitorValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriod">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastPeriodCompetitorValue">
+        <PropertyRef Name="ForecastPeriodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastPeriod_ID___ForecastPeriodResultRemark_ForecastPeriodID">
+    <End Role="ForecastPeriod" Type="Self.ForecastPeriod" Multiplicity="0..1" />
+    <End Role="ForecastPeriodResultRemark" Type="Self.ForecastPeriodResultRemark" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriod">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastPeriodResultRemark">
+        <PropertyRef Name="ForecastPeriodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastPeriod_ID___ForecastValueAndRealValue_ForecastPeriodID">
+    <End Role="ForecastPeriod" Type="Self.ForecastPeriod" Multiplicity="0..1" />
+    <End Role="ForecastValueAndRealValue" Type="Self.ForecastValueAndRealValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriod">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastValueAndRealValue">
+        <PropertyRef Name="ForecastPeriodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastPeriodID___ForecastPeriodToolAndMethod_ForecastPeriodID">
+    <End Role="ForecastPeriod" Type="Self.ForecastPeriod" Multiplicity="0..1" />
+    <End Role="ForecastPeriodToolAndMethod" Type="Self.ForecastPeriodToolAndMethod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriod">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastPeriodToolAndMethod">
+        <PropertyRef Name="ForecastPeriodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastPeriodResultRemark_ID___ForecastAnalysisResultsFile_ForecastPeriodResultRemarkID">
+    <End Role="ForecastPeriodResultRemark" Type="Self.ForecastPeriodResultRemark" Multiplicity="0..1" />
+    <End Role="ForecastAnalysisResultsFile" Type="Self.ForecastAnalysisResultsFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriodResultRemark">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastAnalysisResultsFile">
+        <PropertyRef Name="ForecastPeriodResultRemarkID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastPeriodResultRemark_ID___ForecastChangeActionPlanFile_ForecastPeriodResultRemarkID">
+    <End Role="ForecastPeriodResultRemark" Type="Self.ForecastPeriodResultRemark" Multiplicity="0..1" />
+    <End Role="ForecastChangeActionPlanFile" Type="Self.ForecastChangeActionPlanFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriodResultRemark">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastChangeActionPlanFile">
+        <PropertyRef Name="ForecastPeriodResultRemarkID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastPeriodResultRemark_ID___ForecastPeriodDocFile_ForecastPeriodResultRemarkID">
+    <End Role="ForecastPeriodResultRemark" Type="Self.ForecastPeriodResultRemark" Multiplicity="0..1" />
+    <End Role="ForecastPeriodDocFile" Type="Self.ForecastPeriodDocFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriodResultRemark">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastPeriodDocFile">
+        <PropertyRef Name="ForecastPeriodResultRemarkID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastTool_ID___ForecastPeriodToolAndMethod_ForecastToolID">
+    <End Role="ForecastTool" Type="Self.ForecastTool" Multiplicity="0..1" />
+    <End Role="ForecastPeriodToolAndMethod" Type="Self.ForecastPeriodToolAndMethod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastTool">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastPeriodToolAndMethod">
+        <PropertyRef Name="ForecastToolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ImportantIndicatorResultMeasurement_ID___ForecastPeriod_ImportantIndicatorResultMeasurementID">
+    <End Role="ImportantIndicatorResultMeasurement" Type="Self.ImportantIndicatorResultMeasurement" Multiplicity="0..1" />
+    <End Role="ForecastPeriod" Type="Self.ForecastPeriod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ImportantIndicatorResultMeasurement">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastPeriod">
+        <PropertyRef Name="ImportantIndicatorResultMeasurementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Indicator_ID__ImportantIndicatorResultMeasurement_IndicatorID">
+    <End Role="Indicator" Type="Self.Indicator" Multiplicity="0..1" />
+    <End Role="ImportantIndicatorResultMeasurement" Type="Self.ImportantIndicatorResultMeasurement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicator">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ImportantIndicatorResultMeasurement">
+        <PropertyRef Name="IndicatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID">
     <End Role="Indicator" Type="Self.Indicator" Multiplicity="0..1" />
     <End Role="ImportantIndicatorTargetMeasurement" Type="Self.ImportantIndicatorTargetMeasurement" Multiplicity="*" />
@@ -281,6 +569,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PeriodMonthOrQuaterOrYear_ID_ImportantIndicatorResultMeasurement_PeriodMonthOrQuaterOrYearID">
+    <End Role="PeriodMonthOrQuaterOrYear" Type="Self.PeriodMonthOrQuaterOrYear" Multiplicity="0..1" />
+    <End Role="ImportantIndicatorResultMeasurement" Type="Self.ImportantIndicatorResultMeasurement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PeriodMonthOrQuaterOrYear">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ImportantIndicatorResultMeasurement">
+        <PropertyRef Name="PeriodMonthOrQuaterOrYearID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SEOPlanID_StrategicObjectiveSEOPlanID">
     <End Role="SEOPlan" Type="Self.SEOPlan" Multiplicity="0..1" />
     <End Role="StrategicObjective" Type="Self.StrategicObjective" Multiplicity="*" />
@@ -331,7 +631,17 @@
   </Association>
   <EntityContainer Name="MRTModelStoreContainer">
     <EntitySet Name="DataOwner" EntityType="Self.DataOwner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForecastAnalysisResultsFile" EntityType="Self.ForecastAnalysisResultsFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForecastChangeActionPlanFile" EntityType="Self.ForecastChangeActionPlanFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForecastPeriod" EntityType="Self.ForecastPeriod" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForecastPeriodCompetitorValue" EntityType="Self.ForecastPeriodCompetitorValue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForecastPeriodDocFile" EntityType="Self.ForecastPeriodDocFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForecastPeriodResultRemark" EntityType="Self.ForecastPeriodResultRemark" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForecastPeriodToolAndMethod" EntityType="Self.ForecastPeriodToolAndMethod" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForecastTool" EntityType="Self.ForecastTool" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForecastValueAndRealValue" EntityType="Self.ForecastValueAndRealValue" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Goal" EntityType="Self.Goal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ImportantIndicatorResultMeasurement" EntityType="Self.ImportantIndicatorResultMeasurement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ImportantIndicatorTargetMeasurement" EntityType="Self.ImportantIndicatorTargetMeasurement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Indicator" EntityType="Self.Indicator" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="IndicatorDetailStatus" EntityType="Self.IndicatorDetailStatus" Schema="dbo" store:Type="Tables" />
@@ -339,10 +649,51 @@
     <EntitySet Name="IndicatorType" EntityType="Self.IndicatorType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="IndicatorUnit" EntityType="Self.IndicatorUnit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="IndicatorXIndicatorType" EntityType="Self.IndicatorXIndicatorType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PeriodMonthOrQuaterOrYear" EntityType="Self.PeriodMonthOrQuaterOrYear" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SEOPlan" EntityType="Self.SEOPlan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Stategy" EntityType="Self.Stategy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StrategicObjective" EntityType="Self.StrategicObjective" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tactic" EntityType="Self.Tactic" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID" Association="Self.FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID">
+      <End Role="ForecastPeriod" EntitySet="ForecastPeriod" />
+      <End Role="ForecastPeriodCompetitorValue" EntitySet="ForecastPeriodCompetitorValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastPeriod_ID___ForecastPeriodResultRemark_ForecastPeriodID" Association="Self.FK_ForecastPeriod_ID___ForecastPeriodResultRemark_ForecastPeriodID">
+      <End Role="ForecastPeriod" EntitySet="ForecastPeriod" />
+      <End Role="ForecastPeriodResultRemark" EntitySet="ForecastPeriodResultRemark" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastPeriod_ID___ForecastValueAndRealValue_ForecastPeriodID" Association="Self.FK_ForecastPeriod_ID___ForecastValueAndRealValue_ForecastPeriodID">
+      <End Role="ForecastPeriod" EntitySet="ForecastPeriod" />
+      <End Role="ForecastValueAndRealValue" EntitySet="ForecastValueAndRealValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastPeriodID___ForecastPeriodToolAndMethod_ForecastPeriodID" Association="Self.FK_ForecastPeriodID___ForecastPeriodToolAndMethod_ForecastPeriodID">
+      <End Role="ForecastPeriod" EntitySet="ForecastPeriod" />
+      <End Role="ForecastPeriodToolAndMethod" EntitySet="ForecastPeriodToolAndMethod" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastPeriodResultRemark_ID___ForecastAnalysisResultsFile_ForecastPeriodResultRemarkID" Association="Self.FK_ForecastPeriodResultRemark_ID___ForecastAnalysisResultsFile_ForecastPeriodResultRemarkID">
+      <End Role="ForecastPeriodResultRemark" EntitySet="ForecastPeriodResultRemark" />
+      <End Role="ForecastAnalysisResultsFile" EntitySet="ForecastAnalysisResultsFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastPeriodResultRemark_ID___ForecastChangeActionPlanFile_ForecastPeriodResultRemarkID" Association="Self.FK_ForecastPeriodResultRemark_ID___ForecastChangeActionPlanFile_ForecastPeriodResultRemarkID">
+      <End Role="ForecastPeriodResultRemark" EntitySet="ForecastPeriodResultRemark" />
+      <End Role="ForecastChangeActionPlanFile" EntitySet="ForecastChangeActionPlanFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastPeriodResultRemark_ID___ForecastPeriodDocFile_ForecastPeriodResultRemarkID" Association="Self.FK_ForecastPeriodResultRemark_ID___ForecastPeriodDocFile_ForecastPeriodResultRemarkID">
+      <End Role="ForecastPeriodResultRemark" EntitySet="ForecastPeriodResultRemark" />
+      <End Role="ForecastPeriodDocFile" EntitySet="ForecastPeriodDocFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastTool_ID___ForecastPeriodToolAndMethod_ForecastToolID" Association="Self.FK_ForecastTool_ID___ForecastPeriodToolAndMethod_ForecastToolID">
+      <End Role="ForecastTool" EntitySet="ForecastTool" />
+      <End Role="ForecastPeriodToolAndMethod" EntitySet="ForecastPeriodToolAndMethod" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ImportantIndicatorResultMeasurement_ID___ForecastPeriod_ImportantIndicatorResultMeasurementID" Association="Self.FK_ImportantIndicatorResultMeasurement_ID___ForecastPeriod_ImportantIndicatorResultMeasurementID">
+      <End Role="ImportantIndicatorResultMeasurement" EntitySet="ImportantIndicatorResultMeasurement" />
+      <End Role="ForecastPeriod" EntitySet="ForecastPeriod" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Indicator_ID__ImportantIndicatorResultMeasurement_IndicatorID" Association="Self.FK_Indicator_ID__ImportantIndicatorResultMeasurement_IndicatorID">
+      <End Role="Indicator" EntitySet="Indicator" />
+      <End Role="ImportantIndicatorResultMeasurement" EntitySet="ImportantIndicatorResultMeasurement" />
+    </AssociationSet>
     <AssociationSet Name="FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID" Association="Self.FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID">
       <End Role="Indicator" EntitySet="Indicator" />
       <End Role="ImportantIndicatorTargetMeasurement" EntitySet="ImportantIndicatorTargetMeasurement" />
@@ -374,6 +725,10 @@
     <AssociationSet Name="FK_IndicatorUnit_ID__ImportantIndicatorTargetMeasurement_IndicatorUnitID" Association="Self.FK_IndicatorUnit_ID__ImportantIndicatorTargetMeasurement_IndicatorUnitID">
       <End Role="IndicatorUnit" EntitySet="IndicatorUnit" />
       <End Role="ImportantIndicatorTargetMeasurement" EntitySet="ImportantIndicatorTargetMeasurement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PeriodMonthOrQuaterOrYear_ID_ImportantIndicatorResultMeasurement_PeriodMonthOrQuaterOrYearID" Association="Self.FK_PeriodMonthOrQuaterOrYear_ID_ImportantIndicatorResultMeasurement_PeriodMonthOrQuaterOrYearID">
+      <End Role="PeriodMonthOrQuaterOrYear" EntitySet="PeriodMonthOrQuaterOrYear" />
+      <End Role="ImportantIndicatorResultMeasurement" EntitySet="ImportantIndicatorResultMeasurement" />
     </AssociationSet>
     <AssociationSet Name="FK_SEOPlanID_StrategicObjectiveSEOPlanID" Association="Self.FK_SEOPlanID_StrategicObjectiveSEOPlanID">
       <End Role="SEOPlan" EntitySet="SEOPlan" />

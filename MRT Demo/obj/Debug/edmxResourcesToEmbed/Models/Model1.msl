@@ -199,5 +199,184 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ForecastAnalysisResultsFile">
+      <EntityTypeMapping TypeName="MRTModel.ForecastAnalysisResultsFile">
+        <MappingFragment StoreEntitySet="ForecastAnalysisResultsFile">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="FilePathID" ColumnName="FilePathID" />
+          <ScalarProperty Name="ForecastPeriodResultRemarkID" ColumnName="ForecastPeriodResultRemarkID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ForecastChangeActionPlanFile">
+      <EntityTypeMapping TypeName="MRTModel.ForecastChangeActionPlanFile">
+        <MappingFragment StoreEntitySet="ForecastChangeActionPlanFile">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="FilePathID" ColumnName="FilePathID" />
+          <ScalarProperty Name="ForecastPeriodResultRemarkID" ColumnName="ForecastPeriodResultRemarkID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ForecastPeriod">
+      <EntityTypeMapping TypeName="MRTModel.ForecastPeriod">
+        <MappingFragment StoreEntitySet="ForecastPeriod">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="MonthOrQuaterOrYear" ColumnName="MonthOrQuaterOrYear" />
+          <ScalarProperty Name="ImportantIndicatorResultMeasurementID" ColumnName="ImportantIndicatorResultMeasurementID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ForecastPeriodDocFile">
+      <EntityTypeMapping TypeName="MRTModel.ForecastPeriodDocFile">
+        <MappingFragment StoreEntitySet="ForecastPeriodDocFile">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="FilePathID" ColumnName="FilePathID" />
+          <ScalarProperty Name="ForecastPeriodResultRemarkID" ColumnName="ForecastPeriodResultRemarkID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ForecastPeriodResultRemark">
+      <EntityTypeMapping TypeName="MRTModel.ForecastPeriodResultRemark">
+        <MappingFragment StoreEntitySet="ForecastPeriodResultRemark">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+          <ScalarProperty Name="IsOther" ColumnName="IsOther" />
+          <ScalarProperty Name="ChangeOperation" ColumnName="ChangeOperation" />
+          <ScalarProperty Name="IsChangeOperation" ColumnName="IsChangeOperation" />
+          <ScalarProperty Name="ChangeActionPlan" ColumnName="ChangeActionPlan" />
+          <ScalarProperty Name="IsChangeActionPlan" ColumnName="IsChangeActionPlan" />
+          <ScalarProperty Name="AnalysisResults" ColumnName="AnalysisResults" />
+          <ScalarProperty Name="IsAnalysisResults" ColumnName="IsAnalysisResults" />
+          <ScalarProperty Name="ReasonForToolChange" ColumnName="ReasonForToolChange" />
+          <ScalarProperty Name="ImprotantFactorsAndEvents" ColumnName="ImprotantFactorsAndEvents" />
+          <ScalarProperty Name="ProblemAndCorrection" ColumnName="ProblemAndCorrection" />
+          <ScalarProperty Name="HelpImproveIndicator" ColumnName="HelpImproveIndicator" />
+          <ScalarProperty Name="ForecastPeriodID" ColumnName="ForecastPeriodID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ForecastPeriodToolAndMethod">
+      <EntityTypeMapping TypeName="MRTModel.ForecastPeriodToolAndMethod">
+        <MappingFragment StoreEntitySet="ForecastPeriodToolAndMethod">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Method" ColumnName="Method" />
+          <ScalarProperty Name="OtherTool" ColumnName="OtherTool" />
+          <ScalarProperty Name="ForecastToolID" ColumnName="ForecastToolID" />
+          <ScalarProperty Name="IsUse" ColumnName="IsUse" />
+          <ScalarProperty Name="ForecastPeriodID" ColumnName="ForecastPeriodID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ForecastTool">
+      <EntityTypeMapping TypeName="MRTModel.ForecastTool">
+        <MappingFragment StoreEntitySet="ForecastTool">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="ForecastTool1" ColumnName="ForecastTool" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ForecastValueAndRealValue">
+      <EntityTypeMapping TypeName="MRTModel.ForecastValueAndRealValue">
+        <MappingFragment StoreEntitySet="ForecastValueAndRealValue">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="RealValue" ColumnName="RealValue" />
+          <ScalarProperty Name="ForecastValue" ColumnName="ForecastValue" />
+          <ScalarProperty Name="ForecastPeriodID" ColumnName="ForecastPeriodID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImportantIndicatorResultMeasurement">
+      <EntityTypeMapping TypeName="MRTModel.ImportantIndicatorResultMeasurement">
+        <MappingFragment StoreEntitySet="ImportantIndicatorResultMeasurement">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="Isdelete" ColumnName="Isdelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="PeriodMonthOrQuaterOrYearID" ColumnName="PeriodMonthOrQuaterOrYearID" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="IndicatorID" ColumnName="IndicatorID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PeriodMonthOrQuaterOrYear">
+      <EntityTypeMapping TypeName="MRTModel.PeriodMonthOrQuaterOrYear">
+        <MappingFragment StoreEntitySet="PeriodMonthOrQuaterOrYear">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Period" ColumnName="Period" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ForecastPeriodCompetitorValue">
+      <EntityTypeMapping TypeName="MRTModel.ForecastPeriodCompetitorValue">
+        <MappingFragment StoreEntitySet="ForecastPeriodCompetitorValue">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Detail" ColumnName="Detail" />
+          <ScalarProperty Name="ForecastPeriodID" ColumnName="ForecastPeriodID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

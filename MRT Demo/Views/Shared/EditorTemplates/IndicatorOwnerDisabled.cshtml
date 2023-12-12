@@ -1,0 +1,21 @@
+﻿@model MRT_Demo.Models.IndicatorOwner
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.IndicatorID)
+@Html.HiddenFor(m => m.IsDelete)
+@Html.HiddenFor(m => m.IsLastDelete)
+@Html.HiddenFor(m => m.CreateDate)
+@Html.HiddenFor(m => m.UpdateDate)
+@Html.HiddenFor(m => m.UpdateBy)
+@Html.HiddenFor(m => m.CreateBy)
+
+@if (Model.IsDelete == false)
+{
+    <tr>
+        <td>
+            @Html.DropDownListFor(m => m.Division, new SelectList(ViewBag.DivisionBag,"Value","Text",Model.Division), "Select Owner", new { @class = "form-control" ,disabled = "disabled"})
+        </td>
+    </tr>
+
+}
+
+

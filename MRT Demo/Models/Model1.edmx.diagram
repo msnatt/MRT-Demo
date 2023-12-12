@@ -30,6 +30,28 @@
         <AssociationConnector Association="MRTModel.FK_IndicatorType_ID__ImportantIndicatorTargetMeasurement_IndicatorTypeID" />
         <AssociationConnector Association="MRTModel.FK_IndicatorUnit_ID__ImportantIndicatorTargetMeasurement_IndicatorUnitID" />
         <EntityTypeShape EntityType="MRTModel.DataOwner" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MRTModel.ForecastAnalysisResultsFile" Width="1.5" PointX="18" PointY="9.125" />
+        <EntityTypeShape EntityType="MRTModel.ForecastChangeActionPlanFile" Width="1.5" PointX="18" PointY="12.5" />
+        <EntityTypeShape EntityType="MRTModel.ForecastPeriod" Width="1.5" PointX="13.5" PointY="13.75" />
+        <EntityTypeShape EntityType="MRTModel.ForecastPeriodDocFile" Width="1.5" PointX="18" PointY="15.875" />
+        <EntityTypeShape EntityType="MRTModel.ForecastPeriodResultRemark" Width="1.5" PointX="15.75" PointY="10.875" />
+        <EntityTypeShape EntityType="MRTModel.ForecastPeriodToolAndMethod" Width="1.5" PointX="15.75" PointY="17.125" />
+        <EntityTypeShape EntityType="MRTModel.ForecastTool" Width="1.5" PointX="18" PointY="19.25" />
+        <EntityTypeShape EntityType="MRTModel.ForecastValueAndRealValue" Width="1.5" PointX="11.25" PointY="18.375" />
+        <EntityTypeShape EntityType="MRTModel.ImportantIndicatorResultMeasurement" Width="1.5" PointX="11.25" PointY="8" />
+        <EntityTypeShape EntityType="MRTModel.PeriodMonthOrQuaterOrYear" Width="1.5" PointX="11.25" PointY="11.875" />
+        <AssociationConnector Association="MRTModel.FK_ForecastPeriodResultRemark_ID___ForecastAnalysisResultsFile_ForecastPeriodResultRemarkID" />
+        <AssociationConnector Association="MRTModel.FK_ForecastPeriodResultRemark_ID___ForecastChangeActionPlanFile_ForecastPeriodResultRemarkID" />
+        <AssociationConnector Association="MRTModel.FK_ForecastPeriod_ID___ForecastPeriodResultRemark_ForecastPeriodID" />
+        <AssociationConnector Association="MRTModel.FK_ForecastPeriod_ID___ForecastValueAndRealValue_ForecastPeriodID" />
+        <AssociationConnector Association="MRTModel.FK_ForecastPeriodID___ForecastPeriodToolAndMethod_ForecastPeriodID" />
+        <AssociationConnector Association="MRTModel.FK_ImportantIndicatorResultMeasurement_ID___ForecastPeriod_ImportantIndicatorResultMeasurementID" />
+        <AssociationConnector Association="MRTModel.FK_ForecastPeriodResultRemark_ID___ForecastPeriodDocFile_ForecastPeriodResultRemarkID" />
+        <AssociationConnector Association="MRTModel.FK_ForecastTool_ID___ForecastPeriodToolAndMethod_ForecastToolID" />
+        <AssociationConnector Association="MRTModel.FK_Indicator_ID__ImportantIndicatorResultMeasurement_IndicatorID" />
+        <AssociationConnector Association="MRTModel.FK_PeriodMonthOrQuaterOrYear_ID_ImportantIndicatorResultMeasurement_PeriodMonthOrQuaterOrYearID" />
+        <EntityTypeShape EntityType="MRTModel.ForecastPeriodCompetitorValue" Width="1.5" PointX="11.25" PointY="15" />
+        <AssociationConnector Association="MRTModel.FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

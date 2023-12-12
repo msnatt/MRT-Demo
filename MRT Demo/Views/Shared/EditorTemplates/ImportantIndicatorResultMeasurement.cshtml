@@ -1,0 +1,37 @@
+﻿@model MRT_Demo.Models.ImportantIndicatorResultMeasurement
+
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.IndicatorID)
+@Html.HiddenFor(m => m.Isdelete)
+@Html.HiddenFor(m => m.IsLastDelete)
+@Html.HiddenFor(m => m.CreateDate)
+@Html.HiddenFor(m => m.UpdateDate)
+@Html.HiddenFor(m => m.CreateBy)
+@Html.HiddenFor(m => m.UpdateBy)
+
+
+
+<div class="row">
+    <div class="offset-md-2 col-md-1 text-end">
+        @Html.DisplayName("ความถี่ : ")
+    </div>
+    <div class="col-md-2">
+        @Html.RadioButtonFor(m => m.PeriodMonthOrQuaterOrYearID, 1, new { onchange = "FuncChangePeriod()" })
+        @Html.DisplayName("รายเดือน")
+    </div>
+    <div class="col-md-2">
+        @Html.RadioButtonFor(m => m.PeriodMonthOrQuaterOrYearID, 2, new { onchange = "FuncChangePeriod()" })
+        @Html.DisplayName("รายไตรมาส")
+    </div>
+    <div class="col-md-2">
+        @Html.RadioButtonFor(m => m.PeriodMonthOrQuaterOrYearID, 3, new { onchange = "FuncChangePeriod()" })
+        @Html.DisplayName("รายปี")
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="offset-md-3 col-md-9">
+        <input value="เดือนตุลาคม" />
+    </div>
+</div>

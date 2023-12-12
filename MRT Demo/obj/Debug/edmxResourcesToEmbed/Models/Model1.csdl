@@ -62,6 +62,61 @@
       <End Role="ImportantIndicatorTargetMeasurement" EntitySet="ImportantIndicatorTargetMeasurements" />
     </AssociationSet>
     <EntitySet Name="DataOwner" EntityType="MRTModel.DataOwner" />
+    <EntitySet Name="ForecastAnalysisResultsFile" EntityType="MRTModel.ForecastAnalysisResultsFile" />
+    <EntitySet Name="ForecastChangeActionPlanFile" EntityType="MRTModel.ForecastChangeActionPlanFile" />
+    <EntitySet Name="ForecastPeriod" EntityType="MRTModel.ForecastPeriod" />
+    <EntitySet Name="ForecastPeriodDocFile" EntityType="MRTModel.ForecastPeriodDocFile" />
+    <EntitySet Name="ForecastPeriodResultRemark" EntityType="MRTModel.ForecastPeriodResultRemark" />
+    <EntitySet Name="ForecastPeriodToolAndMethod" EntityType="MRTModel.ForecastPeriodToolAndMethod" />
+    <EntitySet Name="ForecastTool" EntityType="MRTModel.ForecastTool" />
+    <EntitySet Name="ForecastValueAndRealValue" EntityType="MRTModel.ForecastValueAndRealValue" />
+    <EntitySet Name="ImportantIndicatorResultMeasurement" EntityType="MRTModel.ImportantIndicatorResultMeasurement" />
+    <EntitySet Name="PeriodMonthOrQuaterOrYear" EntityType="MRTModel.PeriodMonthOrQuaterOrYear" />
+    <AssociationSet Name="FK_ForecastPeriodResultRemark_ID___ForecastAnalysisResultsFile_ForecastPeriodResultRemarkID" Association="MRTModel.FK_ForecastPeriodResultRemark_ID___ForecastAnalysisResultsFile_ForecastPeriodResultRemarkID">
+      <End Role="ForecastPeriodResultRemark" EntitySet="ForecastPeriodResultRemark" />
+      <End Role="ForecastAnalysisResultsFile" EntitySet="ForecastAnalysisResultsFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastPeriodResultRemark_ID___ForecastChangeActionPlanFile_ForecastPeriodResultRemarkID" Association="MRTModel.FK_ForecastPeriodResultRemark_ID___ForecastChangeActionPlanFile_ForecastPeriodResultRemarkID">
+      <End Role="ForecastPeriodResultRemark" EntitySet="ForecastPeriodResultRemark" />
+      <End Role="ForecastChangeActionPlanFile" EntitySet="ForecastChangeActionPlanFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastPeriod_ID___ForecastPeriodResultRemark_ForecastPeriodID" Association="MRTModel.FK_ForecastPeriod_ID___ForecastPeriodResultRemark_ForecastPeriodID">
+      <End Role="ForecastPeriod" EntitySet="ForecastPeriod" />
+      <End Role="ForecastPeriodResultRemark" EntitySet="ForecastPeriodResultRemark" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastPeriod_ID___ForecastValueAndRealValue_ForecastPeriodID" Association="MRTModel.FK_ForecastPeriod_ID___ForecastValueAndRealValue_ForecastPeriodID">
+      <End Role="ForecastPeriod" EntitySet="ForecastPeriod" />
+      <End Role="ForecastValueAndRealValue" EntitySet="ForecastValueAndRealValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastPeriodID___ForecastPeriodToolAndMethod_ForecastPeriodID" Association="MRTModel.FK_ForecastPeriodID___ForecastPeriodToolAndMethod_ForecastPeriodID">
+      <End Role="ForecastPeriod" EntitySet="ForecastPeriod" />
+      <End Role="ForecastPeriodToolAndMethod" EntitySet="ForecastPeriodToolAndMethod" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ImportantIndicatorResultMeasurement_ID___ForecastPeriod_ImportantIndicatorResultMeasurementID" Association="MRTModel.FK_ImportantIndicatorResultMeasurement_ID___ForecastPeriod_ImportantIndicatorResultMeasurementID">
+      <End Role="ImportantIndicatorResultMeasurement" EntitySet="ImportantIndicatorResultMeasurement" />
+      <End Role="ForecastPeriod" EntitySet="ForecastPeriod" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastPeriodResultRemark_ID___ForecastPeriodDocFile_ForecastPeriodResultRemarkID" Association="MRTModel.FK_ForecastPeriodResultRemark_ID___ForecastPeriodDocFile_ForecastPeriodResultRemarkID">
+      <End Role="ForecastPeriodResultRemark" EntitySet="ForecastPeriodResultRemark" />
+      <End Role="ForecastPeriodDocFile" EntitySet="ForecastPeriodDocFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastTool_ID___ForecastPeriodToolAndMethod_ForecastToolID" Association="MRTModel.FK_ForecastTool_ID___ForecastPeriodToolAndMethod_ForecastToolID">
+      <End Role="ForecastTool" EntitySet="ForecastTool" />
+      <End Role="ForecastPeriodToolAndMethod" EntitySet="ForecastPeriodToolAndMethod" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Indicator_ID__ImportantIndicatorResultMeasurement_IndicatorID" Association="MRTModel.FK_Indicator_ID__ImportantIndicatorResultMeasurement_IndicatorID">
+      <End Role="Indicator" EntitySet="Indicators" />
+      <End Role="ImportantIndicatorResultMeasurement" EntitySet="ImportantIndicatorResultMeasurement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PeriodMonthOrQuaterOrYear_ID_ImportantIndicatorResultMeasurement_PeriodMonthOrQuaterOrYearID" Association="MRTModel.FK_PeriodMonthOrQuaterOrYear_ID_ImportantIndicatorResultMeasurement_PeriodMonthOrQuaterOrYearID">
+      <End Role="PeriodMonthOrQuaterOrYear" EntitySet="PeriodMonthOrQuaterOrYear" />
+      <End Role="ImportantIndicatorResultMeasurement" EntitySet="ImportantIndicatorResultMeasurement" />
+    </AssociationSet>
+    <EntitySet Name="ForecastPeriodCompetitorValue" EntityType="MRTModel.ForecastPeriodCompetitorValue" />
+    <AssociationSet Name="FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID" Association="MRTModel.FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID">
+      <End Role="ForecastPeriod" EntitySet="ForecastPeriod" />
+      <End Role="ForecastPeriodCompetitorValue" EntitySet="ForecastPeriodCompetitorValue" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Goal">
     <Key>
@@ -120,6 +175,7 @@
     <NavigationProperty Name="IndicatorXIndicatorTypes" Relationship="MRTModel.FK_Indicator_ID__IndicatorXIndicatorType_IndicatorID" FromRole="Indicator" ToRole="IndicatorXIndicatorType" />
     <NavigationProperty Name="IndicatorDetailStatus" Relationship="MRTModel.FK_IndicatorDetailStatus_ID__Indicator_IndicatorDetailStatusID" FromRole="Indicator" ToRole="IndicatorDetailStatus" />
     <NavigationProperty Name="ImportantIndicatorTargetMeasurement" Relationship="MRTModel.FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID" FromRole="Indicator" ToRole="ImportantIndicatorTargetMeasurement" />
+    <NavigationProperty Name="ImportantIndicatorResultMeasurement" Relationship="MRTModel.FK_Indicator_ID__ImportantIndicatorResultMeasurement_IndicatorID" FromRole="Indicator" ToRole="ImportantIndicatorResultMeasurement" />
   </EntityType>
   <EntityType Name="IndicatorOwner">
     <Key>
@@ -416,4 +472,325 @@
     <Property Name="ID" Type="Int32" Nullable="false" />
     <Property Name="Division" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="ForecastAnalysisResultsFile">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ForecastPeriodResultRemarkID" Type="Int32" />
+    <Property Name="FilePathID" Type="Int32" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+    <Property Name="IsLastDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ForecastPeriodResultRemark" Relationship="MRTModel.FK_ForecastPeriodResultRemark_ID___ForecastAnalysisResultsFile_ForecastPeriodResultRemarkID" FromRole="ForecastAnalysisResultsFile" ToRole="ForecastPeriodResultRemark" />
+  </EntityType>
+  <EntityType Name="ForecastChangeActionPlanFile">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ForecastPeriodResultRemarkID" Type="Int32" />
+    <Property Name="FilePathID" Type="Int32" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+    <Property Name="IsLastDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ForecastPeriodResultRemark" Relationship="MRTModel.FK_ForecastPeriodResultRemark_ID___ForecastChangeActionPlanFile_ForecastPeriodResultRemarkID" FromRole="ForecastChangeActionPlanFile" ToRole="ForecastPeriodResultRemark" />
+  </EntityType>
+  <EntityType Name="ForecastPeriod">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ImportantIndicatorResultMeasurementID" Type="Int32" />
+    <Property Name="MonthOrQuaterOrYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+    <Property Name="IsLastDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ForecastPeriodResultRemark" Relationship="MRTModel.FK_ForecastPeriod_ID___ForecastPeriodResultRemark_ForecastPeriodID" FromRole="ForecastPeriod" ToRole="ForecastPeriodResultRemark" />
+    <NavigationProperty Name="ForecastValueAndRealValue" Relationship="MRTModel.FK_ForecastPeriod_ID___ForecastValueAndRealValue_ForecastPeriodID" FromRole="ForecastPeriod" ToRole="ForecastValueAndRealValue" />
+    <NavigationProperty Name="ForecastPeriodToolAndMethod" Relationship="MRTModel.FK_ForecastPeriodID___ForecastPeriodToolAndMethod_ForecastPeriodID" FromRole="ForecastPeriod" ToRole="ForecastPeriodToolAndMethod" />
+    <NavigationProperty Name="ImportantIndicatorResultMeasurement" Relationship="MRTModel.FK_ImportantIndicatorResultMeasurement_ID___ForecastPeriod_ImportantIndicatorResultMeasurementID" FromRole="ForecastPeriod" ToRole="ImportantIndicatorResultMeasurement" />
+    <NavigationProperty Name="ForecastPeriodCompetitorValue" Relationship="MRTModel.FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID" FromRole="ForecastPeriod" ToRole="ForecastPeriodCompetitorValue" />
+  </EntityType>
+  <EntityType Name="ForecastPeriodDocFile">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ForecastPeriodResultRemarkID" Type="Int32" />
+    <Property Name="FilePathID" Type="Int32" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+    <Property Name="IsLastDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ForecastPeriodResultRemark" Relationship="MRTModel.FK_ForecastPeriodResultRemark_ID___ForecastPeriodDocFile_ForecastPeriodResultRemarkID" FromRole="ForecastPeriodDocFile" ToRole="ForecastPeriodResultRemark" />
+  </EntityType>
+  <EntityType Name="ForecastPeriodResultRemark">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ForecastPeriodID" Type="Int32" />
+    <Property Name="HelpImproveIndicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProblemAndCorrection" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ImprotantFactorsAndEvents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ReasonForToolChange" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsAnalysisResults" Type="Boolean" Nullable="false" />
+    <Property Name="AnalysisResults" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsChangeActionPlan" Type="Boolean" Nullable="false" />
+    <Property Name="ChangeActionPlan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsChangeOperation" Type="Boolean" Nullable="false" />
+    <Property Name="ChangeOperation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsOther" Type="Boolean" Nullable="false" />
+    <Property Name="Other" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+    <Property Name="IsLastDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ForecastAnalysisResultsFile" Relationship="MRTModel.FK_ForecastPeriodResultRemark_ID___ForecastAnalysisResultsFile_ForecastPeriodResultRemarkID" FromRole="ForecastPeriodResultRemark" ToRole="ForecastAnalysisResultsFile" />
+    <NavigationProperty Name="ForecastChangeActionPlanFile" Relationship="MRTModel.FK_ForecastPeriodResultRemark_ID___ForecastChangeActionPlanFile_ForecastPeriodResultRemarkID" FromRole="ForecastPeriodResultRemark" ToRole="ForecastChangeActionPlanFile" />
+    <NavigationProperty Name="ForecastPeriod" Relationship="MRTModel.FK_ForecastPeriod_ID___ForecastPeriodResultRemark_ForecastPeriodID" FromRole="ForecastPeriodResultRemark" ToRole="ForecastPeriod" />
+    <NavigationProperty Name="ForecastPeriodDocFile" Relationship="MRTModel.FK_ForecastPeriodResultRemark_ID___ForecastPeriodDocFile_ForecastPeriodResultRemarkID" FromRole="ForecastPeriodResultRemark" ToRole="ForecastPeriodDocFile" />
+  </EntityType>
+  <EntityType Name="ForecastPeriodToolAndMethod">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ForecastPeriodID" Type="Int32" />
+    <Property Name="IsUse" Type="Boolean" Nullable="false" />
+    <Property Name="ForecastToolID" Type="Int32" />
+    <Property Name="OtherTool" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Method" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+    <Property Name="IsLastDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ForecastPeriod" Relationship="MRTModel.FK_ForecastPeriodID___ForecastPeriodToolAndMethod_ForecastPeriodID" FromRole="ForecastPeriodToolAndMethod" ToRole="ForecastPeriod" />
+    <NavigationProperty Name="ForecastTool" Relationship="MRTModel.FK_ForecastTool_ID___ForecastPeriodToolAndMethod_ForecastToolID" FromRole="ForecastPeriodToolAndMethod" ToRole="ForecastTool" />
+  </EntityType>
+  <EntityType Name="ForecastTool">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ForecastTool1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+    <Property Name="IsLastDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ForecastPeriodToolAndMethod" Relationship="MRTModel.FK_ForecastTool_ID___ForecastPeriodToolAndMethod_ForecastToolID" FromRole="ForecastTool" ToRole="ForecastPeriodToolAndMethod" />
+  </EntityType>
+  <EntityType Name="ForecastValueAndRealValue">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ForecastPeriodID" Type="Int32" />
+    <Property Name="ForecastValue" Type="Double" />
+    <Property Name="RealValue" Type="Double" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+    <Property Name="IsLastDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ForecastPeriod" Relationship="MRTModel.FK_ForecastPeriod_ID___ForecastValueAndRealValue_ForecastPeriodID" FromRole="ForecastValueAndRealValue" ToRole="ForecastPeriod" />
+  </EntityType>
+  <EntityType Name="ImportantIndicatorResultMeasurement">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="IndicatorID" Type="Int32" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="PeriodMonthOrQuaterOrYearID" Type="Int32" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="Isdelete" Type="Boolean" Nullable="false" />
+    <Property Name="IsLastDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ForecastPeriod" Relationship="MRTModel.FK_ImportantIndicatorResultMeasurement_ID___ForecastPeriod_ImportantIndicatorResultMeasurementID" FromRole="ImportantIndicatorResultMeasurement" ToRole="ForecastPeriod" />
+    <NavigationProperty Name="Indicator" Relationship="MRTModel.FK_Indicator_ID__ImportantIndicatorResultMeasurement_IndicatorID" FromRole="ImportantIndicatorResultMeasurement" ToRole="Indicator" />
+    <NavigationProperty Name="PeriodMonthOrQuaterOrYear" Relationship="MRTModel.FK_PeriodMonthOrQuaterOrYear_ID_ImportantIndicatorResultMeasurement_PeriodMonthOrQuaterOrYearID" FromRole="ImportantIndicatorResultMeasurement" ToRole="PeriodMonthOrQuaterOrYear" />
+  </EntityType>
+  <EntityType Name="PeriodMonthOrQuaterOrYear">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Period" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+    <Property Name="IsLastDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ImportantIndicatorResultMeasurement" Relationship="MRTModel.FK_PeriodMonthOrQuaterOrYear_ID_ImportantIndicatorResultMeasurement_PeriodMonthOrQuaterOrYearID" FromRole="PeriodMonthOrQuaterOrYear" ToRole="ImportantIndicatorResultMeasurement" />
+  </EntityType>
+  <Association Name="FK_ForecastPeriodResultRemark_ID___ForecastAnalysisResultsFile_ForecastPeriodResultRemarkID">
+    <End Type="MRTModel.ForecastPeriodResultRemark" Role="ForecastPeriodResultRemark" Multiplicity="0..1" />
+    <End Type="MRTModel.ForecastAnalysisResultsFile" Role="ForecastAnalysisResultsFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriodResultRemark">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastAnalysisResultsFile">
+        <PropertyRef Name="ForecastPeriodResultRemarkID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastPeriodResultRemark_ID___ForecastChangeActionPlanFile_ForecastPeriodResultRemarkID">
+    <End Type="MRTModel.ForecastPeriodResultRemark" Role="ForecastPeriodResultRemark" Multiplicity="0..1" />
+    <End Type="MRTModel.ForecastChangeActionPlanFile" Role="ForecastChangeActionPlanFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriodResultRemark">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastChangeActionPlanFile">
+        <PropertyRef Name="ForecastPeriodResultRemarkID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastPeriod_ID___ForecastPeriodResultRemark_ForecastPeriodID">
+    <End Type="MRTModel.ForecastPeriod" Role="ForecastPeriod" Multiplicity="0..1" />
+    <End Type="MRTModel.ForecastPeriodResultRemark" Role="ForecastPeriodResultRemark" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriod">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastPeriodResultRemark">
+        <PropertyRef Name="ForecastPeriodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastPeriod_ID___ForecastValueAndRealValue_ForecastPeriodID">
+    <End Type="MRTModel.ForecastPeriod" Role="ForecastPeriod" Multiplicity="0..1" />
+    <End Type="MRTModel.ForecastValueAndRealValue" Role="ForecastValueAndRealValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriod">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastValueAndRealValue">
+        <PropertyRef Name="ForecastPeriodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastPeriodID___ForecastPeriodToolAndMethod_ForecastPeriodID">
+    <End Type="MRTModel.ForecastPeriod" Role="ForecastPeriod" Multiplicity="0..1" />
+    <End Type="MRTModel.ForecastPeriodToolAndMethod" Role="ForecastPeriodToolAndMethod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriod">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastPeriodToolAndMethod">
+        <PropertyRef Name="ForecastPeriodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ImportantIndicatorResultMeasurement_ID___ForecastPeriod_ImportantIndicatorResultMeasurementID">
+    <End Type="MRTModel.ImportantIndicatorResultMeasurement" Role="ImportantIndicatorResultMeasurement" Multiplicity="0..1" />
+    <End Type="MRTModel.ForecastPeriod" Role="ForecastPeriod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ImportantIndicatorResultMeasurement">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastPeriod">
+        <PropertyRef Name="ImportantIndicatorResultMeasurementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastPeriodResultRemark_ID___ForecastPeriodDocFile_ForecastPeriodResultRemarkID">
+    <End Type="MRTModel.ForecastPeriodResultRemark" Role="ForecastPeriodResultRemark" Multiplicity="0..1" />
+    <End Type="MRTModel.ForecastPeriodDocFile" Role="ForecastPeriodDocFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriodResultRemark">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastPeriodDocFile">
+        <PropertyRef Name="ForecastPeriodResultRemarkID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastTool_ID___ForecastPeriodToolAndMethod_ForecastToolID">
+    <End Type="MRTModel.ForecastTool" Role="ForecastTool" Multiplicity="0..1" />
+    <End Type="MRTModel.ForecastPeriodToolAndMethod" Role="ForecastPeriodToolAndMethod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastTool">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastPeriodToolAndMethod">
+        <PropertyRef Name="ForecastToolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Indicator_ID__ImportantIndicatorResultMeasurement_IndicatorID">
+    <End Type="MRTModel.Indicator" Role="Indicator" Multiplicity="0..1" />
+    <End Type="MRTModel.ImportantIndicatorResultMeasurement" Role="ImportantIndicatorResultMeasurement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicator">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ImportantIndicatorResultMeasurement">
+        <PropertyRef Name="IndicatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PeriodMonthOrQuaterOrYear_ID_ImportantIndicatorResultMeasurement_PeriodMonthOrQuaterOrYearID">
+    <End Type="MRTModel.PeriodMonthOrQuaterOrYear" Role="PeriodMonthOrQuaterOrYear" Multiplicity="0..1" />
+    <End Type="MRTModel.ImportantIndicatorResultMeasurement" Role="ImportantIndicatorResultMeasurement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PeriodMonthOrQuaterOrYear">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ImportantIndicatorResultMeasurement">
+        <PropertyRef Name="PeriodMonthOrQuaterOrYearID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ForecastPeriodCompetitorValue">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ForecastPeriodID" Type="Int32" />
+    <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+    <Property Name="IsLastDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ForecastPeriod" Relationship="MRTModel.FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID" FromRole="ForecastPeriodCompetitorValue" ToRole="ForecastPeriod" />
+  </EntityType>
+  <Association Name="FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID">
+    <End Type="MRTModel.ForecastPeriod" Role="ForecastPeriod" Multiplicity="0..1" />
+    <End Type="MRTModel.ForecastPeriodCompetitorValue" Role="ForecastPeriodCompetitorValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForecastPeriod">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastPeriodCompetitorValue">
+        <PropertyRef Name="ForecastPeriodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
