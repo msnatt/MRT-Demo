@@ -10,9 +10,18 @@
 @Html.HiddenFor(m => m.IndicatorID)
 @Html.HiddenFor(m => m.IsDelete)
 @Html.HiddenFor(m => m.IsLastDelete)
+@Html.HiddenFor(m => m.level)
+
+
+@if (Model.level != 0)
+{
+    <td>
+        @Html.DropDownListFor(m => m.IndicatorTypeID, new SelectList(Model.Indicator.IndicatorXIndicatorTypes.Select(h => new SelectListItem { Value = h.ID.ToString(), Text=h.Definition}), "Value", "Text", Model.IndicatorUnitID), "Please Select", new { @class = "form-control" })
+    </td>
+}
 
 <td class="w-25">
-    @Html.DropDownListFor(m => m.IndicatorUnitID, new SelectList(ViewBag.Xunit, "Value", "Text",Model.IndicatorUnitID), "Please Select", new { @class = "form-control" })
+    @Html.DropDownListFor(m => m.IndicatorUnitID, new SelectList(ViewBag.Xunit, "Value", "Text", Model.IndicatorUnitID), "Please Select", new { @class = "form-control" })
 </td>
 
 @foreach (var item in Model.SubTarget)

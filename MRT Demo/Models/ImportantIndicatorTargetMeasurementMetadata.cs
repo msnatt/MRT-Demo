@@ -12,7 +12,7 @@ namespace MRT_Demo.Models
     [MetadataType(typeof(ImportantIndicatorTargetMeasurement))]
     public partial class ImportantIndicatorTargetMeasurement
     {
-        public int IndicatorXIndicatorTypeID { get; set; }
+        public int level { get; set; }
         
         public List<ImportantIndicatorTargetMeasurement> SubTarget { get; set;}
     

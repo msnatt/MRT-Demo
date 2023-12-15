@@ -1,0 +1,118 @@
+﻿@model MRT_Demo.Models.ForecastPeriod
+
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.IsLastDelete)
+@Html.HiddenFor(m => m.IsDelete)
+@Html.HiddenFor(m => m.CreateDate)
+@Html.HiddenFor(m => m.UpdateDate)
+@Html.HiddenFor(m => m.CreateBy)
+@Html.HiddenFor(m => m.UpdateBy)
+@Html.HiddenFor(m => m.IsSelect)
+@Html.HiddenFor(m => m.ImportantIndicatorResultMeasurementID)
+@Html.HiddenFor(m => m.ImportantIndicatorResultMeasurement.Indicator.IndicatorUnits)
+
+@{
+    var i = 0;
+    int count = Model.ImportantIndicatorResultMeasurement.Indicator.IndicatorUnits.Count();
+}
+
+@if (Model.IsSelect == true)
+{
+    foreach (var itemUnit in Model.ImportantIndicatorResultMeasurement.Indicator.IndicatorUnits)
+    {
+        <tr>
+            @if (i == 0)
+            {
+                <td rowspan="@count">
+                    @{ var j = 0;}
+                    @foreach (var item in Model.ForecastPeriodToolAndMethod)
+                    {
+                        @Html.EditorFor(m => item, "ForecastPeriodToolAndMethod", "ForecastPeriodToolAndMethod[" + j + "]", new { j = j })
+                        j++;
+                    }
+                </td>
+                <td rowspan="@count">
+                    @{ j = 0;}
+                    @foreach (var item in Model.ToolAndMethods)
+                    {
+                        @Html.EditorFor(m => item, "ToolAndMethods", "ToolAndMethods[" + j + "]")
+                        j++;
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.ImportantIndicatorResultMeasurement.Indicator.IndicatorUnits.ElementAt(i).Unit, new { htmlAttributes = new { @class = "form-control text-center" } })
+                </td>
+                foreach (var item in Model.ForecastValueAndRealValue.Where(b => b.UnitsID == itemUnit.ID))
+                {
+                    @Html.EditorFor(m => item, "", "ForecastValueAndRealValue[" + i + "]")
+                }
+                <td rowspan="@count">
+                    qasdfagag
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(m => m.ImportantIndicatorResultMeasurement.Indicator.IndicatorUnits.ElementAt(i).Unit, new { htmlAttributes = new { @class = "form-control text-center" } })
+                </td>
+                foreach (var item in Model.ForecastValueAndRealValue.Where(b => b.UnitsID == itemUnit.ID))
+                {
+                    @Html.EditorFor(m => item, "", "ForecastValueAndRealValue[" + i + "]")
+                }
+            }
+
+        </tr>
+        i++;
+    }
+}
+else
+{
+
+    foreach (var itemUnit in Model.ImportantIndicatorResultMeasurement.Indicator.IndicatorUnits)
+    {
+        <tr hidden>
+
+            @if (i == 0)
+            {
+                <td rowspan="@count">
+                    @{ var j = 0;}
+                    @foreach (var item in Model.ForecastPeriodToolAndMethod)
+                    {
+                        @Html.EditorFor(m => item, "ForecastPeriodToolAndMethod", "ForecastPeriodToolAndMethod[" + j + "]", new { j = j })
+                        j++;
+                    }
+                </td>
+                <td rowspan="@count">
+                    @{ j = 0;}
+                    @foreach (var item in Model.ToolAndMethods)
+                    {
+                        @Html.EditorFor(m => item, "ToolAndMethods", "ToolAndMethods[" + j + "]")
+                        j++;
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.ImportantIndicatorResultMeasurement.Indicator.IndicatorUnits.ElementAt(i).Unit, new { htmlAttributes = new { @class = "form-control text-center" } })
+                </td>
+                foreach (var item in Model.ForecastValueAndRealValue.Where(b => b.UnitsID == itemUnit.ID))
+                {
+                    @Html.EditorFor(m => item, "", "ForecastValueAndRealValue[" + i + "]")
+                }
+                <td rowspan="@count">
+                    qasdfagag
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(m => m.ImportantIndicatorResultMeasurement.Indicator.IndicatorUnits.ElementAt(i).Unit, new { htmlAttributes = new { @class = "form-control text-center" } })
+                </td>
+                foreach (var item in Model.ForecastValueAndRealValue.Where(b => b.UnitsID == itemUnit.ID))
+                {
+                    @Html.EditorFor(m => item, "", "ForecastValueAndRealValue[" + i + "]")
+                }
+            }
+
+        </tr>
+        i++;
+    }
+}

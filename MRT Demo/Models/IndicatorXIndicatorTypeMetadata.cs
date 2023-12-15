@@ -16,6 +16,6 @@ namespace MRT_Demo.Models
     [MetadataType(typeof(IndicatorXIndicatorTypeMetadata))]
     public partial class IndicatorXIndicatorType
     {
-        public IndicatorUnit Xunit {  get; set; }
+        public int level {  get; set; }
     }
 }

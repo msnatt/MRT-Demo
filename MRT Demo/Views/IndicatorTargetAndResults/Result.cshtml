@@ -24,9 +24,9 @@
 
     <div hidden>
         @Html.EditorFor(m => m.IndicatorUnits)
-    </div>
-    <div hidden>
         @Html.EditorFor(m => m.IndicatorXIndicatorTypes)
+        @Html.EditorFor(m => m.ImportantIndicatorTargetMeasurement)
+        @Html.EditorFor(m => m.IndicatorOwners)
     </div>
 
     <div class="form-horizontal">
@@ -67,10 +67,8 @@
 
                 </table>
             </div>
-            <div class="col-md-1"></div>
         </div>
         <br />
-        @Html.EditorFor(m=>m.ImportantIndicatorResultMeasurement)
         <br />
 
         <div class="row">
@@ -78,7 +76,7 @@
                 @Html.DisplayName("ตัวชี้วัดที่สำคัญ :")
             </div>
             <div class="col-md-8">
-                <table class="table table-bordered w-100">
+                <table class="table table-bordered">
                     <tr>
                         <th rowspan="2" class="text-center">
                             @Html.DisplayName("ชื่อหน่วยวัด")
@@ -97,26 +95,45 @@
                         <th class="text-center">4</th>
                         <th class="text-center">5</th>
                     </tr>
+
                     @{
                         var i = 0;
                     }
                     @foreach (var XType in Model.IndicatorXIndicatorTypes)
                     {
-                        <tr>
-                            <td class="w-25">
-                                @Html.DisplayFor(m => XType.IndicatorType.IndicatorType1, new { HtmlAttributes = new { @class = "form-control" } })
-                            </td>
-                            @foreach (var item in Model.ImportantIndicatorTargetMeasurement.Where(b => b.SubTarget.Where(ba => ba.IndicatorTypeID == XType.IndicatorTypeID).Count() > 0))
-                            {
-                                @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurementDisabled", "ImportantIndicatorTargetMeasurementDisabled[" + i++ + "]")
-                            }
-                        </tr>
+                        if (XType.level == 0)
+                        {
+                            <tr>
+                                <td class="w-25">
+                                    @Html.DisplayFor(m => XType.IndicatorType.IndicatorType1, new { HtmlAttributes = new { @class = "form-control" } })
+                                </td>
+                                @foreach (var item in Model.ImportantIndicatorTargetMeasurement.Where(b => b.SubTarget.Where(ba => ba.IndicatorTypeID == XType.IndicatorTypeID).Count() > 0))
+                                {
+                                    @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurementDisabled", "ImportantIndicatorTargetMeasurementDisabled[" + i++ + "]")
+                                }
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                @foreach (var item in Model.ImportantIndicatorTargetMeasurement.Where(b => b.SubTarget.Where(ba => ba.level == XType.level).Count() > 0))
+                                {
+                                    @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurementDisabled", "ImportantIndicatorTargetMeasurementDisabled[" + i++ + "]")
+                                }
+                            </tr>
+                        }
+
                     }
                 </table>
             </div>
 
         </div>
+        <br />
+        <hr />
+        @Html.EditorFor(m => m.ImportantIndicatorResultMeasurement)
 
+        <br />
+        <br />
         <div class="row">
             <div class="offset-md-3 col-md-1">
                 <input value="บันทึก" class="btn btn-primary" type="submit" />
@@ -131,8 +148,35 @@
 
 <script>
     function FuncChangePeriod() {
-        $("#Resultform").attr("action", '@Url.Action("ChangePeriod", "IndicatorTargetAndResults")');
+        var c = document.getElementsByName('PeriodMonthOrQuaterOrYearID');
+        var x = document.getElementById("Month");
+        var y = document.getElementById("Quater");
+        var z = document.getElementById("Year");
+
+        for (i = 0; i < c.length; i++) {
+            if (c[0].checked) {
+                x.style.display = "block";
+                y.style.display = "none";
+                z.style.display = "none";
+            }
+            if (c[1].checked) {
+                x.style.display = "none";
+                y.style.display = "block";
+                z.style.display = "none";
+            }
+            if (c[2].checked) {
+                x.style.display = "none";
+                y.style.display = "none";
+                z.style.display = "block";
+            }
+        }
+
+        $("#Resultform").attr("action", '@Url.Action("ChangePeriod","IndicatorTargetAndResults")');
         $("#Resultform").submit();
     }
-
+    function FuncChangeMonthQuarterHailfYear(e) {
+        e.value = true;
+        $("#Resultform").attr("action", '@Url.Action("ChangeMonthQuarterHailfYear","IndicatorTargetAndResults")');
+        $("#Resultform").submit();
+    }
 </script>

@@ -1,0 +1,27 @@
+﻿@model MRT_Demo.Models.ForecastPeriodToolAndMethod
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.ForecastToolID)
+@Html.HiddenFor(m => m.ForecastPeriodID)
+@Html.HiddenFor(m => m.CreateBy)
+@Html.HiddenFor(m => m.CreateDate)
+@Html.HiddenFor(m => m.UpdateBy)
+@Html.HiddenFor(m => m.UpdateDate)
+@Html.HiddenFor(m => m.IsDelete)
+@Html.HiddenFor(m => m.IsLastDelete)
+
+@if (ViewBag.j < 3)
+{
+    @Html.CheckBoxFor(m => m.IsUse)
+    @Html.DisplayFor(m => m.ForecastTool.ForecastTool1)
+}
+else
+{
+    @Html.CheckBoxFor(m => m.IsUse)
+    @Html.DisplayNameFor(m => m.OtherTool)
+    @Html.EditorFor(m => m.OtherTool, new { htmlAttributes = new { @class = "form" } })
+}
+<br />
+
+
+
+

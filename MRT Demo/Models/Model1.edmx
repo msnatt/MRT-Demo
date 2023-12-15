@@ -16,7 +16,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ForecastPeriodResultRemarkID" Type="int" />
           <Property Name="FilePathID" Type="int" />
           <Property Name="CreateBy" Type="int" />
@@ -30,7 +30,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ForecastPeriodResultRemarkID" Type="int" />
           <Property Name="FilePathID" Type="int" />
           <Property Name="CreateBy" Type="int" />
@@ -44,7 +44,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ImportantIndicatorResultMeasurementID" Type="int" />
           <Property Name="MonthOrQuaterOrYear" Type="nvarchar" MaxLength="50" />
           <Property Name="CreateBy" Type="int" />
@@ -58,7 +58,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ForecastPeriodID" Type="int" />
           <Property Name="Detail" Type="nvarchar(max)" />
           <Property Name="CreateBy" Type="int" />
@@ -72,7 +72,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ForecastPeriodResultRemarkID" Type="int" />
           <Property Name="FilePathID" Type="int" />
           <Property Name="CreateBy" Type="int" />
@@ -86,7 +86,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ForecastPeriodID" Type="int" />
           <Property Name="HelpImproveIndicator" Type="nvarchar(max)" />
           <Property Name="ProblemAndCorrection" Type="nvarchar(max)" />
@@ -111,7 +111,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ForecastPeriodID" Type="int" />
           <Property Name="IsUse" Type="bit" Nullable="false" />
           <Property Name="ForecastToolID" Type="int" />
@@ -141,7 +141,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ForecastPeriodID" Type="int" />
           <Property Name="ForecastValue" Type="float" />
           <Property Name="RealValue" Type="float" />
@@ -171,7 +171,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IndicatorID" Type="int" />
           <Property Name="Year" Type="int" />
           <Property Name="PeriodMonthOrQuaterOrYearID" Type="int" />

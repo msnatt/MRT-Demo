@@ -157,6 +157,7 @@
     <Compile Include="Models\ForecastPeriodDocFile.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForecastPeriodMetadata.cs" />
     <Compile Include="Models\ForecastPeriodResultRemark.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -169,6 +170,7 @@
     <Compile Include="Models\ForecastValueAndRealValue.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForecastValueAndRealValueMetadata.cs" />
     <Compile Include="Models\Goal.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -355,6 +357,10 @@
     <Content Include="Views\Shared\EditorTemplates\ImportantIndicatorTargetMeasurementDisabled.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SubTargetDisabled.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ImportantIndicatorResultMeasurement.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ForecastPeriod.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ForecastPeriodToolAndMethod.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ToolAndMethods.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ForecastValueAndRealValue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
