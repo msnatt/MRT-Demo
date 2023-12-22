@@ -378,5 +378,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="FilePath">
+      <EntityTypeMapping TypeName="MRTModel.FilePath">
+        <MappingFragment StoreEntitySet="FilePath">
+          <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="PathFile" ColumnName="PathFile" />
+          <ScalarProperty Name="NameFile" ColumnName="NameFile" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

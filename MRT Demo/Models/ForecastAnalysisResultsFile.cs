@@ -25,5 +25,6 @@ namespace MRT_Demo.Models
         public bool IsLastDelete { get; set; }
     
         public virtual ForecastPeriodResultRemark ForecastPeriodResultRemark { get; set; }
+        public virtual FilePath FilePath { get; set; }
     }
 }

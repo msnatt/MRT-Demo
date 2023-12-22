@@ -21,6 +21,7 @@
     @Html.HiddenFor(m => m.Formula)
     @Html.HiddenFor(m => m.Indicator1)
     @Html.HiddenFor(m => m.IndicatorDetailStatusID)
+    @Html.HiddenFor(m => m.indicatorYear)
 
     <div hidden>
         @Html.EditorFor(m => m.IndicatorUnits)
@@ -110,21 +111,22 @@
                                 <td class="w-25">
                                     @Html.DisplayFor(m => XType.IndicatorType.IndicatorType1, new { HtmlAttributes = new { @class = "form-control" } })
                                 </td>
-                                @foreach (var item in Model.ImportantIndicatorTargetMeasurement.Where(b => b.SubTarget.Where(ba => ba.IndicatorTypeID == XType.IndicatorTypeID).Count() > 0))
+                                @foreach (var item in Model.ImportantIndicatorTargetMeasurement.Where(b => b.level == i))
                                 {
-                                    @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurement", "ImportantIndicatorTargetMeasurement[" + i++ + "]")
+                                    @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurement", "ImportantIndicatorTargetMeasurement[" + i + "]")
                                 }
                             </tr>
                         }
                         else
                         {
                             <tr>
-                                @foreach (var item in Model.ImportantIndicatorTargetMeasurement.Where(b => b.SubTarget.Where(ba => ba.level == XType.level).Count() > 0))
+                                @foreach (var item in Model.ImportantIndicatorTargetMeasurement.Where(b => b.level == i))
                                 {
-                                    @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurement", "ImportantIndicatorTargetMeasurement[" + i++ + "]")
+                                    @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurement", "ImportantIndicatorTargetMeasurement[" + i + "]")
                                 }
                             </tr>
                         }
+                        i++;
 
                     }
                 </table>

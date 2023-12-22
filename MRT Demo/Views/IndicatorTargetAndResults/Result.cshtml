@@ -6,7 +6,7 @@
 
 <h2>การรายงานผลการดำเนิน/คาดการณ์ผลการดำเนินงานตามตัวชี้วัดที่สำคัญขององค์กร</h2>
 
-@using (Html.BeginForm("Target", "IndicatorTargetAndResults", FormMethod.Post, new { @class = "form-horizontal", id = "Resultform", name = "Resultform" }))
+@using (Html.BeginForm("Result", "IndicatorTargetAndResults", FormMethod.Post, new { @class = "form-horizontal", id = "Resultform", name = "Resultform", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.ID)
@@ -21,6 +21,11 @@
     @Html.HiddenFor(m => m.Formula)
     @Html.HiddenFor(m => m.Indicator1)
     @Html.HiddenFor(m => m.IndicatorDetailStatusID)
+    @Html.HiddenFor(m => m.indicatorYear)
+    @Html.Hidden("IndexInList")
+    @Html.Hidden("File4")
+
+
 
     <div hidden>
         @Html.EditorFor(m => m.IndicatorUnits)
@@ -96,9 +101,7 @@
                         <th class="text-center">5</th>
                     </tr>
 
-                    @{
-                        var i = 0;
-                    }
+                    @{ var i = 0; }
                     @foreach (var XType in Model.IndicatorXIndicatorTypes)
                     {
                         if (XType.level == 0)
@@ -107,22 +110,22 @@
                                 <td class="w-25">
                                     @Html.DisplayFor(m => XType.IndicatorType.IndicatorType1, new { HtmlAttributes = new { @class = "form-control" } })
                                 </td>
-                                @foreach (var item in Model.ImportantIndicatorTargetMeasurement.Where(b => b.SubTarget.Where(ba => ba.IndicatorTypeID == XType.IndicatorTypeID).Count() > 0))
+                                @foreach (var item in Model.ImportantIndicatorTargetMeasurement.Where(b => b.level == i))
                                 {
-                                    @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurementDisabled", "ImportantIndicatorTargetMeasurementDisabled[" + i++ + "]")
+                                    @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurementDisabled", "ImportantIndicatorTargetMeasurementDisabled[" + i + "]")
                                 }
                             </tr>
                         }
                         else
                         {
                             <tr>
-                                @foreach (var item in Model.ImportantIndicatorTargetMeasurement.Where(b => b.SubTarget.Where(ba => ba.level == XType.level).Count() > 0))
+                                @foreach (var item in Model.ImportantIndicatorTargetMeasurement.Where(b => b.level == i))
                                 {
-                                    @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurementDisabled", "ImportantIndicatorTargetMeasurementDisabled[" + i++ + "]")
+                                    @Html.EditorFor(m => item, "ImportantIndicatorTargetMeasurementDisabled", "ImportantIndicatorTargetMeasurementDisabled[" + i + "]")
                                 }
                             </tr>
                         }
-
+                        i++;
                     }
                 </table>
             </div>
@@ -175,8 +178,22 @@
         $("#Resultform").submit();
     }
     function FuncChangeMonthQuarterHailfYear(e) {
-        e.value = true;
+
+        document.getElementById('IndexInList').value = e;
+
         $("#Resultform").attr("action", '@Url.Action("ChangeMonthQuarterHailfYear","IndicatorTargetAndResults")');
+        $("#Resultform").submit();
+    }
+    function FuncAddCompetitorValue(e) {
+        e.value = true;
+
+        $("#Resultform").attr("action", '@Url.Action("AddCompetitorValue","IndicatorTargetAndResults")');
+        $("#Resultform").submit();
+    }
+    function FuncDelCompetitorValue(e) {
+        e.value = true;
+
+        $("#Resultform").attr("action", '@Url.Action("DelCompetitorValue","IndicatorTargetAndResults")');
         $("#Resultform").submit();
     }
 </script>

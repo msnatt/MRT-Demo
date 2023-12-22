@@ -7,6 +7,20 @@
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="Division" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="FilePath">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameFile" Type="nvarchar" MaxLength="50" />
+    <Property Name="PathFile" Type="nvarchar(max)" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" />
+    <Property Name="IsLastDelete" Type="bit" />
+  </EntityType>
   <EntityType Name="ForecastAnalysisResultsFile">
     <Key>
       <PropertyRef Name="ID" />
@@ -353,6 +367,30 @@
     <Property Name="IsDelete" Type="bit" />
     <Property Name="IsLastDelete" Type="bit" />
   </EntityType>
+  <Association Name="FK_ForecastAnalysisResultsFile_FilePath">
+    <End Role="FilePath" Type="Self.FilePath" Multiplicity="0..1" />
+    <End Role="ForecastAnalysisResultsFile" Type="Self.ForecastAnalysisResultsFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FilePath">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastAnalysisResultsFile">
+        <PropertyRef Name="FilePathID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastChangeActionPlanFile_FilePath">
+    <End Role="FilePath" Type="Self.FilePath" Multiplicity="0..1" />
+    <End Role="ForecastChangeActionPlanFile" Type="Self.ForecastChangeActionPlanFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FilePath">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastChangeActionPlanFile">
+        <PropertyRef Name="FilePathID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID">
     <End Role="ForecastPeriod" Type="Self.ForecastPeriod" Multiplicity="0..1" />
     <End Role="ForecastPeriodCompetitorValue" Type="Self.ForecastPeriodCompetitorValue" Multiplicity="*" />
@@ -386,6 +424,18 @@
       </Principal>
       <Dependent Role="ForecastValueAndRealValue">
         <PropertyRef Name="ForecastPeriodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForecastPeriodDocFile_FilePath">
+    <End Role="FilePath" Type="Self.FilePath" Multiplicity="0..1" />
+    <End Role="ForecastPeriodDocFile" Type="Self.ForecastPeriodDocFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FilePath">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForecastPeriodDocFile">
+        <PropertyRef Name="FilePathID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -631,6 +681,7 @@
   </Association>
   <EntityContainer Name="MRTModelStoreContainer">
     <EntitySet Name="DataOwner" EntityType="Self.DataOwner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FilePath" EntityType="Self.FilePath" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ForecastAnalysisResultsFile" EntityType="Self.ForecastAnalysisResultsFile" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ForecastChangeActionPlanFile" EntityType="Self.ForecastChangeActionPlanFile" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ForecastPeriod" EntityType="Self.ForecastPeriod" Schema="dbo" store:Type="Tables" />
@@ -654,6 +705,14 @@
     <EntitySet Name="Stategy" EntityType="Self.Stategy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StrategicObjective" EntityType="Self.StrategicObjective" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tactic" EntityType="Self.Tactic" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ForecastAnalysisResultsFile_FilePath" Association="Self.FK_ForecastAnalysisResultsFile_FilePath">
+      <End Role="FilePath" EntitySet="FilePath" />
+      <End Role="ForecastAnalysisResultsFile" EntitySet="ForecastAnalysisResultsFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastChangeActionPlanFile_FilePath" Association="Self.FK_ForecastChangeActionPlanFile_FilePath">
+      <End Role="FilePath" EntitySet="FilePath" />
+      <End Role="ForecastChangeActionPlanFile" EntitySet="ForecastChangeActionPlanFile" />
+    </AssociationSet>
     <AssociationSet Name="FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID" Association="Self.FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID">
       <End Role="ForecastPeriod" EntitySet="ForecastPeriod" />
       <End Role="ForecastPeriodCompetitorValue" EntitySet="ForecastPeriodCompetitorValue" />
@@ -665,6 +724,10 @@
     <AssociationSet Name="FK_ForecastPeriod_ID___ForecastValueAndRealValue_ForecastPeriodID" Association="Self.FK_ForecastPeriod_ID___ForecastValueAndRealValue_ForecastPeriodID">
       <End Role="ForecastPeriod" EntitySet="ForecastPeriod" />
       <End Role="ForecastValueAndRealValue" EntitySet="ForecastValueAndRealValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForecastPeriodDocFile_FilePath" Association="Self.FK_ForecastPeriodDocFile_FilePath">
+      <End Role="FilePath" EntitySet="FilePath" />
+      <End Role="ForecastPeriodDocFile" EntitySet="ForecastPeriodDocFile" />
     </AssociationSet>
     <AssociationSet Name="FK_ForecastPeriodID___ForecastPeriodToolAndMethod_ForecastPeriodID" Association="Self.FK_ForecastPeriodID___ForecastPeriodToolAndMethod_ForecastPeriodID">
       <End Role="ForecastPeriod" EntitySet="ForecastPeriod" />

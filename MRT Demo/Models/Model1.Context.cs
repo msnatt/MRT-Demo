@@ -49,5 +49,6 @@ namespace MRT_Demo.Models
         public virtual DbSet<ImportantIndicatorResultMeasurement> ImportantIndicatorResultMeasurement { get; set; }
         public virtual DbSet<PeriodMonthOrQuaterOrYear> PeriodMonthOrQuaterOrYear { get; set; }
         public virtual DbSet<ForecastPeriodCompetitorValue> ForecastPeriodCompetitorValue { get; set; }
+        public virtual DbSet<FilePath> FilePath { get; set; }
     }
 }

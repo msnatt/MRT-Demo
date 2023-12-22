@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -152,7 +153,7 @@ namespace MRT_Demo.Controllers
             {
                 foreach (var item2 in item.ForecastPeriodToolAndMethod)
                 {
-                   item2.ForecastTool = db.ForecastTool.Find(item2.ForecastToolID);
+                    item2.ForecastTool = db.ForecastTool.Find(item2.ForecastToolID);
                 }
             }
 
@@ -173,10 +174,10 @@ namespace MRT_Demo.Controllers
                 }
             }
         }
-        private void ChangeForecastPeriod(Indicator indicators,int? MQYID)
+        private void ChangeForecastPeriod(Indicator indicators, int? MQYID, int? setvalue)
         {
             var count = 0;
-            var setvalue = 0;
+            if (setvalue == null) { setvalue = 0; }
             var Result = indicators.ImportantIndicatorResultMeasurement.First();
             if (MQYID == 1) { setvalue = 0; }
             if (MQYID == 2) { setvalue = 12; }
@@ -236,36 +237,9 @@ namespace MRT_Demo.Controllers
                 List<ImportantIndicatorTargetMeasurement> NewListImportant = indicators.ImportantIndicatorTargetMeasurement.ToList();
                 List<ImportantIndicatorTargetMeasurement> DeleteListImportant = indicators.ImportantIndicatorTargetMeasurement.ToList();
                 indicators.ImportantIndicatorTargetMeasurement.Clear();
-
-
-                //foreach (var item in indicators.IndicatorXIndicatorTypes)
-                //{
-                //    var breaker = 0;
-                //    var important = new ImportantIndicatorTargetMeasurement();
-                //    important.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
-                //    foreach (var item2 in NewListImportant.Where(b => b.IndicatorTypeID == item.IndicatorTypeID))
-                //    {
-                //        item2.SubTarget = new List<ImportantIndicatorTargetMeasurement> { item2 };
-                //        if (breaker <= 4)
-                //        {
-                //            important.SubTarget.Add(item2);
-                //            item2.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
-                //            DeleteListImportant.Remove(item2);
-                //        }
-                //        important.IndicatorUnitID = item2.IndicatorUnitID;
-                //    }
-                //    indicators.ImportantIndicatorTargetMeasurement.Add(important);
-                //}
-
-                //NewListImportant = DeleteListImportant;
-
-                for (int i = indicators.ImportantIndicatorTargetMeasurement.Count; i < NewListImportant.Count / 5; i++)
+                for (int i = 0; i < NewListImportant.Count / 5; i++)
                 {
-                    if (i < indicators.IndicatorXIndicatorTypes.Count)
-                    {
-                        //var Xtype = indicators.IndicatorXIndicatorTypes.ElementAt(i);
-                    }
-                    else
+                    if (i >= indicators.IndicatorXIndicatorTypes.Count)
                     {
                         IndicatorXIndicatorType indicatorXIndicatorType = new IndicatorXIndicatorType();
                         indicatorXIndicatorType.CreateDate = DateTime.Now;
@@ -280,9 +254,11 @@ namespace MRT_Demo.Controllers
                     var breaker = 0;
                     var important = new ImportantIndicatorTargetMeasurement();
                     important.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
+                    var c = 0;
+                    foreach (var itemList in NewListImportant) { itemList.level = c; c++; }
                     if (indicators.IndicatorXIndicatorTypes.ElementAt(i).level == 0)
                     {
-                        foreach (var item2 in NewListImportant.Where(b => b.IndicatorTypeID == indicators.IndicatorXIndicatorTypes.ElementAt(i).IndicatorTypeID))
+                        foreach (var item2 in NewListImportant.Where(b => b.IndicatorTypeID == indicators.IndicatorXIndicatorTypes.ElementAt(i).IndicatorTypeID && b.level < 15))
                         {
                             item2.SubTarget = new List<ImportantIndicatorTargetMeasurement> { item2 };
                             if (breaker <= 4)
@@ -292,6 +268,7 @@ namespace MRT_Demo.Controllers
                                 item2.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
                             }
                             important.IndicatorUnitID = item2.IndicatorUnitID;
+                            important.level = i;
                             indicators.ImportantIndicatorTargetMeasurement.Add(important);
                         }
                     }
@@ -308,8 +285,10 @@ namespace MRT_Demo.Controllers
                                 item2.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
                             }
                             important.IndicatorUnitID = item2.IndicatorUnitID;
-                            important.level = item2.level;
+                            important.level = i;
+                            important.IndicatorTypeID = item2.IndicatorTypeID;
                             important.Indicator = indicators;
+
                             indicators.ImportantIndicatorTargetMeasurement.Add(important);
                         }
                     }
@@ -353,6 +332,7 @@ namespace MRT_Demo.Controllers
                 {
                     if (item2.ID == 0)
                     {
+                        item2.IndicatorTypeID = item.IndicatorTypeID;
                         item2.IndicatorUnitID = item.IndicatorUnitID;
                         db.ImportantIndicatorTargetMeasurements.Add(item2);
                     }
@@ -480,9 +460,12 @@ namespace MRT_Demo.Controllers
                 var breaker = 0;
                 var important = new ImportantIndicatorTargetMeasurement();
                 important.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
+
+                var c = 0;
+                foreach (var itemList in NewListImportant) { itemList.level = c; c++; }
                 if (indicators.IndicatorXIndicatorTypes.ElementAt(i).level == 0)
                 {
-                    foreach (var item2 in NewListImportant.Where(b => b.IndicatorTypeID == indicators.IndicatorXIndicatorTypes.ElementAt(i).IndicatorTypeID))
+                    foreach (var item2 in NewListImportant.Where(b => b.IndicatorTypeID == indicators.IndicatorXIndicatorTypes.ElementAt(i).IndicatorTypeID && b.level < 15))
                     {
                         item2.SubTarget = new List<ImportantIndicatorTargetMeasurement> { item2 };
                         if (breaker <= 4)
@@ -492,6 +475,7 @@ namespace MRT_Demo.Controllers
                             item2.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
                         }
                         important.IndicatorUnitID = item2.IndicatorUnitID;
+                        important.level = i;
                         indicators.ImportantIndicatorTargetMeasurement.Add(important);
                     }
                 }
@@ -508,61 +492,81 @@ namespace MRT_Demo.Controllers
                             item2.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
                         }
                         important.IndicatorUnitID = item2.IndicatorUnitID;
-                        important.level = item2.level;
+                        important.level = i;
+                        important.IndicatorTypeID = item2.IndicatorTypeID;
                         important.Indicator = indicators;
+
                         indicators.ImportantIndicatorTargetMeasurement.Add(important);
                     }
                 }
 
             }
 
-            ImportantIndicatorResultMeasurement importantIndicatorResult = new ImportantIndicatorResultMeasurement();
-            importantIndicatorResult.IndicatorID = indicators.ID;
-            importantIndicatorResult.CreateDate = DateTime.Now;
-            importantIndicatorResult.UpdateDate = DateTime.Now;
-            importantIndicatorResult.Isdelete = false;
-            importantIndicatorResult.IsLastDelete = false;
-            importantIndicatorResult.Indicator = indicators;
-            importantIndicatorResult.PeriodMonthOrQuaterOrYearID = 1;
-            for (var i = 0; i < 18; i++)
+            if (indicators.ImportantIndicatorResultMeasurement.Count == 0)
             {
-                ForecastPeriod forecastPeriod = new ForecastPeriod();
-                forecastPeriod.CreateDate = DateTime.Now;
-                forecastPeriod.UpdateDate = DateTime.Now;
-                forecastPeriod.IsLastDelete = false;
-                forecastPeriod.IsDelete = false;
-                forecastPeriod.ImportantIndicatorResultMeasurement = importantIndicatorResult;
-                forecastPeriod.ImportantIndicatorResultMeasurementID = importantIndicatorResult.ID;
-                forecastPeriod.ToolAndMethods = new List<ForecastPeriodToolAndMethod>();
-                if (i == 0) { forecastPeriod.IsSelect = true; } else { forecastPeriod.IsSelect = false; }
-                foreach (var item in db.ForecastTool)
+                ImportantIndicatorResultMeasurement importantIndicatorResult = new ImportantIndicatorResultMeasurement();
+                importantIndicatorResult.IndicatorID = indicators.ID;
+                importantIndicatorResult.CreateDate = DateTime.Now;
+                importantIndicatorResult.UpdateDate = DateTime.Now;
+                importantIndicatorResult.Isdelete = false;
+                importantIndicatorResult.IsLastDelete = false;
+                importantIndicatorResult.Indicator = indicators;
+                importantIndicatorResult.PeriodMonthOrQuaterOrYearID = 1;
+                for (var i = 0; i < 18; i++)
                 {
-                    ForecastPeriodToolAndMethod toolAndMethod = new ForecastPeriodToolAndMethod();
-                    toolAndMethod.CreateDate = DateTime.Now;
-                    toolAndMethod.UpdateDate = DateTime.Now;
-                    toolAndMethod.IsLastDelete = false;
-                    toolAndMethod.IsDelete = false;
-                    toolAndMethod.ForecastToolID = item.ID;
-                    toolAndMethod.ForecastPeriodID = forecastPeriod.ID;
-                    toolAndMethod.ForecastTool = item;
-                    forecastPeriod.ForecastPeriodToolAndMethod.Add(toolAndMethod);
-                    forecastPeriod.ToolAndMethods.Add(toolAndMethod);
+                    ForecastPeriod forecastPeriod = new ForecastPeriod();
+                    forecastPeriod.CreateDate = DateTime.Now;
+                    forecastPeriod.UpdateDate = DateTime.Now;
+                    forecastPeriod.IsLastDelete = false;
+                    forecastPeriod.IsDelete = false;
+                    forecastPeriod.ImportantIndicatorResultMeasurement = importantIndicatorResult;
+                    forecastPeriod.ImportantIndicatorResultMeasurementID = importantIndicatorResult.ID;
+                    ForecastPeriodResultRemark resultRemark = new ForecastPeriodResultRemark();
+                    resultRemark.ForecastPeriodID = forecastPeriod.ID;
+                    resultRemark.CreateDate = DateTime.Now;
+                    resultRemark.UpdateDate = DateTime.Now;
+                    resultRemark.IsLastDelete = false;
+                    resultRemark.IsDelete = false;
+                    forecastPeriod.ForecastPeriodResultRemark.Add(resultRemark);
+                    if (i == 0) { forecastPeriod.IsSelect = true; } else { forecastPeriod.IsSelect = false; }
+                    foreach (var item in db.ForecastTool)
+                    {
+                        ForecastPeriodToolAndMethod toolAndMethod = new ForecastPeriodToolAndMethod();
+                        toolAndMethod.CreateDate = DateTime.Now;
+                        toolAndMethod.UpdateDate = DateTime.Now;
+                        toolAndMethod.IsLastDelete = false;
+                        toolAndMethod.IsDelete = false;
+                        toolAndMethod.ForecastToolID = item.ID;
+                        toolAndMethod.ForecastPeriodID = forecastPeriod.ID;
+                        toolAndMethod.ForecastTool = item;
+                        forecastPeriod.ForecastPeriodToolAndMethod.Add(toolAndMethod);
+                    }
+                    foreach (var item in indicators.IndicatorUnits)
+                    {
+                        ForecastValueAndRealValue realValue = new ForecastValueAndRealValue();
+                        realValue.CreateDate = DateTime.Now;
+                        realValue.UpdateDate = DateTime.Now;
+                        realValue.IsLastDelete = false;
+                        realValue.IsDelete = false;
+                        realValue.UnitsID = item.ID;
+                        forecastPeriod.ForecastValueAndRealValue.Add(realValue);
+                    }
+                    importantIndicatorResult.ForecastPeriod.Add(forecastPeriod);
                 }
-                foreach (var item in indicators.IndicatorUnits)
+                indicators.ImportantIndicatorResultMeasurement.Add(importantIndicatorResult);
+            }
+            else
+            {
+                foreach (var item in indicators.ImportantIndicatorResultMeasurement.First().ForecastPeriod)
                 {
-                    ForecastValueAndRealValue realValue = new ForecastValueAndRealValue();
-                    realValue.CreateDate = DateTime.Now;
-                    realValue.UpdateDate = DateTime.Now;
-                    realValue.IsLastDelete = false;
-                    realValue.IsDelete = false;
-                    realValue.UnitsID = item.ID;
-                    forecastPeriod.ForecastValueAndRealValue.Add(realValue);
+                    for (int i = 0; i < indicators.IndicatorUnits.Count;i++)
+                    {
+                        item.ForecastValueAndRealValue.ElementAt(i).UnitsID = indicators.IndicatorUnits.ElementAt(i).ID;
+                    }
                 }
-                importantIndicatorResult.ForecastPeriod.Add(forecastPeriod);
             }
 
-            indicators.ImportantIndicatorResultMeasurement.Add(importantIndicatorResult);
-
+            ChangeForecastPeriod(indicators, indicators.ImportantIndicatorResultMeasurement.First().PeriodMonthOrQuaterOrYearID, null);
             SetIndicatorImportant(indicators);
             ViewBag.Year = indicators.indicatorYear;
             ViewBag.YearBag = IndicatorYearSelectItem();
@@ -571,9 +575,121 @@ namespace MRT_Demo.Controllers
             ViewBag.MQY = db.PeriodMonthOrQuaterOrYear.ToList();
             return View("Result", indicators);
         }
+        [HttpPost]
+        public ActionResult Result(Indicator indicators)
+        {
+            var PeriodTemp = indicators.ImportantIndicatorResultMeasurement.First().ForecastPeriod;
+            indicators.ImportantIndicatorResultMeasurement.First().ForecastPeriod = null;
+            
+            if (indicators.ImportantIndicatorResultMeasurement.First().ID == 0) { db.ImportantIndicatorResultMeasurement.Add(indicators.ImportantIndicatorResultMeasurement.First()); } else { db.Entry(indicators.ImportantIndicatorResultMeasurement.First()).State = EntityState.Modified; }
+            foreach (var item in PeriodTemp)
+            {
+                var c = item.ForecastPeriodCompetitorValue;
+                var a = item.ForecastPeriodToolAndMethod;
+                var d = item.ForecastPeriodResultRemark;
+                var b = item.ForecastValueAndRealValue;
+                item.ForecastPeriodCompetitorValue = null;
+                item.ForecastPeriodToolAndMethod = null;
+                item.ForecastPeriodResultRemark = null;
+                item.ForecastValueAndRealValue = null;
+                if (item.ID == 0) 
+                { 
+                    item.ImportantIndicatorResultMeasurement = null;
+                    item.ImportantIndicatorResultMeasurementID = indicators.ImportantIndicatorResultMeasurement.First().ID;
+                    db.ForecastPeriod.Add(item); 
+                } else 
+                { 
+                    db.Entry(item).State = EntityState.Modified; 
+                }
+
+                db.SaveChanges();
+                foreach (var ToolItem in a)
+                {
+                    if (ToolItem.ID == 0) { ToolItem.ForecastPeriodID = item.ID; db.ForecastPeriodToolAndMethod.Add(ToolItem); } else { db.Entry(ToolItem).State = EntityState.Modified; }
+                }
+                foreach (var ValueItem in b)
+                {
+                    if (ValueItem.ID == 0) { ValueItem.ForecastPeriodID = item.ID; db.ForecastValueAndRealValue.Add(ValueItem); } else { db.Entry(ValueItem).State = EntityState.Modified; }
+                }
+                foreach (var CompeItem in c)
+                {
+                    if (CompeItem.ID == 0) { CompeItem.ForecastPeriodID = item.ID; db.ForecastPeriodCompetitorValue.Add(CompeItem); } else { db.Entry(CompeItem).State = EntityState.Modified; }
+                }
+                foreach (var Remarkitem in d)
+                {
+                    if (Remarkitem.ID == 0) { Remarkitem.ForecastPeriodID = item.ID; db.ForecastPeriodResultRemark.Add(Remarkitem); } else { db.Entry(Remarkitem).State = EntityState.Modified; }
+                }
+                if (d.First().ListFileA.First() != null) { ActionSaveFile(d.First().ListFileA, d.First().ID, 1); }
+                if (d.First().ListFileB.First() != null) { ActionSaveFile(d.First().ListFileB, d.First().ID, 2); }
+                if (d.First().ListFileC.First() != null) { ActionSaveFile(d.First().ListFileC, d.First().ID, 3); }
+
+            }
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        private void ActionSaveFile(List<HttpPostedFileBase> listFile, int ID, int runnumber)
+        {
+            foreach (var fileitem in listFile)
+            {
+                string FileName = DateTime.Now.ToString("HHmmss-ddMMyyyy") + "_" + Path.GetFileName(fileitem.FileName);
+                string UploadPath = Path.Combine(Server.MapPath("~/UserFile"), FileName);
+                if (Directory.Exists("~/UserFile")) { fileitem.SaveAs(UploadPath); } else { Directory.CreateDirectory(Server.MapPath("~/UserFile")); fileitem.SaveAs(UploadPath); }
+
+                FilePath filePath = new FilePath();
+                filePath.CreateDate = DateTime.Now;
+                filePath.UpdateDate = DateTime.Now;
+                filePath.IsDelete = false;
+                filePath.IsLastDelete = false;
+                filePath.NameFile = FileName;
+                filePath.PathFile = "~/UserFile/";
+                db.FilePath.Add(filePath);
+                db.SaveChanges();
+
+                if (runnumber == 1)
+                {
+                    ForecastPeriodDocFile docFile = new ForecastPeriodDocFile();
+                    docFile.ForecastPeriodResultRemarkID = ID;
+                    docFile.FilePathID = filePath.ID;
+                    docFile.CreateDate = DateTime.Now;
+                    docFile.UpdateDate = DateTime.Now;
+                    docFile.IsDelete = false;
+                    docFile.IsLastDelete = false;
+                    db.ForecastPeriodDocFile.Add(docFile);
+
+                }
+                if (runnumber == 2)
+                {
+                    ForecastAnalysisResultsFile analysis = new ForecastAnalysisResultsFile();
+                    analysis.ForecastPeriodResultRemarkID = ID;
+                    analysis.FilePathID = filePath.ID;
+                    analysis.CreateDate = DateTime.Now;
+                    analysis.UpdateDate = DateTime.Now;
+                    analysis.IsDelete = false;
+                    analysis.IsLastDelete = false;
+                    db.ForecastAnalysisResultsFile.Add(analysis);
+
+                }
+                if (runnumber == 3)
+                {
+                    ForecastChangeActionPlanFile changeAction = new ForecastChangeActionPlanFile();
+                    changeAction.ForecastPeriodResultRemarkID = ID;
+                    changeAction.FilePathID = filePath.ID;
+                    changeAction.CreateDate = DateTime.Now;
+                    changeAction.UpdateDate = DateTime.Now;
+                    changeAction.IsDelete = false;
+                    changeAction.IsLastDelete = false;
+                    db.ForecastChangeActionPlanFile.Add(changeAction);
+
+                }
+
+            }
+        }
+
         public ActionResult ChangePeriod(Indicator indicators)
         {
-            ChangeForecastPeriod(indicators,indicators.ImportantIndicatorResultMeasurement.First().PeriodMonthOrQuaterOrYearID);
+            ChangeForecastPeriod(indicators, indicators.ImportantIndicatorResultMeasurement.First().PeriodMonthOrQuaterOrYearID, null);
             SetForecastTool(indicators);
             SetIndicatorImportant(indicators);
             ViewBag.YearBag = IndicatorYearSelectItem();
@@ -582,8 +698,9 @@ namespace MRT_Demo.Controllers
             ViewBag.MQY = db.PeriodMonthOrQuaterOrYear.ToList();
             return View("Result", indicators);
         }
-        public ActionResult ChangeMonthQuarterHailfYear(Indicator indicators)
+        public ActionResult ChangeMonthQuarterHailfYear(Indicator indicators, int? IndexInList)
         {
+            ChangeForecastPeriod(indicators, null, IndexInList);
             SetForecastTool(indicators);
             SetIndicatorImportant(indicators);
             ViewBag.YearBag = IndicatorYearSelectItem();
@@ -591,6 +708,52 @@ namespace MRT_Demo.Controllers
             ViewBag.Xunit = new SelectList(indicators.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
             ViewBag.MQY = db.PeriodMonthOrQuaterOrYear.ToList();
             return View("Result", indicators);
+        }
+        public ActionResult DelCompetitorValue(Indicator indicator)
+        {
+            foreach (var item in indicator.ImportantIndicatorResultMeasurement.First().ForecastPeriod)
+            {
+                foreach (var item2 in item.ForecastPeriodCompetitorValue)
+                {
+                    if (item2.IsDelete)
+                    {
+                        //item.ForecastPeriodCompetitorValue.Remove(item2);
+                    }
+                }
+            }
+            SetForecastTool(indicator);
+            SetIndicatorImportant(indicator);
+            ViewBag.YearBag = IndicatorYearSelectItem();
+            ViewBag.DivisionBag = IndicatorOwnerSelectItem();
+            ViewBag.Xunit = new SelectList(indicator.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
+            ViewBag.MQY = db.PeriodMonthOrQuaterOrYear.ToList();
+            return View("Result", indicator);
+        }
+        public ActionResult AddCompetitorValue(Indicator indicator)
+        {
+            foreach (var item in indicator.ImportantIndicatorResultMeasurement.First().ForecastPeriod)
+            {
+                if (item.IsAddCompetitor)
+                {
+                    ForecastPeriodCompetitorValue competitorValue = new ForecastPeriodCompetitorValue();
+                    competitorValue.CreateDate = DateTime.Now;
+                    competitorValue.UpdateDate = DateTime.Now;
+                    competitorValue.IsDelete = false;
+                    competitorValue.IsLastDelete = false;
+                    competitorValue.ForecastPeriodID = item.ID;
+                    competitorValue.ForecastPeriod = item;
+                    item.ForecastPeriodCompetitorValue.Add(competitorValue);
+                }
+
+            }
+            SetForecastTool(indicator);
+            SetIndicatorImportant(indicator);
+            ViewBag.YearBag = IndicatorYearSelectItem();
+            ViewBag.DivisionBag = IndicatorOwnerSelectItem();
+            ViewBag.Xunit = new SelectList(indicator.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
+            ViewBag.MQY = db.PeriodMonthOrQuaterOrYear.ToList();
+            ModelState.Clear();
+            return View("Result", indicator);
         }
     }
 }

@@ -8,6 +8,7 @@
 @Html.HiddenFor(m => m.UpdateDate)
 @Html.HiddenFor(m => m.CreateBy)
 @Html.HiddenFor(m => m.UpdateBy)
+@Html.Hidden("IndexInList")
 
 @{
     List<MRT_Demo.Models.PeriodMonthOrQuaterOrYear> MQY = new List<MRT_Demo.Models.PeriodMonthOrQuaterOrYear>();
@@ -35,104 +36,49 @@
 <div id="Month" style="display:@(Model.PeriodMonthOrQuaterOrYearID==1?"block":"none");">
     <div class="row">
         <div class="offset-md-3 col-md-9">
-            <input value="ต.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(0).IsSelect))" />
-            <input value="พ.ย." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(1).IsSelect))" />
-            <input value="ธ.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(2).IsSelect))" />
-            <input value="ม.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(3).IsSelect))" />
-            <input value="ก.พ." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(4).IsSelect))" />
-            <input value="มี.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(5).IsSelect))" />
-            <input value="เม.ย." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(6).IsSelect))" />
-            <input value="พ.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(7).IsSelect))" />
-            <input value="มิ.ย." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(8).IsSelect))" />
-            <input value="ก.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(9).IsSelect))" />
-            <input value="ส.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(10).IsSelect))" />
-            <input value="ก.ย." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(11).IsSelect))" />
+            <input value="ต.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(0)" />
+            <input value="พ.ย." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(1)" />
+            <input value="ธ.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(2)" />
+            <input value="ม.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(3)" />
+            <input value="ก.พ." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(4)" />
+            <input value="มี.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(5)" />
+            <input value="เม.ย." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(6)" />
+            <input value="พ.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(7)" />
+            <input value="มิ.ย." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(8)" />
+            <input value="ก.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(9)" />
+            <input value="ส.ค." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(10)" />
+            <input value="ก.ย." class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(11)" />
         </div>
     </div>
     <br />
-    <div class="row">
-        <div class="offset-md-1 col-md-2 text-end">@Html.DisplayName("งวดการคาดการณ์ : ")</div>
-        <div class="col-md-1">
-            <table class="table table-bordered" style="min-width:1700px;">
-                <tr>
-                    <th colspan="2" class="text-center" style="width:600px;">เครื่องมือ</th>
-                    <th rowspan="2" class="text-center" style="width:300px;">หน่วยวัด</th>
-                    <th rowspan="2" class="text-center" style="width:300px;">ผลดำเนินงานจริง<br />ณ งวดที่ทำการคาดการณ์</th>
-                    <th rowspan="2" class="text-center" style="width:300px;">ค่าคาดการณ์ผลดำเนินงานจริง<br />ณ 30 ก.ย. 65</th>
-                    <th rowspan="2" class="text-center" style="width:600px;">ผลดำเนินงานของ<br />คู่เทียบ/คู่แข่ง<br />(หน่วยงาน/องค์กร/บริษัท)</th>
-                </tr>
-                <tr>
-                    <th class="text-center" style="width:300px;">เครื่องมือ</th>
-                    <th class="text-center" style="width:300px;">แบบจำลอง</th>
-                </tr>
-
-                @Html.EditorFor(m => m.ForecastPeriod)
-
-            </table>
-        </div>
-    </div>
-
-
 </div>
 <div id="Quater" style="display:@(Model.PeriodMonthOrQuaterOrYearID==2?"block":"none");">
     <div class="row">
         <div class="offset-md-3 col-md-9">
-            <input value="ไตรมาส 1" class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(12).IsSelect))" />
-            <input value="ไตรมาส 2" class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(13).IsSelect))" />
-            <input value="ไตรมาส 3" class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(14).IsSelect))" />
-            <input value="ไตรมาส 4" class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(15).IsSelect))" />
+            <input value="ไตรมาส 1" class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(12)" />
+            <input value="ไตรมาส 2" class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(13)" />
+            <input value="ไตรมาส 3" class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(14)" />
+            <input value="ไตรมาส 4" class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(15)" />
         </div>
     </div>
     <br />
-    <div class="row">
-        <div class="offset-md-1 col-md-2 text-end">@Html.DisplayName("งวดการคาดการณ์ : ")</div>
-        <div class="col-md-1">
-            <table class="table table-bordered" style="min-width:1700px;">
-                <tr>
-                    <th colspan="2" class="text-center" style="width:600px;">เครื่องมือ</th>
-                    <th rowspan="2" class="text-center" style="width:300px;">หน่วยวัด</th>
-                    <th rowspan="2" class="text-center" style="width:300px;">ผลดำเนินงานจริง<br />ณ งวดที่ทำการคาดการณ์</th>
-                    <th rowspan="2" class="text-center" style="width:300px;">ค่าคาดการณ์ผลดำเนินงานจริง<br />ณ 30 ก.ย. 65</th>
-                    <th rowspan="2" class="text-center" style="width:600px;">ผลดำเนินงานของ<br />คู่เทียบ/คู่แข่ง<br />(หน่วยงาน/องค์กร/บริษัท)</th>
-                </tr>
-                <tr>
-                    <th class="text-center" style="width:300px;">เครื่องมือ</th>
-                    <th class="text-center" style="width:300px;">แบบจำลอง</th>
-                </tr>
-
-                @Html.EditorFor(m => m.ForecastPeriod)
-
-            </table>
-        </div>
-    </div>
 </div>
 <div id="Year" style="display:@(Model.PeriodMonthOrQuaterOrYearID==3?"block":"none");">
     <div class="row">
         <div class="offset-md-3 col-md-9">
-            <input value="ครึ่งปี" class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(16).IsSelect))" />
-            <input value="สิ้นปี" class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(@Html.IdFor(m=>m.ForecastPeriod.ElementAt(17).IsSelect))" />
+            <input value="ครึ่งปี" class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(16)" />
+            <input value="สิ้นปี" class="btn btn-outline-secondary" type="button" onclick="FuncChangeMonthQuarterHailfYear(17)" />
         </div>
     </div>
     <br />
-    <div class="row">
-        <div class="offset-md-1 col-md-2 text-end">@Html.DisplayName("งวดการคาดการณ์ : ")</div>
-        <div class="col-md-1">
-            <table class="table table-bordered" style="min-width:1700px;">
-                <tr>
-                    <th colspan="2" class="text-center" style="width:600px;">เครื่องมือ</th>
-                    <th rowspan="2" class="text-center" style="width:300px;">หน่วยวัด</th>
-                    <th rowspan="2" class="text-center" style="width:300px;">ผลดำเนินงานจริง<br />ณ งวดที่ทำการคาดการณ์</th>
-                    <th rowspan="2" class="text-center" style="width:300px;">ค่าคาดการณ์ผลดำเนินงานจริง<br />ณ 30 ก.ย. 65</th>
-                    <th rowspan="2" class="text-center" style="width:600px;">ผลดำเนินงานของ<br />คู่เทียบ/คู่แข่ง<br />(หน่วยงาน/องค์กร/บริษัท)</th>
-                </tr>
-                <tr>
-                    <th class="text-center" style="width:300px;">เครื่องมือ</th>
-                    <th class="text-center" style="width:300px;">แบบจำลอง</th>
-                </tr>
+</div>
 
-                @Html.EditorFor(m => m.ForecastPeriod)
+<div class="row">
+    <div class="offset-md-1 col-md-2 text-end">@Html.DisplayName("งวดการคาดการณ์ : ")</div>
+    <div class="col-md-8">
 
-            </table>
-        </div>
+        @Html.EditorFor(m => m.ForecastPeriod)
+
     </div>
 </div>
+

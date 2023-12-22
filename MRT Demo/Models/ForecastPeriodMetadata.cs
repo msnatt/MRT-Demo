@@ -12,7 +12,7 @@ namespace MRT_Demo.Models
     [MetadataType(typeof(ForecastPeriodMetadata))]
     public partial class ForecastPeriod
     {
-        public List<ForecastPeriodToolAndMethod> ToolAndMethods { get; set; }
         public bool IsSelect { get; set; }
+        public bool IsAddCompetitor { get; set; }
     }
 }

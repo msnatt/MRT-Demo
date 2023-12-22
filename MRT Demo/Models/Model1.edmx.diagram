@@ -52,6 +52,10 @@
         <AssociationConnector Association="MRTModel.FK_PeriodMonthOrQuaterOrYear_ID_ImportantIndicatorResultMeasurement_PeriodMonthOrQuaterOrYearID" />
         <EntityTypeShape EntityType="MRTModel.ForecastPeriodCompetitorValue" Width="1.5" PointX="11.25" PointY="15" />
         <AssociationConnector Association="MRTModel.FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID" />
+        <EntityTypeShape EntityType="MRTModel.FilePath" Width="1.5" PointX="20.75" PointY="12.5" />
+        <AssociationConnector Association="MRTModel.FK_ForecastAnalysisResultsFile_FilePath" />
+        <AssociationConnector Association="MRTModel.FK_ForecastChangeActionPlanFile_FilePath" />
+        <AssociationConnector Association="MRTModel.FK_ForecastPeriodDocFile_FilePath" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

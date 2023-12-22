@@ -1,14 +1,14 @@
 ﻿@model MRT_Demo.Models.ForecastValueAndRealValue
-@Html.HiddenFor(m=>m.ID)
-@Html.HiddenFor(m=>m.IsDelete)
-@Html.HiddenFor(m=>m.IsLastDelete)
-@Html.HiddenFor(m=>m.CreateDate)
-@Html.HiddenFor(m=>m.CreateBy)
-@Html.HiddenFor(m=>m.UpdateDate)
-@Html.HiddenFor(m=>m.UpdateBy)
-@Html.HiddenFor(m=>m.ForecastPeriodID)
-@Html.HiddenFor(m=>m.ForecastPeriod)
-@Html.HiddenFor(m=>m.UnitsID)
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.IsDelete)
+@Html.HiddenFor(m => m.IsLastDelete)
+@Html.HiddenFor(m => m.CreateDate)
+@Html.HiddenFor(m => m.CreateBy)
+@Html.HiddenFor(m => m.UpdateDate)
+@Html.HiddenFor(m => m.UpdateBy)
+@Html.HiddenFor(m => m.ForecastPeriodID)
+@Html.HiddenFor(m => m.ForecastPeriod)
+@Html.HiddenFor(m => m.UnitsID)
 
 <td>
     @Html.EditorFor(m => m.RealValue, new { htmlAttributes = new { @class = "form-control" } })
@@ -16,3 +16,4 @@
 <td>
     @Html.EditorFor(m => m.ForecastValue, new { htmlAttributes = new { @class = "form-control" } })
 </td>
+

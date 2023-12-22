@@ -142,12 +142,16 @@
     <Compile Include="Models\DataOwner.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FilePath.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ForecastAnalysisResultsFile.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ForecastChangeActionPlanFile.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForecastCompetitorValueMetadata.cs" />
     <Compile Include="Models\ForecastPeriod.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -161,6 +165,7 @@
     <Compile Include="Models\ForecastPeriodResultRemark.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForecastPeriodResultRemarkMetadata.cs" />
     <Compile Include="Models\ForecastPeriodToolAndMethod.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -361,6 +366,8 @@
     <Content Include="Views\Shared\EditorTemplates\ForecastPeriodToolAndMethod.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ToolAndMethods.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ForecastValueAndRealValue.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ForecastPeriodCompetitorValue.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ForecastPeriodResultRemark.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
