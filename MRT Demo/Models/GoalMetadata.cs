@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace MRT_Demo.Models
 {
@@ -38,5 +39,6 @@ namespace MRT_Demo.Models
                 return startdt + " - " + enddt;
             }
         }
+        public bool IsAddIndiacator { get; set; }
     }
 }

@@ -9,7 +9,6 @@
 
 @using (Html.BeginForm("Manage", "Goals", FormMethod.Post, new { @class = "form-horizontal", id = "Goalform", name = "Goalform" }))
 {
-    @*@Html.AntiForgeryToken()*@
     @Html.HiddenFor(m => m.StrategicObjective1)
     @Html.HiddenFor(m => m.SEOPlanID)
     @Html.HiddenFor(m => m.ID)
@@ -19,14 +18,12 @@
     @Html.HiddenFor(m => m.UpdateDate)
     @Html.HiddenFor(m => m.IsDelete)
     @Html.HiddenFor(m => m.IsLastDelete)
-    @*@Html.HiddenFor(m => m.Goals)*@
     <div>
         <div class="row ">
             @Html.DisplayName("วัตถุประสงค์เชิงยุทธศาสตร์ (Strategic Objectives) : ")
             @Html.DisplayFor(m => m.StrategicObjective1)
         </div><br />
         <div class="offset-md-10">
-            @*@Html.ActionLink("เพิ่ม", "AddGoal", Model, new { @class = "btn btn-primary" })*@
             <input value="เพิ่ม" onclick="funcAddGoal()" type="button" class="btn btn-primary  col-md-8" />
         </div>
         <br />
@@ -49,10 +46,9 @@
             </div>
         </div>
         <div class="row">
-            @Html.ActionLink("Back to List", "Index", "StrategicObjectives", new { id = Model.SEOPlanID }, new {@class= "btn btn-secondary col-md-1" })
+            @Html.ActionLink("Back to List", "Index", "StrategicObjectives", new { id = Model.SEOPlanID }, new { @class = "btn btn-secondary col-md-1" })
             <input type="submit" value="บันทึก" class="btn  col-md-2 btn-success" />
         </div>
-
     </div>
 }
 
@@ -70,5 +66,20 @@
         $("#Goalform").attr("action", '@Url.Action("DeleteGoal","Goals")');
         $("#Goalform").submit();
     }
+    function FuncAddSOEPlanIndicator(e) {
+        e.value = true;
+        $("#Goalform").attr("action", '@Url.Action("AddIndicator","Goals")');
+        $("#Goalform").submit();
+    }
+    function FuncDelSOEPlanIndicator(e) {
+        e.value = true;
+        $("#Goalform").attr("action", '@Url.Action("DelIndicator","Goals")');
+        $("#Goalform").submit();
+    }
+    function FuncOnChangeIndicator() {
+        $("#Goalform").attr("action", '@Url.Action("Update", "Goals")');
+        $("#Goalform").submit();
+
+        }
 
 </script>

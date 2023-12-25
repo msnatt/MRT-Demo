@@ -130,6 +130,15 @@
       <End Role="FilePath" EntitySet="FilePath" />
       <End Role="ForecastPeriodDocFile" EntitySet="ForecastPeriodDocFile" />
     </AssociationSet>
+    <EntitySet Name="SOEPlanIndicator" EntityType="MRTModel.SOEPlanIndicator" />
+    <AssociationSet Name="FK_SOEPlanIndicator_Goal" Association="MRTModel.FK_SOEPlanIndicator_Goal">
+      <End Role="Goal" EntitySet="Goals" />
+      <End Role="SOEPlanIndicator" EntitySet="SOEPlanIndicator" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOEPlanIndicator_Indicator" Association="MRTModel.FK_SOEPlanIndicator_Indicator">
+      <End Role="Indicator" EntitySet="Indicators" />
+      <End Role="SOEPlanIndicator" EntitySet="SOEPlanIndicator" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Goal">
     <Key>
@@ -146,6 +155,7 @@
     <Property Name="IsDelete" Type="Boolean" />
     <Property Name="IsLastDelete" Type="Boolean" />
     <NavigationProperty Name="StrategicObjective" Relationship="MRTModel.FK_StrategicObjective_ID_Goal_StrategicObjectiveID" FromRole="Goal" ToRole="StrategicObjective" />
+    <NavigationProperty Name="SOEPlanIndicator" Relationship="MRTModel.FK_SOEPlanIndicator_Goal" FromRole="Goal" ToRole="SOEPlanIndicator" />
   </EntityType>
   <EntityType Name="ImportantIndicatorTargetMeasurement">
     <Key>
@@ -189,6 +199,7 @@
     <NavigationProperty Name="IndicatorDetailStatus" Relationship="MRTModel.FK_IndicatorDetailStatus_ID__Indicator_IndicatorDetailStatusID" FromRole="Indicator" ToRole="IndicatorDetailStatus" />
     <NavigationProperty Name="ImportantIndicatorTargetMeasurement" Relationship="MRTModel.FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID" FromRole="Indicator" ToRole="ImportantIndicatorTargetMeasurement" />
     <NavigationProperty Name="ImportantIndicatorResultMeasurement" Relationship="MRTModel.FK_Indicator_ID__ImportantIndicatorResultMeasurement_IndicatorID" FromRole="Indicator" ToRole="ImportantIndicatorResultMeasurement" />
+    <NavigationProperty Name="SOEPlanIndicator" Relationship="MRTModel.FK_SOEPlanIndicator_Indicator" FromRole="Indicator" ToRole="SOEPlanIndicator" />
   </EntityType>
   <EntityType Name="IndicatorOwner">
     <Key>
@@ -859,6 +870,48 @@
       </Principal>
       <Dependent Role="ForecastPeriodDocFile">
         <PropertyRef Name="FilePathID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SOEPlanIndicator">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="No" Type="Int32" />
+    <Property Name="GoalID" Type="Int32" />
+    <Property Name="IndicatorID" Type="Int32" />
+    <Property Name="IndicatorUnitID" Type="Int32" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="IsLastDelete" Type="Boolean" />
+    <NavigationProperty Name="Goal" Relationship="MRTModel.FK_SOEPlanIndicator_Goal" FromRole="SOEPlanIndicator" ToRole="Goal" />
+    <NavigationProperty Name="Indicator" Relationship="MRTModel.FK_SOEPlanIndicator_Indicator" FromRole="SOEPlanIndicator" ToRole="Indicator" />
+  </EntityType>
+  <Association Name="FK_SOEPlanIndicator_Goal">
+    <End Type="MRTModel.Goal" Role="Goal" Multiplicity="0..1" />
+    <End Type="MRTModel.SOEPlanIndicator" Role="SOEPlanIndicator" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goal">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SOEPlanIndicator">
+        <PropertyRef Name="GoalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOEPlanIndicator_Indicator">
+    <End Type="MRTModel.Indicator" Role="Indicator" Multiplicity="0..1" />
+    <End Type="MRTModel.SOEPlanIndicator" Role="SOEPlanIndicator" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicator">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SOEPlanIndicator">
+        <PropertyRef Name="IndicatorID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

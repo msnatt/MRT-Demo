@@ -432,6 +432,7 @@ namespace MRT_Demo.Controllers
             return View("Target", indicator);
         }
         // ========================= Result ================================
+        [HttpGet]
         public ActionResult Result(int id)
         {
             var indicators = db.Indicators.Find(id);
@@ -598,7 +599,8 @@ namespace MRT_Demo.Controllers
                     item.ImportantIndicatorResultMeasurementID = indicators.ImportantIndicatorResultMeasurement.First().ID;
                     db.ForecastPeriod.Add(item); 
                 } else 
-                { 
+                {
+                    item.ImportantIndicatorResultMeasurement = null;
                     db.Entry(item).State = EntityState.Modified; 
                 }
 
@@ -628,7 +630,6 @@ namespace MRT_Demo.Controllers
 
             return RedirectToAction("Index");
         }
-
         private void ActionSaveFile(List<HttpPostedFileBase> listFile, int ID, int runnumber)
         {
             foreach (var fileitem in listFile)
@@ -686,7 +687,6 @@ namespace MRT_Demo.Controllers
 
             }
         }
-
         public ActionResult ChangePeriod(Indicator indicators)
         {
             ChangeForecastPeriod(indicators, indicators.ImportantIndicatorResultMeasurement.First().PeriodMonthOrQuaterOrYearID, null);

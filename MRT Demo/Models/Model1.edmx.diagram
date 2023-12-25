@@ -11,7 +11,7 @@
         <EntityTypeShape EntityType="MRTModel.IndicatorOwner" Width="1.5" PointX="5.25" PointY="8.125" />
         <EntityTypeShape EntityType="MRTModel.IndicatorType" Width="1.5" PointX="3" PointY="0.75" />
         <EntityTypeShape EntityType="MRTModel.IndicatorUnit" Width="1.5" PointX="5.25" PointY="11.75" />
-        <EntityTypeShape EntityType="MRTModel.IndicatorXIndicatorType" Width="1.5" PointX="5.25" PointY="3.375" />
+        <EntityTypeShape EntityType="MRTModel.IndicatorXIndicatorType" Width="1.5" PointX="5.25" PointY="3" />
         <EntityTypeShape EntityType="MRTModel.SEOPlan" Width="1.5" PointX="10.125" PointY="3.625" />
         <EntityTypeShape EntityType="MRTModel.Stategy" Width="1.5" PointX="14.625" PointY="5.375" />
         <EntityTypeShape EntityType="MRTModel.StrategicObjective" Width="1.5" PointX="12.375" PointY="3.375" />
@@ -48,7 +48,7 @@
         <AssociationConnector Association="MRTModel.FK_ImportantIndicatorResultMeasurement_ID___ForecastPeriod_ImportantIndicatorResultMeasurementID" />
         <AssociationConnector Association="MRTModel.FK_ForecastPeriodResultRemark_ID___ForecastPeriodDocFile_ForecastPeriodResultRemarkID" />
         <AssociationConnector Association="MRTModel.FK_ForecastTool_ID___ForecastPeriodToolAndMethod_ForecastToolID" />
-        <AssociationConnector Association="MRTModel.FK_Indicator_ID__ImportantIndicatorResultMeasurement_IndicatorID" />
+        <AssociationConnector Association="MRTModel.FK_Indicator_ID__ImportantIndicatorResultMeasurement_IndicatorID" ></AssociationConnector>
         <AssociationConnector Association="MRTModel.FK_PeriodMonthOrQuaterOrYear_ID_ImportantIndicatorResultMeasurement_PeriodMonthOrQuaterOrYearID" />
         <EntityTypeShape EntityType="MRTModel.ForecastPeriodCompetitorValue" Width="1.5" PointX="11.25" PointY="15" />
         <AssociationConnector Association="MRTModel.FK_ForecastPeriod_ID___ForecastPeriodCompetitorValue_ForecastPeriodID" />
@@ -56,6 +56,9 @@
         <AssociationConnector Association="MRTModel.FK_ForecastAnalysisResultsFile_FilePath" />
         <AssociationConnector Association="MRTModel.FK_ForecastChangeActionPlanFile_FilePath" />
         <AssociationConnector Association="MRTModel.FK_ForecastPeriodDocFile_FilePath" />
+        <EntityTypeShape EntityType="MRTModel.SOEPlanIndicator" Width="1.5" PointX="7.25" PointY="2.25" />
+        <AssociationConnector Association="MRTModel.FK_SOEPlanIndicator_Goal" />
+        <AssociationConnector Association="MRTModel.FK_SOEPlanIndicator_Indicator" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

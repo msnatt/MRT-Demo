@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,15 +15,12 @@ namespace MRT_Demo.Controllers
     {
         private MRTEntities db = new MRTEntities();
 
-        // GET: Goals
         public ActionResult Index()
         {
             var goals = db.Goals.Include(g => g.StrategicObjective);
             goals.Where(s => s.IsDelete == false);
             return View(goals.ToList());
         }
-
-        // GET: Goals/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,17 +34,11 @@ namespace MRT_Demo.Controllers
             }
             return View(goal);
         }
-
-        // GET: Goals/Create
         public ActionResult Create()
         {
             ViewBag.StrategicObjectiveID = new SelectList(db.StrategicObjectives, "ID", "StrategicObjective1");
             return View();
         }
-
-        // POST: Goals/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Goal goal)
@@ -61,8 +53,6 @@ namespace MRT_Demo.Controllers
             ViewBag.StrategicObjectiveID = new SelectList(db.StrategicObjectives, "ID", "StrategicObjective1", goal.StrategicObjectiveID);
             return View(goal);
         }
-
-        // GET: Goals/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,10 +67,6 @@ namespace MRT_Demo.Controllers
             ViewBag.StrategicObjectiveID = new SelectList(db.StrategicObjectives, "ID", "StrategicObjective1", goal.StrategicObjectiveID);
             return View(goal);
         }
-
-        // POST: Goals/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,No,Goal1,StrategicObjectiveID,CreateBy,UpdateBy,CreateDate,UpdateDate,IsDelete,IsLastDelete")] Goal goal)
@@ -94,8 +80,6 @@ namespace MRT_Demo.Controllers
             ViewBag.StrategicObjectiveID = new SelectList(db.StrategicObjectives, "ID", "StrategicObjective1", goal.StrategicObjectiveID);
             return View(goal);
         }
-
-        // GET: Goals/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -109,8 +93,6 @@ namespace MRT_Demo.Controllers
             }
             return View(goal);
         }
-
-        // POST: Goals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -120,7 +102,6 @@ namespace MRT_Demo.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -130,9 +111,18 @@ namespace MRT_Demo.Controllers
             base.Dispose(disposing);
         }
 
+        public ActionResult Update(StrategicObjective strategic)
+        {
+            IndicatorBag(strategic);
+            IndicatorUnitBag(strategic);
+            return View("Manage", strategic);
+        }
+
         public ActionResult Manage(int id)
         {
             var strategicObjective = db.StrategicObjectives.Find(id);
+            IndicatorBag(strategicObjective);
+            IndicatorUnitBag(strategicObjective);
 
             return View(strategicObjective);
         }
@@ -142,13 +132,14 @@ namespace MRT_Demo.Controllers
             var goal = strategic.Goals;
             SaveGoalToDB(goal);
             db.SaveChanges();
-            return RedirectToAction("Index", "StrategicObjectives", new { id = strategic.SEOPlanID});
+            return RedirectToAction("Index", "StrategicObjectives", new { id = strategic.SEOPlanID });
         }
-
         private void SaveGoalToDB(ICollection<Goal> goals)
         {
             foreach (var goal in goals)
             {
+                var SOEPlanIndicator = goal.SOEPlanIndicator;
+                goal.SOEPlanIndicator = new List<SOEPlanIndicator>();
                 if (goal.ID == 0)
                 {
                     if (goal.IsDelete == false)
@@ -160,9 +151,24 @@ namespace MRT_Demo.Controllers
                 {
                     db.Entry(goal).State = EntityState.Modified;
                 }
+
+                foreach (var goalindicator in SOEPlanIndicator)
+                {
+                    if (goalindicator.ID == 0)
+                    {
+                        if (goalindicator.IsDelete == false)
+                        {
+                            goalindicator.GoalID = goal.ID;
+                            db.SOEPlanIndicator.Add(goalindicator);
+                        }
+                    }
+                    else
+                    {
+                        db.Entry(goalindicator).State = EntityState.Modified;
+                    }
+                }
             }
         }
-
         public ActionResult AddGoal(StrategicObjective strategic)
         {
 
@@ -172,6 +178,7 @@ namespace MRT_Demo.Controllers
             goal.IsDelete = false;
             goal.IsLastDelete = false;
             goal.StrategicObjectiveID = strategic.ID;
+            goal.IsAddIndiacator = false;
             var last = db.Goals.ToList().LastOrDefault();
             if (last == null)
             {
@@ -180,14 +187,77 @@ namespace MRT_Demo.Controllers
 
             goal.No = last.No + 1;
             strategic.Goals.Add(goal);
+            IndicatorBag(strategic);
+            IndicatorUnitBag(strategic);
             ModelState.Clear();
             return View("Manage", strategic);
         }
         public ActionResult DeleteGoal(StrategicObjective strategic)
         {
+            IndicatorBag(strategic);
+            IndicatorUnitBag(strategic);
+            return View("Manage", strategic);
+        }
+        public ActionResult AddIndicator(StrategicObjective strategic)
+        {
+            foreach (var goal in strategic.Goals)
+            {
+                if (goal.IsAddIndiacator)
+                {
+                    SOEPlanIndicator SOEPlanIndicator = new SOEPlanIndicator();
+                    SOEPlanIndicator.CreateDate = DateTime.Now;
+                    SOEPlanIndicator.UpdateDate = DateTime.Now;
+                    SOEPlanIndicator.IsDelete = false;
+                    SOEPlanIndicator.IsLastDelete = false;
+                    SOEPlanIndicator.GoalID = goal.ID;
+
+                    var last = db.SOEPlanIndicator.ToList().LastOrDefault();
+                    if (last == null)
+                    {
+                        last = new SOEPlanIndicator();
+                        last.No = 0;
+                    }
+                    SOEPlanIndicator.No = last.No + 1;
+                    goal.SOEPlanIndicator.Add(SOEPlanIndicator);
+                    goal.IsAddIndiacator = false;
+                }
+            }
+
+            IndicatorBag(strategic);
+            IndicatorUnitBag(strategic);
+            ModelState.Clear();
+            return View("Manage", strategic);
+        }
+        public ActionResult DelIndicator(StrategicObjective strategic)
+        {
+            IndicatorBag(strategic);
+            IndicatorUnitBag(strategic);
 
             return View("Manage", strategic);
         }
 
+        private void IndicatorBag(StrategicObjective strategic)
+        {
+            foreach (var item in strategic.Goals)
+            {
+                foreach (var item2 in item.SOEPlanIndicator)
+                {
+                    item2.IndicatorBag = db.Indicators.Select(i => new SelectListItem() { Value = i.ID.ToString(), Text = i.Indicator1 });
+                }
+            }
+        }
+        private void IndicatorUnitBag(StrategicObjective strategic)
+        {
+            foreach (var item in strategic.Goals)
+            {
+                foreach (var item2 in item.SOEPlanIndicator)
+                {
+                    if (item2.IndicatorBag != null)
+                    {
+                        item2.IndicatorUnitBag = db.IndicatorUnits.Where(b => b.IndicatorID == item2.IndicatorID).Select(i => new SelectListItem() { Value = i.ID.ToString(), Text = i.Unit });
+                    }
+                }
+            }
+        }
     }
 }

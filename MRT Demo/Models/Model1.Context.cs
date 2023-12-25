@@ -50,5 +50,6 @@ namespace MRT_Demo.Models
         public virtual DbSet<PeriodMonthOrQuaterOrYear> PeriodMonthOrQuaterOrYear { get; set; }
         public virtual DbSet<ForecastPeriodCompetitorValue> ForecastPeriodCompetitorValue { get; set; }
         public virtual DbSet<FilePath> FilePath { get; set; }
+        public virtual DbSet<SOEPlanIndicator> SOEPlanIndicator { get; set; }
     }
 }

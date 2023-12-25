@@ -12,18 +12,13 @@ namespace MRT_Demo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Goal
+    public partial class SOEPlanIndicator
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Goal()
-        {
-            this.SOEPlanIndicator = new HashSet<SOEPlanIndicator>();
-        }
-    
         public int ID { get; set; }
         public Nullable<int> No { get; set; }
-        public string Goal1 { get; set; }
-        public Nullable<int> StrategicObjectiveID { get; set; }
+        public Nullable<int> GoalID { get; set; }
+        public Nullable<int> IndicatorID { get; set; }
+        public Nullable<int> IndicatorUnitID { get; set; }
         public Nullable<int> CreateBy { get; set; }
         public Nullable<int> UpdateBy { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
@@ -31,8 +26,7 @@ namespace MRT_Demo.Models
         public Nullable<bool> IsDelete { get; set; }
         public Nullable<bool> IsLastDelete { get; set; }
     
-        public virtual StrategicObjective StrategicObjective { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SOEPlanIndicator> SOEPlanIndicator { get; set; }
+        public virtual Goal Goal { get; set; }
+        public virtual Indicator Indicator { get; set; }
     }
 }

@@ -1,0 +1,29 @@
+﻿@model MRT_Demo.Models.SOEPlanIndicator
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.GoalID)
+@Html.HiddenFor(m => m.IsLastDelete)
+@Html.HiddenFor(m => m.IsDelete)
+@Html.HiddenFor(m => m.CreateDate)
+@Html.HiddenFor(m => m.UpdateDate)
+@Html.HiddenFor(m => m.CreateBy)
+@Html.HiddenFor(m => m.UpdateBy)
+@Html.HiddenFor(m => m.No)
+@{ 
+    var IndicatorBag = Model.IndicatorBag;
+    var IndicatorUnitBag = Model.IndicatorUnitBag;
+}
+@if (Model.IsDelete != true)
+{
+    <tr>
+        <td>
+            @Html.DropDownListFor(m => m.IndicatorID, new SelectList(IndicatorBag, "Value", "Text", Model.IndicatorID),"Select", new { onchange = "FuncOnChangeIndicator()"})
+        </td>
+        <td>
+            @Html.DropDownListFor(m => m.IndicatorUnitID, new SelectList(IndicatorUnitBag, "Value", "Text", Model.IndicatorUnitID), new { })
+        </td>
+        <td>
+            <input value="ลบ" class="btn btn-danger" type="button" onclick="FuncDelSOEPlanIndicator(@Html.IdFor(m=>m.IsDelete))" />
+        </td>
+    </tr>
+}
+

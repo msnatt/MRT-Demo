@@ -8,6 +8,7 @@
 @Html.HiddenFor(m => m.IsDelete)
 @Html.HiddenFor(m => m.CreateAndUpdate)
 @Html.HiddenFor(m => m.StrategicObjectiveID)
+@Html.HiddenFor(m => m.IsAddIndiacator)
 
 @if (Model.IsDelete != true)
 {
@@ -16,9 +17,27 @@
             @Html.DisplayFor(m => m.CreateAndUpdate)
             @Html.EditorFor(m => m.Goal1, new { htmlAttributes = new { @class = "form-control" } })
         </td>
-        <td></td>
         <td>
-            <input value="ลบ" type="button" class="btn" onclick="funcDeleteGoal(@Html.IdFor(m=>m.IsDelete))" />
+
+            <input value="เพิ่ม" class="btn btn-secondary row offset-md-10 col-md-2" type="button" onclick="FuncAddSOEPlanIndicator(@Html.IdFor(m=>m.IsAddIndiacator))" />
+            <table class="table table-bordered">
+                <tr>
+                    <th class="w-25">
+                        @Html.DisplayName("ตัวชี้วัด")
+                    </th>
+                    <th class="w-50">
+                        @Html.DisplayName("หน่วยวัด")
+                    </th>
+                    <th class="w-25">
+                        @Html.DisplayName("จัดการ")
+                    </th>
+                </tr>
+                @Html.EditorFor(m => m.SOEPlanIndicator)
+
+            </table>
+        </td>
+        <td>
+            <input value="ลบ" type="button" class="btn btn-danger row offset-md-4 col-md-4" onclick="funcDeleteGoal(@Html.IdFor(m=>m.IsDelete))" />
         </td>
     </tr>
 }

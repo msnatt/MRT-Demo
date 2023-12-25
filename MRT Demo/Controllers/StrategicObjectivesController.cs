@@ -14,7 +14,6 @@ namespace MRT_Demo.Controllers
     {
         private MRTEntities db = new MRTEntities();
 
-        // GET: StrategicObjectives
         public ActionResult Index(int? id, string a)
         {
             var seoplans = db.SEOPlans.Find(id);
@@ -24,19 +23,17 @@ namespace MRT_Demo.Controllers
             var strategicObjectives = db.StrategicObjectives.Where(s => s.IsDelete != true && s.SEOPlanID == id);
             if (a != null)
             {
-                strategicObjectives = strategicObjectives.Where(s=>s.StrategicObjective1.Contains(a));
+                strategicObjectives = strategicObjectives.Where(s => s.StrategicObjective1.Contains(a));
             }
             return View(strategicObjectives);
         }
-
         [HttpPost]
-        public ActionResult SearchTextFunc(string isAcc ,StrategicObjective strategic)
+        public ActionResult SearchTextFunc(string isAcc, StrategicObjective strategic)
         {
 
             return RedirectToAction("Index", new { id = strategic.SEOPlanID, a = isAcc });
         }
 
-        // GET: StrategicObjectives/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -51,7 +48,6 @@ namespace MRT_Demo.Controllers
             return View(strategicObjective);
         }
 
-        // GET: StrategicObjectives/Create
         public ActionResult Create(int SEOPlanID)
         {
             StrategicObjective strategicObjective = new StrategicObjective();
@@ -60,9 +56,6 @@ namespace MRT_Demo.Controllers
             return View(strategicObjective);
         }
 
-        // POST: StrategicObjectives/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(StrategicObjective strategicObjective)
@@ -85,7 +78,6 @@ namespace MRT_Demo.Controllers
             return RedirectToAction("Index", new { id = strategicObjective.SEOPlanID, a = "" });
         }
 
-        // GET: StrategicObjectives/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -100,10 +92,6 @@ namespace MRT_Demo.Controllers
             ViewBag.SEOPlanID = new SelectList(db.SEOPlans, "ID", "ID", strategicObjective.SEOPlanID);
             return View(strategicObjective);
         }
-
-        // POST: StrategicObjectives/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,No,StrategicObjective1,SEOPlanID,CreateBy,UpdateBy,CreateDate,UpdateDate,IsDelete,IsLastDelete")] StrategicObjective strategicObjective)
@@ -117,31 +105,12 @@ namespace MRT_Demo.Controllers
             ViewBag.SEOPlanID = new SelectList(db.SEOPlans, "ID", "ID", strategicObjective.SEOPlanID);
             return View(strategicObjective);
         }
-
-        // GET: StrategicObjectives/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    StrategicObjective strategicObjective = db.StrategicObjectives.Find(id);
-        //    if (strategicObjective == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(strategicObjective);
-        //}
-
-        // POST: StrategicObjectives/Delete/5
-        //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             StrategicObjective strategicObjective = db.StrategicObjectives.Find(id);
-            //db.StrategicObjectives.Remove(strategicObjective);
             strategicObjective.IsDelete = true;
             db.SaveChanges();
-            return RedirectToAction("Index",new { id = strategicObjective.SEOPlanID, a = "" });
+            return RedirectToAction("Index", new { id = strategicObjective.SEOPlanID, a = "" });
         }
 
         protected override void Dispose(bool disposing)
@@ -154,7 +123,7 @@ namespace MRT_Demo.Controllers
         }
         public ActionResult RecycleBin(int SEOPlanID)
         {
-            var strategic = db.StrategicObjectives.Where(s => s.IsDelete == true && s.SEOPlanID == SEOPlanID && s.IsLastDelete==false).ToList();
+            var strategic = db.StrategicObjectives.Where(s => s.IsDelete == true && s.SEOPlanID == SEOPlanID && s.IsLastDelete == false).ToList();
             ViewBag.SEOPlanID = SEOPlanID;
             return View(strategic);
         }
@@ -166,8 +135,8 @@ namespace MRT_Demo.Controllers
             db.Entry(strategic).State = EntityState.Modified;
 
             db.SaveChanges();
-             
-            return RedirectToAction("RecycleBin",new { SEOPlanID = strategic.SEOPlanID });
+
+            return RedirectToAction("RecycleBin", new { SEOPlanID = strategic.SEOPlanID });
         }
         public ActionResult LastDelete(int id)
         {
@@ -178,7 +147,7 @@ namespace MRT_Demo.Controllers
 
             db.SaveChanges();
 
-            return RedirectToAction("RecycleBin",new { SEOPlanID = strategic.SEOPlanID });
+            return RedirectToAction("RecycleBin", new { SEOPlanID = strategic.SEOPlanID });
         }
     }
 }

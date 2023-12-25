@@ -322,6 +322,22 @@
     <Property Name="IsDelete" Type="bit" />
     <Property Name="IsLastDelete" Type="bit" />
   </EntityType>
+  <EntityType Name="SOEPlanIndicator">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="No" Type="int" />
+    <Property Name="GoalID" Type="int" />
+    <Property Name="IndicatorID" Type="int" />
+    <Property Name="IndicatorUnitID" Type="int" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" />
+    <Property Name="IsLastDelete" Type="bit" />
+  </EntityType>
   <EntityType Name="Stategy">
     <Key>
       <PropertyRef Name="ID" />
@@ -643,6 +659,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SOEPlanIndicator_Goal">
+    <End Role="Goal" Type="Self.Goal" Multiplicity="0..1" />
+    <End Role="SOEPlanIndicator" Type="Self.SOEPlanIndicator" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goal">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SOEPlanIndicator">
+        <PropertyRef Name="GoalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOEPlanIndicator_Indicator">
+    <End Role="Indicator" Type="Self.Indicator" Multiplicity="0..1" />
+    <End Role="SOEPlanIndicator" Type="Self.SOEPlanIndicator" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicator">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SOEPlanIndicator">
+        <PropertyRef Name="IndicatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Stategy_ID__Tactic_StategyID">
     <End Role="Stategy" Type="Self.Stategy" Multiplicity="0..1" />
     <End Role="Tactic" Type="Self.Tactic" Multiplicity="*" />
@@ -702,6 +742,7 @@
     <EntitySet Name="IndicatorXIndicatorType" EntityType="Self.IndicatorXIndicatorType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PeriodMonthOrQuaterOrYear" EntityType="Self.PeriodMonthOrQuaterOrYear" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SEOPlan" EntityType="Self.SEOPlan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SOEPlanIndicator" EntityType="Self.SOEPlanIndicator" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Stategy" EntityType="Self.Stategy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StrategicObjective" EntityType="Self.StrategicObjective" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tactic" EntityType="Self.Tactic" Schema="dbo" store:Type="Tables" />
@@ -796,6 +837,14 @@
     <AssociationSet Name="FK_SEOPlanID_StrategicObjectiveSEOPlanID" Association="Self.FK_SEOPlanID_StrategicObjectiveSEOPlanID">
       <End Role="SEOPlan" EntitySet="SEOPlan" />
       <End Role="StrategicObjective" EntitySet="StrategicObjective" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOEPlanIndicator_Goal" Association="Self.FK_SOEPlanIndicator_Goal">
+      <End Role="Goal" EntitySet="Goal" />
+      <End Role="SOEPlanIndicator" EntitySet="SOEPlanIndicator" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOEPlanIndicator_Indicator" Association="Self.FK_SOEPlanIndicator_Indicator">
+      <End Role="Indicator" EntitySet="Indicator" />
+      <End Role="SOEPlanIndicator" EntitySet="SOEPlanIndicator" />
     </AssociationSet>
     <AssociationSet Name="FK_Stategy_ID__Tactic_StategyID" Association="Self.FK_Stategy_ID__Tactic_StategyID">
       <End Role="Stategy" EntitySet="Stategy" />
