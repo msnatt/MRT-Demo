@@ -21,7 +21,6 @@
     @Html.HiddenFor(m => m.Formula)
     @Html.HiddenFor(m => m.Indicator1)
     @Html.HiddenFor(m => m.IndicatorDetailStatusID)
-    @Html.HiddenFor(m => m.indicatorYear)
     @Html.Hidden("IndexInList")
     @Html.Hidden("File4")
 
@@ -101,7 +100,14 @@
                         <th class="text-center">5</th>
                     </tr>
 
-                    @{ var i = 0; }
+                    @{
+                        var i = 0;
+                        var j = 0;
+                    }
+                    @foreach (var item in Model.SOEPlanIndicator.Where(b => b.IndicatorID == Model.ID && b.SubTarget.Where(ba => ba.Year == Model.indicatorYear).Count() > 0))
+                    {
+                        @Html.EditorFor(m => item, "SOEPlanIndicatorDisabledAll", "SOEPlanIndicator[" + j++ + "]")
+                    }
                     @foreach (var XType in Model.IndicatorXIndicatorTypes)
                     {
                         if (XType.level == 0)
@@ -138,7 +144,7 @@
         <br />
         <br />
         <div class="row">
-            <div class="offset-md-3 col-md-1">
+            <div class="offset-md-3 col-md-1 ">
                 <input value="บันทึก" class="btn btn-primary" type="submit" />
             </div>
         </div>
@@ -195,5 +201,13 @@
 
         $("#Resultform").attr("action", '@Url.Action("DelCompetitorValue","IndicatorTargetAndResults")');
         $("#Resultform").submit();
+    }
+    function FuncRefreshPage() {
+
+        $("#Resultform").attr("action", '@Url.Action("RefreshPage","IndicatorTargetAndResults")');
+        $("#Resultform").submit();
+    }
+    function FuncChangeDisabled(id) {
+        id.disabled = !id.disabled;
     }
 </script>

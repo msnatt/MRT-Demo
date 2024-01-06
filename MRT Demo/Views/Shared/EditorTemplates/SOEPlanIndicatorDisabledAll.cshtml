@@ -1,0 +1,40 @@
+﻿@model MRT_Demo.Models.SOEPlanIndicator
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.GoalID)
+@Html.HiddenFor(m => m.IsLastDelete)
+@Html.HiddenFor(m => m.IsDelete)
+@Html.HiddenFor(m => m.CreateDate)
+@Html.HiddenFor(m => m.UpdateDate)
+@Html.HiddenFor(m => m.CreateBy)
+@Html.HiddenFor(m => m.UpdateBy)
+@Html.HiddenFor(m => m.No)
+@Html.HiddenFor(m => m.Indicator)
+@Html.HiddenFor(m => m.IndicatorID)
+@Html.HiddenFor(m => m.IndicatorUnitID)
+@{
+    var IndicatorBag = Model.IndicatorBag;
+    var IndicatorUnitBag = Model.IndicatorUnitBag;
+    var i = 0;
+}
+@if (Model.IsDelete != true)
+{
+    <tr>
+        <td>
+            @Html.DropDownListFor(m => m.IndicatorID, new SelectList(IndicatorBag, "Value", "Text", Model.IndicatorID), "Select", new { onchange = "FuncOnChangeIndicator()", disabled = "disabled" })
+        </td>
+        <td>
+            @Html.DropDownListFor(m => m.IndicatorUnitID, new SelectList(IndicatorUnitBag, "Value", "Text", Model.IndicatorUnitID), new { disabled = "disabled" })
+        </td>
+        <td></td>
+        <td></td>
+        @foreach (var item in Model.SubTarget)
+        {
+            <td>
+                @Html.EditorFor(m => item, "SubTargetDisabled", "SubTarget[" + i++ + "]")
+            </td>
+        }
+        <td></td>
+        <td></td>
+    </tr>
+}
+

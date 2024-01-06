@@ -46,16 +46,17 @@
                         }
                     </td>
                     <td rowspan="@count">
-                        @*@{ j = 0;}
-                            @foreach (var item in Model.ToolAndMethods)
-                            {
-                                @Html.EditorFor(m => item, "ToolAndMethods", "ToolAndMethods[" + j + "]")
-                                j++;
-                            }*@
                         @{ j = 0;}
                         @foreach (var item in Model.ForecastPeriodToolAndMethod)
                         {
-                            @Html.EditorFor(m => item.Method, "", "ForecastPeriodToolAndMethod[" + j + "].Method", new { htmlAttributes = new { @class = "form-control" } })
+                            if (item.IsUse)
+                            {
+                                @Html.EditorFor(m => item.Method, "", "ForecastPeriodToolAndMethod[" + j + "].Method", new { htmlAttributes = new { @class = "form-control" } })
+                            }
+                            else
+                            {
+                                @Html.EditorFor(m => item.Method, "", "ForecastPeriodToolAndMethod[" + j + "].Method", new { htmlAttributes = new { @class = "form-control", disabled = "Disabled" } })
+                            }
                             j++;
                         }
 

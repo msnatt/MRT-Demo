@@ -40,7 +40,7 @@ namespace MRT_Demo.Models
         {
             get { if (IsActive) { return "ใช้งาน"; } else { return "ไม่ใช้งาน"; } }
         }
-        public int? indicatorYear { get; set; }
+        public int indicatorYear { get; set; }
         public string IndicatorOwnersText
         {
             get

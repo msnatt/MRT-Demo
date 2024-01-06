@@ -134,6 +134,7 @@
     <Compile Include="Controllers\IndicatorsController.cs" />
     <Compile Include="Controllers\IndicatorTargetAndResultsController.cs" />
     <Compile Include="Controllers\SEOPlansController.cs" />
+    <Compile Include="Controllers\SOEPlanIndicatorsController.cs" />
     <Compile Include="Controllers\StategiesController.cs" />
     <Compile Include="Controllers\StrategicObjectivesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -169,6 +170,7 @@
     <Compile Include="Models\ForecastPeriodToolAndMethod.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForecastPeriodToolAndMethodMetadata.cs" />
     <Compile Include="Models\ForecastTool.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -291,11 +293,13 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery-3.6.4.intellisense.js" />
+    <Content Include="Scripts\jquery-3.6.4.js" />
+    <Content Include="Scripts\jquery-3.6.4.min.js" />
+    <Content Include="Scripts\jquery-3.6.4.slim.js" />
+    <Content Include="Scripts\jquery-3.6.4.slim.min.js" />
+    <Content Include="Scripts\jquery-3.6.4.slim.min.map" />
+    <Content Include="Scripts\jquery-3.6.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -373,6 +377,15 @@
     <Content Include="Views\Shared\EditorTemplates\ForecastPeriodCompetitorValue.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ForecastPeriodResultRemark.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SOEPlanIndicator.cshtml" />
+    <Content Include="Views\SOEPlanIndicators\Create.cshtml" />
+    <Content Include="Views\SOEPlanIndicators\Delete.cshtml" />
+    <Content Include="Views\SOEPlanIndicators\Details.cshtml" />
+    <Content Include="Views\SOEPlanIndicators\Edit.cshtml" />
+    <Content Include="Views\SOEPlanIndicators\Index.cshtml" />
+    <Content Include="Views\SOEPlanIndicators\Target.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GoalStrategic.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SOEPlanIndicatorDisabled.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SOEPlanIndicatorDisabledAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -401,8 +414,6 @@
     <Content Include="Scripts\bootstrap.esm.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

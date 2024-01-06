@@ -36,24 +36,24 @@
     <span>6.</span>
     @Html.DisplayName(" ณ (งวดที่คาดการณ์) หากค่าคาดการณ์ผลการดําเนินงาน ณ สิ้นปีงบประมาณ ในคอลัมน์ค่าคาดการณ์ผลดำเนินงานจริงไม่เป็นไปตามเป้าหมายหรือต่ำกว่าระดับ RT")
     @Html.DisplayName(" ท่านดําเนินการอย่างไรเพื่อให้มีความสําเร็จตามเป้าหมายที่กําหนดไว้(หากคาดการณ์ไม่ได้ตามเป้าหมายต้องตอบข้อนี้)")<br />
-    @Html.CheckBoxFor(m => m.IsAnalysisResults)
+    @Html.CheckBoxFor(m => m.IsAnalysisResults, new {onchange = "FuncChangeDisabled("+@Html.IdFor(m=>m.AnalysisResults)+ ");" })
     @Html.DisplayNameFor(m => m.IsAnalysisResults)<br />
     @Html.EditorFor(m => m.AnalysisResults, new { HtmlAttributes = new { @class = "form-control" } })
     @Html.TextBoxFor(m=>m.ListFileB, "", new { type = "file", @multiple = "multiple" }) <br />
     <br />
 
-    @Html.CheckBoxFor(m => m.IsChangeActionPlan)
+    @Html.CheckBoxFor(m => m.IsChangeActionPlan, new { onchange = "FuncChangeDisabled(" + @Html.IdFor(m => m.ChangeActionPlan) + ");" })
     @Html.DisplayNameFor(m => m.IsChangeActionPlan)<br />
     @Html.EditorFor(m => m.ChangeActionPlan, new { HtmlAttributes = new { @class = "form-control" } })
     @Html.TextBoxFor(m=>m.ListFileC, "", new { type = "file", @multiple = "multiple" }) <br />
     <br />
 
-    @Html.CheckBoxFor(m => m.IsChangeOperation)
+    @Html.CheckBoxFor(m => m.IsChangeOperation, new { onchange = "FuncChangeDisabled(" + @Html.IdFor(m => m.ChangeOperation) + ");" })
     @Html.DisplayNameFor(m => m.IsChangeOperation)<br />
     @Html.EditorFor(m => m.ChangeOperation, new { HtmlAttributes = new { @class = "form-control" } })
     <br />
 
-    @Html.CheckBoxFor(m => m.IsOther)
+    @Html.CheckBoxFor(m => m.IsOther, new { onchange = "FuncChangeDisabled(" + @Html.IdFor(m => m.Other) + ");" })
     @Html.DisplayNameFor(m => m.IsOther)<br />
     @Html.EditorFor(m => m.Other, new { HtmlAttributes = new { @class = "form-control" } })
     <br />

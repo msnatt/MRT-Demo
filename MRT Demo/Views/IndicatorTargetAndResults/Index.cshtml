@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+
 }
 
 <h2>เป้า-ผลตัวชี้วัดที่สำคัญขององค์กร</h2>
@@ -10,15 +11,15 @@
 {
     <div class="row">
         <div class="col-md-1 text-end">
-            @Html.DisplayName("ปีงบประมาณ: ")
+            @Html.DisplayName("ปีงบประมาณ:")
         </div>
         <div class="col-md-4">
-            @Html.DropDownList("Year", new SelectList(ViewBag.YearBag, "Value", "Text"), "All", new { @class = "form-control", id = "Year" })
+            @Html.DropDownList("Year", new SelectList(ViewBag.YearBag, "Value", "Text", ViewBag.NowYearBag), "All", new { @class = "form-control" })
         </div>
     </div>
     <div class="row">
         <div class="col-md-1 text-end">
-            @Html.DisplayName("หน่วยงาน: ")
+            @Html.DisplayName("หน่วยงาน : ")
         </div>
         <div class="col-md-4">
             @Html.DropDownList("Division", new SelectList(ViewBag.DivisionBag, "Value", "Text"), "All", new { @class = "form-control" })
@@ -36,43 +37,59 @@
         </div>
     </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdateDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Indicator1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IndicatorOwners)
-        </th>
-        <th>
-            @Html.DisplayName("จัดการ")
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Indicator1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IndicatorOwnersText)
-            </td>
-            <td>
-                @*<input value="เป้า" onclick="FuncTarget(item.ID)" class="btn "/>*@
-                @Html.ActionLink("เป้า", "Target", "IndicatorTargetAndResults",new { id = item.ID},new {}) |
-                @Html.ActionLink("ผล", "Result", new { id = item.ID }) |
-                @Html.ActionLink("รายงาน", "Report", new { id = item.ID }) |
-                @Html.ActionLink("ลบ", "DeleteConfirmed", new { id = item.ID })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Indicator1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndicatorOwners)
+            </th>
+            <th>
+                @Html.DisplayName("จัดการ")
+            </th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Indicator1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IndicatorOwnersText)
+                </td>
+                <td>
+                    @*<input value="เป้า" onclick="FuncTarget(item.ID)" class="btn "/>*@
+                    @*@Html.ActionLink("เป้า", "Target", "IndicatorTargetAndResults","", new { @class = "btn btn-outline-secondary", onclick = "FuncTarget(" + item.ID + ");" })*@
+                    @*<input value="เป้า" class="btn btn-outline-secondary" type="button" onclick = "FuncTarget(@item.ID);" />*@ 
+                    @Html.ActionLink("เป้า", "Target", new { id = item.ID, SelectedYear = Model.First().indicatorYear}, new { @class = "btn btn-outline-secondary" }) |
+                    @Html.ActionLink("ผล", "Result", new { id = item.ID, SelectedYear = Model.First().indicatorYear}, new { @class = "btn btn-outline-secondary" }) |
+                    @Html.ActionLink("รายงาน", "Report", new { id = item.ID }, new { @class = "btn btn-outline-secondary" }) |
+                    @Html.ActionLink("ลบ", "DeleteConfirmed", new { id = item.ID }, new { @class = "btn btn-outline-secondary" })
+                </td>
+            </tr>
+        }
+
+    </table>
 }
+<script>
+    $(document).ready(function () {
+        $("#YearsDropDown").change(function () {
+            $("#Years").val($(this).val());
+        });
+    });
+    function FuncTarget(id_item) {
+        var url = '@Url.Action("Target", "IndicatorTargetAndResults")';
+        url += id_item + '&SelectedYear=' + $("#YearsDropDown").val();
+
+        $("#IndexForm").attr("action", url);
+        //$("#IndexForm").submit();
+    }
+</script>

@@ -1,0 +1,57 @@
+﻿@model MRT_Demo.Models.Goal
+
+@{
+    var i = 0;
+    var sum = (Model.StrategicObjective.SEOPlan.EndYear - Model.StrategicObjective.SEOPlan.StartYear) + 1;
+}
+<style>
+    .center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.No)
+@Html.HiddenFor(m => m.Goal1)
+@Html.HiddenFor(m => m.StrategicObjectiveID)
+@Html.HiddenFor(m => m.IsAddIndiacator)
+@Html.HiddenFor(m => m.CreateAndUpdate)
+@Html.HiddenFor(m => m.CreateDate)
+@Html.HiddenFor(m => m.CreateBy)
+@Html.HiddenFor(m => m.UpdateDate)
+@Html.HiddenFor(m => m.UpdateBy)
+@Html.HiddenFor(m => m.IsDelete)
+@Html.HiddenFor(m => m.IsLastDelete)
+@*@Html.HiddenFor(m => m.StrategicObjective)*@
+
+
+<tr>
+    <td>
+        <table class="table table-secondary center">
+            <tr>
+                <th rowspan="2" class="text-center">
+                    @Html.DisplayName("ตัวชี้วัด")
+                </th>
+                <th rowspan="2" class="text-center">
+                    @Html.DisplayName("หน่วยวัด")
+                </th>
+                <th colspan="@sum" class="text-center">
+                    @Html.DisplayName("ค่าเป้าหมาย/เกณฑ์วัด")
+                </th>
+            </tr>
+            <tr>
+                @for (var y = Model.StrategicObjective.SEOPlan.StartYear; y < Model.StrategicObjective.SEOPlan.EndYear+1; y++)
+                {
+                    <td class="text-center">
+                        @y
+                    </td>
+                }
+            </tr>
+            @foreach (var item in Model.SOEPlanIndicator)
+            {
+                @Html.EditorFor(m => item, "SOEPlanIndicatorDisabled", "SOEPlanIndicator[" + i++ + "]")
+            }
+        </table>
+    </td>
+</tr>

@@ -121,6 +121,7 @@ namespace MRT_Demo.Controllers
         public ActionResult Manage(int id)
         {
             var strategicObjective = db.StrategicObjectives.Find(id);
+            
             IndicatorBag(strategicObjective);
             IndicatorUnitBag(strategicObjective);
 

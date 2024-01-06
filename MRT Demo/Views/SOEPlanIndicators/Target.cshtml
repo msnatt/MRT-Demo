@@ -1,0 +1,47 @@
+﻿@model MRT_Demo.Models.StrategicObjective
+
+
+@{
+    var j = 0;
+}
+
+
+@using (Html.BeginForm("Target", "SOEPlanIndicators", FormMethod.Post, new { id = "TargetForm", name = "TargetForm", @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(m => m.ID)
+    @Html.HiddenFor(m => m.SEOPlan)
+    @Html.HiddenFor(m => m.SEOPlanID)
+    @Html.HiddenFor(m => m.StrategicObjective1)
+    @Html.HiddenFor(m => m.CreateDate)
+    @Html.HiddenFor(m => m.CreateBy)
+    @Html.HiddenFor(m => m.UpdateDate)
+    @Html.HiddenFor(m => m.UpdateBy)
+    @Html.HiddenFor(m => m.IsDelete)
+    @Html.HiddenFor(m => m.IsLastDelete)
+    @Html.HiddenFor(m => m.No)
+    @Html.HiddenFor(m => m.SearchText)
+
+    foreach (var item in Model.Goals)
+    {
+        <table class="table table-bordered">
+            <tr>
+                <th class="text-center">
+                    @Html.DisplayName("เป้าประสงค์ (Goals): " + item.Goal1)
+                </th>
+            </tr>
+
+            @Html.EditorFor(m => item, "GoalStrategic", "Goals[" + j++ + "]")
+        </table>
+
+    }
+
+
+    <div class="row">
+        <div class="offset-md-3 col-md-1">
+            <input value="บันทึก" class="btn btn-primary" type="submit" />
+        </div>
+    </div>
+}
+
+
+

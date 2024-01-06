@@ -14,6 +14,7 @@ namespace MRT_Demo.Models
     {
         public int level { get; set; }
         
+        public int GoalID { get; set; }
         public List<ImportantIndicatorTargetMeasurement> SubTarget { get; set;}
     
     }

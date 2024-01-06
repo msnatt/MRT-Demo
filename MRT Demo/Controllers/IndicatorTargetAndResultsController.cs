@@ -21,7 +21,7 @@ namespace MRT_Demo.Controllers
             if (Division == "") { Division = null; }
             if (Indicator == "") { Indicator = null; }
             var indicators = db.Indicators.Where(s => s.IsDelete == false);
-            foreach (var indicator in indicators) { indicator.indicatorYear = Year; };
+            foreach (var indicator in indicators) { if (Year != null) { indicator.indicatorYear = (int)Year; } };
             if (Indicator != null)
             {
                 indicators = indicators.Where(s => s.Indicator1.Contains(Indicator));
@@ -30,6 +30,7 @@ namespace MRT_Demo.Controllers
             {
                 indicators = indicators.Where(s => s.IndicatorOwners.Where(q => q.Division == Division).Count() > 0);
             }
+            ViewBag.NowYearBag = Year;
             ViewBag.YearBag = IndicatorYearSelectItem();
             ViewBag.DivisionBag = IndicatorOwnerSelectItem();
             return View(indicators.ToList());
@@ -147,6 +148,24 @@ namespace MRT_Demo.Controllers
 
             return selectListOwners;
         }
+        private void IndicatorBag(Indicator indicator)
+        {
+            foreach (var item2 in indicator.SOEPlanIndicator)
+            {
+                item2.IndicatorBag = db.Indicators.Select(i => new SelectListItem() { Value = i.ID.ToString(), Text = i.Indicator1 });
+            }
+        }
+        private void IndicatorUnitBag(Indicator indicator)
+        {
+            foreach (var item2 in indicator.SOEPlanIndicator)
+            {
+                if (item2.IndicatorBag != null)
+                {
+                    item2.IndicatorUnitBag = db.IndicatorUnits.Where(b => b.IndicatorID == item2.IndicatorID).Select(i => new SelectListItem() { Value = i.ID.ToString(), Text = i.Unit });
+                }
+            }
+        }
+
         public void SetForecastTool(Indicator indicator)
         {
             foreach (var item in indicator.ImportantIndicatorResultMeasurement.First().ForecastPeriod)
@@ -195,16 +214,26 @@ namespace MRT_Demo.Controllers
                 count++;
             }
         }
+        private void SetTargetIndicator(int Year, Indicator indicator)
+        {
+            foreach (var item in indicator.SOEPlanIndicator)
+            {
+                item.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
+                var temp = db.ImportantIndicatorTargetMeasurements.Where(b => b.IndicatorID == indicator.ID && b.Year == Year);
+                foreach (var item2 in temp) { item.SubTarget.Add(item2); }
+            }
+        }
 
         // ======================== Target ================================
-        public ActionResult Target(int id, string Division)
+        [HttpGet]
+        public ActionResult Target(int? id, int SelectedYear)
         {
             var indicators = db.Indicators.Find(id);
             if (indicators.ImportantIndicatorTargetMeasurement.Count == 0)
             {
+                var breaker = 0;
                 foreach (var item in db.IndicatorXIndicatorTypes.Where(b => b.IndicatorID == indicators.ID))
                 {
-                    var breaker = 0;
                     var important = new ImportantIndicatorTargetMeasurement();
                     important.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
                     for (var i = 0; i < 5; i++)
@@ -215,27 +244,25 @@ namespace MRT_Demo.Controllers
                         importantTemp.IsDelete = false;
                         importantTemp.IsLastDelete = false;
                         importantTemp.IndicatorID = indicators.ID;
-                        importantTemp.level = 0;
+                        importantTemp.level = i;
                         importantTemp.CreateDate = DateTime.Now;
                         importantTemp.UpdateDate = DateTime.Now;
                         importantTemp.IndicatorLevel = i + 1;
                         importantTemp.SubTarget.Add(importantTemp);
-                        if (breaker <= 4)
-                        {
-                            important.SubTarget.Add(importantTemp);
-                            importantTemp.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
-                        }
+                        importantTemp.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
+                        important.SubTarget.Add(importantTemp);
                     }
                     important.Indicator = indicators;
-                    important.level = 0;
+                    important.level = breaker;
                     indicators.ImportantIndicatorTargetMeasurement.Add(important);
+                    breaker++;
                 }
             }
             else
             {
 
-                List<ImportantIndicatorTargetMeasurement> NewListImportant = indicators.ImportantIndicatorTargetMeasurement.ToList();
-                List<ImportantIndicatorTargetMeasurement> DeleteListImportant = indicators.ImportantIndicatorTargetMeasurement.ToList();
+                List<ImportantIndicatorTargetMeasurement> NewListImportant = indicators.ImportantIndicatorTargetMeasurement.Where(b => b.IndicatorLevel > 0).ToList();
+                List<ImportantIndicatorTargetMeasurement> DeleteListImportant = indicators.ImportantIndicatorTargetMeasurement.Where(b => b.IndicatorLevel > 0).ToList();
                 indicators.ImportantIndicatorTargetMeasurement.Clear();
                 for (int i = 0; i < NewListImportant.Count / 5; i++)
                 {
@@ -309,9 +336,11 @@ namespace MRT_Demo.Controllers
                 }
             }
 
-            var a = indicators.IndicatorUnits;
-            ViewBag.Year = indicators.indicatorYear;
-            ViewBag.Division = Division;
+            var a = indicators.SOEPlanIndicator;
+            indicators.indicatorYear = SelectedYear;
+            SetTargetIndicator(SelectedYear, indicators);
+            IndicatorBag(indicators);
+            IndicatorUnitBag(indicators);
             ViewBag.YearBag = IndicatorYearSelectItem();
             ViewBag.DivisionBag = IndicatorOwnerSelectItem();
             ViewBag.Xunit = new SelectList(indicators.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
@@ -332,7 +361,7 @@ namespace MRT_Demo.Controllers
                 {
                     if (item2.ID == 0)
                     {
-                        item2.IndicatorTypeID = item.IndicatorTypeID;
+                        //item2.IndicatorTypeID = item.IndicatorTypeID;
                         item2.IndicatorUnitID = item.IndicatorUnitID;
                         db.ImportantIndicatorTargetMeasurements.Add(item2);
                     }
@@ -433,11 +462,11 @@ namespace MRT_Demo.Controllers
         }
         // ========================= Result ================================
         [HttpGet]
-        public ActionResult Result(int id)
+        public ActionResult Result(int id, int SelectedYear)
         {
             var indicators = db.Indicators.Find(id);
-            List<ImportantIndicatorTargetMeasurement> NewListImportant = indicators.ImportantIndicatorTargetMeasurement.ToList();
-            List<ImportantIndicatorTargetMeasurement> DeleteListImportant = indicators.ImportantIndicatorTargetMeasurement.ToList();
+            List<ImportantIndicatorTargetMeasurement> NewListImportant = indicators.ImportantIndicatorTargetMeasurement.Where(b => b.IndicatorLevel > 0).ToList();
+            List<ImportantIndicatorTargetMeasurement> DeleteListImportant = indicators.ImportantIndicatorTargetMeasurement.Where(b => b.IndicatorLevel > 0).ToList();
             indicators.ImportantIndicatorTargetMeasurement.Clear();
 
             for (int i = indicators.ImportantIndicatorTargetMeasurement.Count; i < NewListImportant.Count / 5; i++)
@@ -500,7 +529,6 @@ namespace MRT_Demo.Controllers
                         indicators.ImportantIndicatorTargetMeasurement.Add(important);
                     }
                 }
-
             }
 
             if (indicators.ImportantIndicatorResultMeasurement.Count == 0)
@@ -538,8 +566,10 @@ namespace MRT_Demo.Controllers
                         toolAndMethod.IsLastDelete = false;
                         toolAndMethod.IsDelete = false;
                         toolAndMethod.ForecastToolID = item.ID;
+                        toolAndMethod.ForecastPeriod = forecastPeriod;
                         toolAndMethod.ForecastPeriodID = forecastPeriod.ID;
                         toolAndMethod.ForecastTool = item;
+                        toolAndMethod.TempMethod = "";
                         forecastPeriod.ForecastPeriodToolAndMethod.Add(toolAndMethod);
                     }
                     foreach (var item in indicators.IndicatorUnits)
@@ -560,7 +590,13 @@ namespace MRT_Demo.Controllers
             {
                 foreach (var item in indicators.ImportantIndicatorResultMeasurement.First().ForecastPeriod)
                 {
-                    for (int i = 0; i < indicators.IndicatorUnits.Count;i++)
+                    item.ImportantIndicatorResultMeasurement = indicators.ImportantIndicatorResultMeasurement.First();
+                    foreach (var item2 in item.ForecastPeriodToolAndMethod)
+                    {
+                        item2.ForecastPeriod = item;
+                    }
+
+                    for (int i = 0; i < indicators.IndicatorUnits.Count; i++)
                     {
                         item.ForecastValueAndRealValue.ElementAt(i).UnitsID = indicators.IndicatorUnits.ElementAt(i).ID;
                     }
@@ -569,7 +605,10 @@ namespace MRT_Demo.Controllers
 
             ChangeForecastPeriod(indicators, indicators.ImportantIndicatorResultMeasurement.First().PeriodMonthOrQuaterOrYearID, null);
             SetIndicatorImportant(indicators);
-            ViewBag.Year = indicators.indicatorYear;
+            SetTargetIndicator(SelectedYear, indicators);
+            IndicatorBag(indicators);
+            IndicatorUnitBag(indicators);
+            indicators.indicatorYear = SelectedYear;
             ViewBag.YearBag = IndicatorYearSelectItem();
             ViewBag.DivisionBag = IndicatorOwnerSelectItem();
             ViewBag.Xunit = new SelectList(indicators.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
@@ -581,7 +620,7 @@ namespace MRT_Demo.Controllers
         {
             var PeriodTemp = indicators.ImportantIndicatorResultMeasurement.First().ForecastPeriod;
             indicators.ImportantIndicatorResultMeasurement.First().ForecastPeriod = null;
-            
+
             if (indicators.ImportantIndicatorResultMeasurement.First().ID == 0) { db.ImportantIndicatorResultMeasurement.Add(indicators.ImportantIndicatorResultMeasurement.First()); } else { db.Entry(indicators.ImportantIndicatorResultMeasurement.First()).State = EntityState.Modified; }
             foreach (var item in PeriodTemp)
             {
@@ -593,15 +632,16 @@ namespace MRT_Demo.Controllers
                 item.ForecastPeriodToolAndMethod = null;
                 item.ForecastPeriodResultRemark = null;
                 item.ForecastValueAndRealValue = null;
-                if (item.ID == 0) 
-                { 
-                    item.ImportantIndicatorResultMeasurement = null;
-                    item.ImportantIndicatorResultMeasurementID = indicators.ImportantIndicatorResultMeasurement.First().ID;
-                    db.ForecastPeriod.Add(item); 
-                } else 
+                if (item.ID == 0)
                 {
                     item.ImportantIndicatorResultMeasurement = null;
-                    db.Entry(item).State = EntityState.Modified; 
+                    item.ImportantIndicatorResultMeasurementID = indicators.ImportantIndicatorResultMeasurement.First().ID;
+                    db.ForecastPeriod.Add(item);
+                }
+                else
+                {
+                    item.ImportantIndicatorResultMeasurement = null;
+                    db.Entry(item).State = EntityState.Modified;
                 }
 
                 db.SaveChanges();
@@ -692,6 +732,7 @@ namespace MRT_Demo.Controllers
             ChangeForecastPeriod(indicators, indicators.ImportantIndicatorResultMeasurement.First().PeriodMonthOrQuaterOrYearID, null);
             SetForecastTool(indicators);
             SetIndicatorImportant(indicators);
+            SetForecastPeriod(indicators);
             ViewBag.YearBag = IndicatorYearSelectItem();
             ViewBag.DivisionBag = IndicatorOwnerSelectItem();
             ViewBag.Xunit = new SelectList(indicators.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
@@ -703,6 +744,7 @@ namespace MRT_Demo.Controllers
             ChangeForecastPeriod(indicators, null, IndexInList);
             SetForecastTool(indicators);
             SetIndicatorImportant(indicators);
+            SetForecastPeriod(indicators);
             ViewBag.YearBag = IndicatorYearSelectItem();
             ViewBag.DivisionBag = IndicatorOwnerSelectItem();
             ViewBag.Xunit = new SelectList(indicators.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
@@ -723,6 +765,7 @@ namespace MRT_Demo.Controllers
             }
             SetForecastTool(indicator);
             SetIndicatorImportant(indicator);
+            SetForecastPeriod(indicator);
             ViewBag.YearBag = IndicatorYearSelectItem();
             ViewBag.DivisionBag = IndicatorOwnerSelectItem();
             ViewBag.Xunit = new SelectList(indicator.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
@@ -748,12 +791,25 @@ namespace MRT_Demo.Controllers
             }
             SetForecastTool(indicator);
             SetIndicatorImportant(indicator);
+            SetForecastPeriod(indicator);
             ViewBag.YearBag = IndicatorYearSelectItem();
             ViewBag.DivisionBag = IndicatorOwnerSelectItem();
             ViewBag.Xunit = new SelectList(indicator.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
             ViewBag.MQY = db.PeriodMonthOrQuaterOrYear.ToList();
             ModelState.Clear();
             return View("Result", indicator);
+        }
+        public void SetForecastPeriod(Indicator indicators)
+        {
+            foreach (var item in indicators.ImportantIndicatorResultMeasurement.First().ForecastPeriod)
+            {
+                item.ImportantIndicatorResultMeasurement = indicators.ImportantIndicatorResultMeasurement.First();
+                foreach (var item2 in item.ForecastPeriodToolAndMethod)
+                {
+                    item2.ForecastPeriod = item;
+                }
+
+            }
         }
     }
 }

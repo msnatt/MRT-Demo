@@ -21,7 +21,6 @@
     @Html.HiddenFor(m => m.Formula)
     @Html.HiddenFor(m => m.Indicator1)
     @Html.HiddenFor(m => m.IndicatorDetailStatusID)
-    @Html.HiddenFor(m => m.indicatorYear)
 
     <div hidden>
         @Html.EditorFor(m => m.IndicatorUnits)
@@ -102,7 +101,13 @@
                     </tr>
                     @{
                         var i = 0;
+                        var j = 0;
                     }
+                    @foreach (var item in Model.SOEPlanIndicator.Where(b => b.IndicatorID == Model.ID && b.SubTarget.Where(ba => ba.Year == Model.indicatorYear).Count() > 0))
+                    {
+                        @Html.EditorFor(m => item, "SOEPlanIndicatorDisabledAll", "SOEPlanIndicator[" + j++ + "]")
+                    }
+
                     @foreach (var XType in Model.IndicatorXIndicatorTypes)
                     {
                         if (XType.level == 0)

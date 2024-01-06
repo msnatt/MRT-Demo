@@ -65,6 +65,7 @@
             <td>
                 @Html.ActionLink("แก้ไข", "Edit", new { id = item.ID }, new { @class = "btn" }) |
                 @Html.ActionLink("เป้าประสงค์", "Manage", "Goals", new { id = item.ID }, new { @class = "btn" }) |
+                @Html.ActionLink("เป้าหมาย", "Target", "SOEPlanIndicators", new { id = item.ID }, new { @class = "btn" }) |
                 @Html.ActionLink("ยุทธศาสตร์", "Index", "Stategies", new { id = item.ID, a = "" }, new { @class = "btn" }) |
                 @Html.ActionLink("ลบ", "DeleteConfirmed", new { id = item.ID }, new { @class = "btn" })
             </td>
