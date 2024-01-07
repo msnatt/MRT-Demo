@@ -8,6 +8,11 @@
 @Html.HiddenFor(m => m.CreateBy)
 @Html.HiddenFor(m => m.UpdateBy)
 @Html.HiddenFor(m => m.No)
+@Html.HiddenFor(m => m.IsChange)
+@Html.HiddenFor(m => m.IndicatorBag)
+@Html.HiddenFor(m => m.IndicatorUnitBag)
+
+
 @{ 
     var IndicatorBag = Model.IndicatorBag;
     var IndicatorUnitBag = Model.IndicatorUnitBag;
@@ -16,10 +21,10 @@
 {
     <tr>
         <td>
-            @Html.DropDownListFor(m => m.IndicatorID, new SelectList(IndicatorBag, "Value", "Text", Model.IndicatorID),"Select", new { onchange = "FuncOnChangeIndicator()"})
+            @Html.DropDownListFor(m => m.IndicatorID, new SelectList(IndicatorBag, "Value", "Text", Model.IndicatorID),"Select", new { onchange = "FuncOnChangeIndicator("+Html.IdFor(m=>m.IsChange)+")"})
         </td>
         <td>
-            @Html.DropDownListFor(m => m.IndicatorUnitID, new SelectList(IndicatorUnitBag, "Value", "Text", Model.IndicatorUnitID), new { })
+            @Html.DropDownListFor(m => m.IndicatorUnitID, new SelectList(IndicatorUnitBag, "Value", "Text", Model.IndicatorUnitID),"Select", new { onchange = "FuncOnChangeIndicator("+Html.IdFor(m=>m.IsChange)+")"})
         </td>
         <td>
             <input value="ลบ" class="btn btn-danger" type="button" onclick="FuncDelSOEPlanIndicator(@Html.IdFor(m=>m.IsDelete))" />

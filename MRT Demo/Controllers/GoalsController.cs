@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Antlr.Runtime.Tree;
 using MRT_Demo.Models;
 
 namespace MRT_Demo.Controllers
@@ -69,7 +70,7 @@ namespace MRT_Demo.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,No,Goal1,StrategicObjectiveID,CreateBy,UpdateBy,CreateDate,UpdateDate,IsDelete,IsLastDelete")] Goal goal)
+        public ActionResult Edit(Goal goal)
         {
             if (ModelState.IsValid)
             {
@@ -110,22 +111,93 @@ namespace MRT_Demo.Controllers
             }
             base.Dispose(disposing);
         }
-
         public ActionResult Update(StrategicObjective strategic)
         {
-            IndicatorBag(strategic);
-            IndicatorUnitBag(strategic);
+            UpdateDropdown(strategic);
+            ModelState.Clear();
             return View("Manage", strategic);
         }
+        private void UpdateDropdown(StrategicObjective strategic)
+        {
+            List<int> ListIndicatorIDTemp = new List<int>();
+            List<int> ListIndicatorUnitIDTemp = new List<int>();
 
+            foreach (var item in strategic.Goals)
+            {
+                foreach (var item2 in item.SOEPlanIndicator)
+                {
+                    if (!item2.IsChange)
+                    {
+                        if (item2.IndicatorID != null || item2.IndicatorUnitID != null)
+                        {
+                            ListIndicatorIDTemp.Add((int)item2.IndicatorID);
+                            ListIndicatorUnitIDTemp.Add((int)item2.IndicatorUnitID);
+                        }
+                    }
+                }
+            }
+
+            foreach (var item in strategic.Goals)
+            {
+                foreach (var item2 in item.SOEPlanIndicator)
+                {
+                    if (item2.IsChange)
+                    {
+
+                        item2.IndicatorUnitBag = db.IndicatorUnits.Where(l => l.IndicatorID == item2.IndicatorID).Select(g => new SelectListItem() { Value = g.ID.ToString(), Text = g.Unit });
+                        if (item2.IndicatorID != null)
+                        {
+                            for (int i = 0; i < ListIndicatorUnitIDTemp.Count; i++)
+                            {
+                                item2.IndicatorUnitBag = item2.IndicatorUnitBag.Where(b => int.Parse(b.Value) != ListIndicatorUnitIDTemp[i]);
+                            }
+                        }
+                        item2.IndicatorBag = db.Indicators.Select(g => new SelectListItem() { Value = g.ID.ToString(), Text = g.Indicator1 });
+                        var x = item2.IndicatorBag.ToList();
+                        foreach (var inlist in ListIndicatorIDTemp)
+                        {
+                            item2.IndicatorBag = item2.IndicatorBag.Where(b => b.Value != inlist.ToString());
+                        }
+                    }
+                    else
+                    {
+                        item2.IndicatorBag = db.Indicators.Select(g => new SelectListItem() { Value = g.ID.ToString(), Text = g.Indicator1 });
+                        item2.IndicatorUnitBag = db.IndicatorUnits.Where(l => l.IndicatorID == item2.IndicatorID).Select(g => new SelectListItem() { Value = g.ID.ToString(), Text = g.Unit });
+                    }
+                    item2.IsChange = false;
+                }
+            }
+        }
+        private void IndicatorUnitBagChanged(StrategicObjective strategic, int unitid)
+        {
+            foreach (var item in strategic.Goals)
+            {
+                foreach (var item2 in item.SOEPlanIndicator)
+                {
+                    if (item2.IndicatorBag != null)
+                    {
+                        item2.IndicatorUnitBag = db.IndicatorUnits.Where(b => b.IndicatorID == item2.IndicatorID).Select(i => new SelectListItem() { Value = i.ID.ToString(), Text = i.Unit });
+                    }
+                }
+            }
+        }
+        private void IndicatorBagChanged(StrategicObjective strategic, int indicatorid)
+        {
+            foreach (var item in strategic.Goals)
+            {
+                foreach (var item2 in item.SOEPlanIndicator)
+                {
+                    if (item2.IndicatorID == null) { item2.IndicatorBag = db.Indicators.Select(i => new SelectListItem() { Value = i.ID.ToString(), Text = i.Indicator1 }); }
+                    else { item2.IndicatorBag = item2.IndicatorBag.Where(m => int.Parse(m.Value) != indicatorid); }
+                }
+            }
+        }
         public ActionResult Manage(int id)
         {
-            var strategicObjective = db.StrategicObjectives.Find(id);
-            
-            IndicatorBag(strategicObjective);
-            IndicatorUnitBag(strategicObjective);
+            var strategic = db.StrategicObjectives.Find(id);
+            UpdateDropdown(strategic);
 
-            return View(strategicObjective);
+            return View(strategic);
         }
         [HttpPost]
         public ActionResult Manage(StrategicObjective strategic)
@@ -188,15 +260,15 @@ namespace MRT_Demo.Controllers
 
             goal.No = last.No + 1;
             strategic.Goals.Add(goal);
-            IndicatorBag(strategic);
-            IndicatorUnitBag(strategic);
+            UpdateDropdown(strategic);
+
             ModelState.Clear();
             return View("Manage", strategic);
         }
         public ActionResult DeleteGoal(StrategicObjective strategic)
         {
-            IndicatorBag(strategic);
-            IndicatorUnitBag(strategic);
+            UpdateDropdown(strategic);
+
             return View("Manage", strategic);
         }
         public ActionResult AddIndicator(StrategicObjective strategic)
@@ -210,6 +282,7 @@ namespace MRT_Demo.Controllers
                     SOEPlanIndicator.UpdateDate = DateTime.Now;
                     SOEPlanIndicator.IsDelete = false;
                     SOEPlanIndicator.IsLastDelete = false;
+                    SOEPlanIndicator.IsChange = true;
                     SOEPlanIndicator.GoalID = goal.ID;
 
                     var last = db.SOEPlanIndicator.ToList().LastOrDefault();
@@ -224,15 +297,14 @@ namespace MRT_Demo.Controllers
                 }
             }
 
-            IndicatorBag(strategic);
-            IndicatorUnitBag(strategic);
-            ModelState.Clear();
+            UpdateDropdown(strategic);
+
             return View("Manage", strategic);
         }
         public ActionResult DelIndicator(StrategicObjective strategic)
         {
-            IndicatorBag(strategic);
-            IndicatorUnitBag(strategic);
+            UpdateDropdown(strategic);
+
 
             return View("Manage", strategic);
         }
@@ -243,7 +315,8 @@ namespace MRT_Demo.Controllers
             {
                 foreach (var item2 in item.SOEPlanIndicator)
                 {
-                    item2.IndicatorBag = db.Indicators.Select(i => new SelectListItem() { Value = i.ID.ToString(), Text = i.Indicator1 });
+                    if (item2.IndicatorBag == null) { item2.IndicatorBag = db.Indicators.Select(i => new SelectListItem() { Value = i.ID.ToString(), Text = i.Indicator1 }); }
+                    //else { item2.IndicatorBag = item2.IndicatorBag.Where(m=>m.Value != indicatorid)}
                 }
             }
         }

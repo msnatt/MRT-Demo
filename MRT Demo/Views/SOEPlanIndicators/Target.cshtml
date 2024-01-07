@@ -11,7 +11,6 @@
     @Html.HiddenFor(m => m.ID)
     @Html.HiddenFor(m => m.SEOPlan)
     @Html.HiddenFor(m => m.SEOPlanID)
-    @Html.HiddenFor(m => m.StrategicObjective1)
     @Html.HiddenFor(m => m.CreateDate)
     @Html.HiddenFor(m => m.CreateBy)
     @Html.HiddenFor(m => m.UpdateDate)
@@ -21,23 +20,59 @@
     @Html.HiddenFor(m => m.No)
     @Html.HiddenFor(m => m.SearchText)
 
+    <div class="row">
+        <div class="col-md-3 text-end align-self-center">
+            @Html.DisplayName("วัตถุประสงค์เชิงยุทธศาสตร์ : ")
+        </div>
+        <div class="col-md-9">
+            @Html.EditorFor(m => m.StrategicObjective1, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+        </div>
+        <div hidden>
+            @Html.EditorFor(m => m.StrategicObjective1, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <br />
+    <br />
+
     foreach (var item in Model.Goals)
     {
-        <table class="table table-bordered">
-            <tr>
-                <th class="text-center">
-                    @Html.DisplayName("เป้าประสงค์ (Goals): " + item.Goal1)
-                </th>
-            </tr>
+        if (item.IsDelete == false)
+        {
+            <table class="table table-bordered">
+                <tr>
+                    <th class="text-center">
+                        @Html.DisplayName("เป้าประสงค์ (Goals): " + item.Goal1)
+                    </th>
+                </tr>
 
-            @Html.EditorFor(m => item, "GoalStrategic", "Goals[" + j++ + "]")
-        </table>
+                @Html.EditorFor(m => item, "GoalStrategic", "Goals[" + j++ + "]")
+            </table>
+        }
+        else
+        {
+            <div hidden>
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="text-center">
+                            @Html.DisplayName("เป้าประสงค์ (Goals): " + item.Goal1)
+                        </th>
+                    </tr>
+
+                    @Html.EditorFor(m => item, "GoalStrategic", "Goals[" + j++ + "]")
+                </table>
+            </div>
+        }
+
+
 
     }
 
 
     <div class="row">
-        <div class="offset-md-3 col-md-1">
+        <div class="col-md-2">
+            @Html.ActionLink("Back to List", "Index", "StrategicObjectives", new { id = Model.SEOPlanID }, new { @class = "btn btn-secondary" })
+        </div>
+        <div class="offset-md-1 col-md-1">
             <input value="บันทึก" class="btn btn-primary" type="submit" />
         </div>
     </div>

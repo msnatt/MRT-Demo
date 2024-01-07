@@ -347,6 +347,8 @@ namespace MRT_Demo.Controllers
 
             return View("Target", indicators);
         }
+
+
         [HttpPost]
         public ActionResult Target(Indicator indicators)
         {

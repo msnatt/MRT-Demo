@@ -16,6 +16,7 @@ namespace MRT_Demo.Models
         public IEnumerable<SelectListItem> IndicatorBag { get; set; }
         public IEnumerable<SelectListItem> IndicatorUnitBag { get; set; }
         public List<ImportantIndicatorTargetMeasurement> SubTarget { get; set; }
+        public bool IsChange {  get; set; }
 
     }
 }

@@ -7,7 +7,7 @@
 <h2>การจัดการ</h2>
 
 
-@using (Html.BeginForm("Manage", "Goals", FormMethod.Post, new { @class = "form-horizontal", id = "Goalform", name = "Goalform" }))
+@using (Html.BeginForm("Manage", "Goals", FormMethod.Post, new { @class = "form-horizontal", id = "Goalform", name = "Goalform" ,enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(m => m.StrategicObjective1)
     @Html.HiddenFor(m => m.SEOPlanID)
@@ -76,7 +76,8 @@
         $("#Goalform").attr("action", '@Url.Action("DelIndicator","Goals")');
         $("#Goalform").submit();
     }
-    function FuncOnChangeIndicator() {
+    function FuncOnChangeIndicator(a) {
+        a.value = true;
         $("#Goalform").attr("action", '@Url.Action("Update", "Goals")');
         $("#Goalform").submit();
 
