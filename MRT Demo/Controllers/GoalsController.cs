@@ -119,6 +119,19 @@ namespace MRT_Demo.Controllers
         }
         private void UpdateDropdown(StrategicObjective strategic)
         {
+            List<int> ListAllIndicatorID = new List<int>();
+            List<int> ListAllIndicatorUnitID = new List<int>();
+            List<int> ListOnChangeIndicatorID = new List<int>();
+            List<int> ListOnChangeIndicatorUnitID = new List<int>();
+
+            foreach (var item in db.IndicatorUnits)
+            {
+                ListAllIndicatorID.Add((int)item.IndicatorID);
+                ListAllIndicatorUnitID.Add(item.ID);
+                ListOnChangeIndicatorID.Add((int)item.IndicatorID);
+                ListOnChangeIndicatorUnitID.Add(item.ID);
+            }
+
             List<int> ListIndicatorIDTemp = new List<int>();
             List<int> ListIndicatorUnitIDTemp = new List<int>();
 
@@ -136,6 +149,39 @@ namespace MRT_Demo.Controllers
                     }
                 }
             }
+            // ===================== End Add To list =========================
+
+
+            foreach (var item in ListAllIndicatorID)
+            {
+                foreach (var item2 in ListIndicatorIDTemp.ToList())
+                {
+                    if (item == item2)
+                    {
+                        ListOnChangeIndicatorID.Remove(item2);
+                        ListIndicatorIDTemp.Remove(item2);
+                    }
+                }
+            }
+            foreach (var item in ListAllIndicatorUnitID)
+            {
+                foreach (var item2 in ListIndicatorUnitIDTemp)
+                {
+                    if (item == item2)
+                    {
+                        ListOnChangeIndicatorUnitID.Remove(item2);
+                    }
+                }
+            }
+
+            ListIndicatorIDTemp = ListOnChangeIndicatorID;
+            ListIndicatorUnitIDTemp = ListOnChangeIndicatorUnitID;
+
+            ListIndicatorIDTemp = ListIndicatorIDTemp.Distinct().ToList();
+
+
+            // ============= End check unique indicator & Unit ===============
+
 
             foreach (var item in strategic.Goals)
             {
@@ -144,19 +190,40 @@ namespace MRT_Demo.Controllers
                     if (item2.IsChange)
                     {
 
-                        item2.IndicatorUnitBag = db.IndicatorUnits.Where(l => l.IndicatorID == item2.IndicatorID).Select(g => new SelectListItem() { Value = g.ID.ToString(), Text = g.Unit });
-                        if (item2.IndicatorID != null)
+                        if (ListIndicatorUnitIDTemp.Count > 0)
                         {
-                            for (int i = 0; i < ListIndicatorUnitIDTemp.Count; i++)
+                            List<SelectListItem> temp = new List<SelectListItem>();
+                            if (item2.IndicatorID != null)
                             {
-                                item2.IndicatorUnitBag = item2.IndicatorUnitBag.Where(b => int.Parse(b.Value) != ListIndicatorUnitIDTemp[i]);
+                                foreach (var item3 in ListIndicatorUnitIDTemp)
+                                {
+                                    foreach (var item4 in db.IndicatorUnits.Where(b => b.ID == item3 && b.IndicatorID == item2.IndicatorID).Select(i => new SelectListItem() { Value = i.ID.ToString(), Text = i.Unit }))
+                                    {
+                                        temp.Add(item4);
+                                    }
+                                }
                             }
+                            item2.IndicatorUnitBag = temp;
                         }
-                        item2.IndicatorBag = db.Indicators.Select(g => new SelectListItem() { Value = g.ID.ToString(), Text = g.Indicator1 });
-                        var x = item2.IndicatorBag.ToList();
-                        foreach (var inlist in ListIndicatorIDTemp)
+                        else
                         {
-                            item2.IndicatorBag = item2.IndicatorBag.Where(b => b.Value != inlist.ToString());
+                            item2.IndicatorUnitBag = db.IndicatorUnits.Where(l => l.IndicatorID == item2.IndicatorID).Select(g => new SelectListItem() { Value = g.ID.ToString(), Text = g.Unit });
+                        }
+                        if (ListIndicatorIDTemp.Count > 0)
+                        {
+                            List<SelectListItem> temp = new List<SelectListItem>();
+                            foreach (var item3 in ListIndicatorIDTemp)
+                            {
+                                foreach (var item4 in db.Indicators.Where(b => b.ID == item3).Select(i => new SelectListItem() {Value=i.ID.ToString(), Text = i.Indicator1 }))
+                                {
+                                    temp.Add(item4);
+                                }
+                            }
+                            item2.IndicatorBag = temp;
+                        }
+                        else
+                        {
+                            item2.IndicatorBag = db.Indicators.Select(g => new SelectListItem() { Value = g.ID.ToString(), Text = g.Indicator1 });
                         }
                     }
                     else

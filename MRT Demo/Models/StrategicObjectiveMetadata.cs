@@ -13,7 +13,6 @@ namespace MRT_Demo.Models
         public Nullable<int> No { get; set; }
 
         [DisplayName("วัตถุประสงค์เชิงยุทธศาสตร์ (Strategic Objectives)")]
-        [Required]
         public string StrategicObjective1 { get; set; }
 
         [DisplayName("เป้าประสงค์ (Goals)")]

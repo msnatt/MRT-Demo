@@ -14,7 +14,6 @@ namespace MRT_Demo.Models
         public Nullable<int> No { get; set; }
 
         [DisplayName("เป้าประสงค์")]
-        [Required]
         public Nullable<int> Goal1 { get; set; }
         public Nullable<int> StrategicObjectiveID { get; set; }
 
