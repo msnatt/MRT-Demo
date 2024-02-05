@@ -14,7 +14,7 @@
             @Html.DisplayName("ปีงบประมาณ:")
         </div>
         <div class="col-md-4">
-            @Html.DropDownList("Year", new SelectList(ViewBag.YearBag, "Value", "Text", ViewBag.NowYearBag), "All", new { @class = "form-control" })
+            @Html.DropDownList("SelectedYear", new SelectList(ViewBag.YearBag, "Value", "Text", ViewBag.NowYearBag), "All", new { @class = "form-control",value = "", onchange = "OnchangeYear()" })
         </div>
     </div>
     <div class="row">
@@ -66,11 +66,8 @@
                     @Html.DisplayFor(modelItem => item.IndicatorOwnersText)
                 </td>
                 <td>
-                    @*<input value="เป้า" onclick="FuncTarget(item.ID)" class="btn "/>*@
-                    @*@Html.ActionLink("เป้า", "Target", "IndicatorTargetAndResults","", new { @class = "btn btn-outline-secondary", onclick = "FuncTarget(" + item.ID + ");" })*@
-                    @*<input value="เป้า" class="btn btn-outline-secondary" type="button" onclick = "FuncTarget(@item.ID);" />*@ 
-                    @Html.ActionLink("เป้า", "Target", new { id = item.ID, SelectedYear = Model.First().indicatorYear}, new { @class = "btn btn-outline-secondary" }) |
-                    @Html.ActionLink("ผล", "Result", new { id = item.ID, SelectedYear = Model.First().indicatorYear}, new { @class = "btn btn-outline-secondary" }) |
+                    @Html.ActionLink("เป้า", "Target", new { id = item.ID, SelectedYear = item.indicatorYear }, new { @class = "btn btn-outline-secondary" }) |
+                    @Html.ActionLink("ผล", "Result", new { id = item.ID, SelectedYear = item.indicatorYear }, new { @class = "btn btn-outline-secondary" }) |
                     @Html.ActionLink("รายงาน", "Report", new { id = item.ID }, new { @class = "btn btn-outline-secondary" }) |
                     @Html.ActionLink("ลบ", "DeleteConfirmed", new { id = item.ID }, new { @class = "btn btn-outline-secondary" })
                 </td>
@@ -91,5 +88,10 @@
 
         $("#IndexForm").attr("action", url);
         //$("#IndexForm").submit();
+    }
+
+    function OnchangeYear() {
+        $("#IndexForm").submit();
+        
     }
 </script>

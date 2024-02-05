@@ -99,7 +99,6 @@
                         <th class="text-center">4</th>
                         <th class="text-center">5</th>
                     </tr>
-
                     @{
                         var i = 0;
                         var j = 0;
@@ -152,7 +151,8 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Back to List", "Index")*@
+    @Html.ActionLink("Back to List", "Index", "IndicatorTargetAndResults", new { SelectedYear = Model.indicatorYear }, new { @class = "btn btn-secondary" })
 </div>
 
 <script>

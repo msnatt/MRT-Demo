@@ -16,7 +16,7 @@
 @if (Model.level >= 3)
 {
     <td>
-        @Html.DropDownListFor(m => m.IndicatorTypeID, new SelectList(Model.Indicator.IndicatorXIndicatorTypes.Select(h => new SelectListItem { Value = h.IndicatorTypeID.ToString(), Text=h.Definition}), "Value", "Text", Model.IndicatorUnitID), "Please Select", new { @class = "form-control" })
+        @Html.DropDownListFor(m => m.IndicatorTypeID, new SelectList(Model.Indicator.IndicatorXIndicatorTypes.Select(h => new SelectListItem { Value = h.IndicatorTypeID.ToString(), Text = h.Definition }), "Value", "Text", Model.IndicatorUnitID), "Please Select", new { @class = "form-control" })
     </td>
 }
 

@@ -8,5 +8,7 @@
 @Html.HiddenFor(m => m.UpdateDate)
 @Html.HiddenFor(m => m.IsDelete)
 @Html.HiddenFor(m => m.IsLastDelete)
+@Html.HiddenFor(m => m.level)
+@Html.HiddenFor(m => m.Year)
 
 @Html.EditorFor(m => m.Target, new { HtmlAttributes = new { @class = "form-control" ,disabled = "disabled"} })

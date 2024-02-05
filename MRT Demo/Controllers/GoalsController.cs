@@ -365,14 +365,13 @@ namespace MRT_Demo.Controllers
             }
 
             UpdateDropdown(strategic);
-
+            ModelState.Clear();
             return View("Manage", strategic);
         }
         public ActionResult DelIndicator(StrategicObjective strategic)
         {
             UpdateDropdown(strategic);
-
-
+            ModelState.Clear();
             return View("Manage", strategic);
         }
 

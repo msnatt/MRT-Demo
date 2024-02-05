@@ -44,7 +44,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>@Html.ActionLink("ข้อมูลตัวชี้วัด", "Index", "Indicators", new { area = "" }, new { @class = "nav-link navbar-text-black dropdown-item" })</li>
-                            <li>@Html.ActionLink("เป้า-ผลตัวชี้วัดที่สำคัญขององค์กร", "Index", "IndicatorTargetAndResults", new { Year = DateTime.Now.Year, Division = "", Indicator = "" }, new { @class = "nav-link navbar-text-black dropdown-item" })</li>
+                            <li>@Html.ActionLink("เป้า-ผลตัวชี้วัดที่สำคัญขององค์กร", "Index", "IndicatorTargetAndResults", new { SelectedYear = DateTime.Now.Year, Division = "", Indicator = "" }, new { @class = "nav-link navbar-text-black dropdown-item" })</li>
                         </ul>
                     </li>
                     <li>@*@Html.ActionLink("ข้อมูลตัวชี้วัด", "Index", "Indicators", new { area = "" }, new { @class = "nav-link navbar-text-black" })*@</li>
