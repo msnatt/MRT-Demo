@@ -36,7 +36,7 @@ namespace MRT_Demo.Models
     [MetadataType(typeof(IndicatorMetadata))]
     public partial class Indicator
     {
-        public List<ImportantIndicatorTargetMeasurement> ListTarget = new List<ImportantIndicatorTargetMeasurement>();
+        public List<ImportantIndicatorTargetMeasurement> ListTarget {  get; set; }
         public string isActiveText
         {
             get { if (IsActive) { return "ใช้งาน"; } else { return "ไม่ใช้งาน"; } }
@@ -66,6 +66,16 @@ namespace MRT_Demo.Models
                 }
                 return text;
             }
+        }
+
+        public void Insert(MRTEntities db)
+        {
+            this.CreateDate = DateTime.Now;
+            this.UpdateDate = DateTime.Now;
+            this.IsDelete = false;
+            this.IsLastDelete = false;
+            this.IsActive = false;
+
         }
     }
 }

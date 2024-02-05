@@ -21,16 +21,22 @@
     @Html.HiddenFor(m => m.Formula)
     @Html.HiddenFor(m => m.Indicator1)
     @Html.HiddenFor(m => m.IndicatorDetailStatusID)
+    @Html.HiddenFor(m => m.indicatorYear)
     @Html.Hidden("IndexInList")
     @Html.Hidden("File4")
 
 
 
     <div hidden>
+        @{int k = 0;}
         @Html.EditorFor(m => m.IndicatorUnits)
         @Html.EditorFor(m => m.IndicatorXIndicatorTypes)
         @Html.EditorFor(m => m.ImportantIndicatorTargetMeasurement)
         @Html.EditorFor(m => m.IndicatorOwners)
+        @foreach (var item in Model.ListTarget)
+        {
+            @Html.EditorFor(m => item,"ListTarget", "ListTarget[" + k+++"]")
+        }
     </div>
 
     <div class="form-horizontal">
@@ -107,7 +113,7 @@
                     {
                         @Html.EditorFor(m => item, "SOEPlanIndicatorDisabledAll", "SOEPlanIndicator[" + j++ + "]")
                     }
-                    @foreach (var XType in Model.IndicatorXIndicatorTypes)
+                    @foreach (var XType in Model.IndicatorXIndicatorTypes.Where(b => b.IsCheck == true))
                     {
                         if (XType.level == 0)
                         {
@@ -151,7 +157,6 @@
 }
 
 <div>
-    @*@Html.ActionLink("Back to List", "Index")*@
     @Html.ActionLink("Back to List", "Index", "IndicatorTargetAndResults", new { SelectedYear = Model.indicatorYear }, new { @class = "btn btn-secondary" })
 </div>
 

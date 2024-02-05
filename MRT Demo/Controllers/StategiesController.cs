@@ -10,10 +10,8 @@ using MRT_Demo.Models;
 
 namespace MRT_Demo.Controllers
 {
-    public class StategiesController : Controller
+    public class StategiesController : BaseController
     {
-        private MRTEntities db = new MRTEntities();
-
         // GET: Stategies
         public ActionResult Index(int? id)
         {

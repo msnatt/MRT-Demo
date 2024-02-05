@@ -110,7 +110,7 @@
                     {
                         @Html.EditorFor(m => item, "SOEPlanIndicatorDisabledAll", "SOEPlanIndicator[" + j++ + "]")
                     }
-                    @foreach (var XType in Model.IndicatorXIndicatorTypes)
+                    @foreach (var XType in Model.IndicatorXIndicatorTypes.Where(b => b.IsCheck == true))
                     {
                         if (XType.level == 0)
                         {

@@ -11,9 +11,8 @@ using MRT_Demo.Models;
 
 namespace MRT_Demo.Controllers
 {
-    public class SOEPlanIndicatorsController : Controller
+    public class SOEPlanIndicatorsController : BaseController
     {
-        private MRTEntities db = new MRTEntities();
         public ActionResult Index()
         {
             var sOEPlanIndicator = db.SOEPlanIndicator.Include(s => s.Goal).Include(s => s.Indicator);

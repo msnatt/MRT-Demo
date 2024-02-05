@@ -13,9 +13,8 @@ using MRT_Demo.Models;
 
 namespace MRT_Demo.Controllers
 {
-    public class IndicatorTargetAndResultsController : Controller
+    public class IndicatorTargetAndResultsController : BaseController
     {
-        private MRTEntities db = new MRTEntities();
         public ActionResult Index(int? SelectedYear, string Division, string Indicator)
         {
             if (Division == "") { Division = null; }
@@ -224,13 +223,12 @@ namespace MRT_Demo.Controllers
                 }
             }
         }
-
-        private void TargetMeasurementFilter(Indicator indicators)
+        private void TargetMeasurementFilter(Indicator indicators, int SelectYear)
         {
             if (indicators.ImportantIndicatorTargetMeasurement.Count == 0)
             {
                 var breaker = 0;
-                foreach (var item in db.IndicatorXIndicatorTypes.Where(b => b.IndicatorID == indicators.ID))
+                foreach (var item in db.IndicatorXIndicatorTypes.Where(b => b.IndicatorID == indicators.ID && b.IsCheck == true))
                 {
                     var important = new ImportantIndicatorTargetMeasurement();
                     important.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
@@ -243,6 +241,7 @@ namespace MRT_Demo.Controllers
                         importantTemp.IsLastDelete = false;
                         importantTemp.IndicatorID = indicators.ID;
                         importantTemp.level = i;
+                        importantTemp.Year = SelectYear;
                         importantTemp.CreateDate = DateTime.Now;
                         importantTemp.UpdateDate = DateTime.Now;
                         importantTemp.IndicatorLevel = i + 1;
@@ -322,7 +321,6 @@ namespace MRT_Demo.Controllers
             }
 
         }
-        // ======================== Target ================================
         [HttpGet]
         public ActionResult Target(int? id, int SelectedYear)
         {
@@ -335,102 +333,9 @@ namespace MRT_Demo.Controllers
             indicators.ImportantIndicatorTargetMeasurement = tempTargetList.Where(b => b.IndicatorLevel > 0 && b.Year == SelectedYear).ToList();
             indicators.ListTarget = tempTargetList.Where(b => b.Year == SelectedYear && b.IndicatorLevel == 0).ToList();
 
+            //filter TargetMeasurement เพื่อแยกระหว่าง ตัวที่มาจาก Goal Indicator
+            TargetMeasurementFilter(indicators, SelectedYear);
 
-            TargetMeasurementFilter(indicators);
-
-            //if (indicators.ImportantIndicatorTargetMeasurement.Count == 0)
-            //{
-            //    var breaker = 0;
-            //    foreach (var item in db.IndicatorXIndicatorTypes.Where(b => b.IndicatorID == indicators.ID))
-            //    {
-            //        var important = new ImportantIndicatorTargetMeasurement();
-            //        important.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
-            //        for (var i = 0; i < 5; i++)
-            //        {
-            //            var importantTemp = new ImportantIndicatorTargetMeasurement();
-            //            importantTemp.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
-            //            importantTemp.IndicatorTypeID = item.IndicatorTypeID;
-            //            importantTemp.IsDelete = false;
-            //            importantTemp.IsLastDelete = false;
-            //            importantTemp.IndicatorID = indicators.ID;
-            //            importantTemp.level = i;
-            //            importantTemp.CreateDate = DateTime.Now;
-            //            importantTemp.UpdateDate = DateTime.Now;
-            //            importantTemp.IndicatorLevel = i + 1;
-            //            importantTemp.SubTarget.Add(importantTemp);
-            //            importantTemp.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
-            //            important.SubTarget.Add(importantTemp);
-            //        }
-            //        important.Indicator = indicators;
-            //        important.level = breaker;
-            //        indicators.ImportantIndicatorTargetMeasurement.Add(important);
-            //        breaker++;
-            //    }
-            //}
-            //else
-            //{
-
-            //    List<ImportantIndicatorTargetMeasurement> NewListImportant = indicators.ImportantIndicatorTargetMeasurement.ToList();
-            //    List<ImportantIndicatorTargetMeasurement> DeleteListImportant = indicators.ImportantIndicatorTargetMeasurement.ToList();
-            //    indicators.ImportantIndicatorTargetMeasurement.Clear();
-            //    for (int i = 0; i < NewListImportant.Count / 5; i++)
-            //    {
-            //        if (i >= indicators.IndicatorXIndicatorTypes.Count)
-            //        {
-            //            IndicatorXIndicatorType indicatorXIndicatorType = new IndicatorXIndicatorType();
-            //            indicatorXIndicatorType.CreateDate = DateTime.Now;
-            //            indicatorXIndicatorType.UpdateDate = DateTime.Now;
-            //            indicatorXIndicatorType.IsDelete = false;
-            //            indicatorXIndicatorType.IsLastDelete = false;
-            //            indicatorXIndicatorType.IndicatorID = indicators.ID;
-            //            indicatorXIndicatorType.level = indicators.IndicatorXIndicatorTypes.Count + 1;
-            //            indicators.IndicatorXIndicatorTypes.Add(indicatorXIndicatorType);
-            //        }
-
-            //        var breaker = 0;
-            //        var important = new ImportantIndicatorTargetMeasurement();
-            //        important.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
-            //        var c = 0;
-            //        foreach (var itemList in NewListImportant) { itemList.level = c; c++; }
-            //        if (indicators.IndicatorXIndicatorTypes.ElementAt(i).level == 0)
-            //        {
-            //            foreach (var item2 in NewListImportant.Where(b => b.IndicatorTypeID == indicators.IndicatorXIndicatorTypes.ElementAt(i).IndicatorTypeID && b.level < 15))
-            //            {
-            //                item2.SubTarget = new List<ImportantIndicatorTargetMeasurement> { item2 };
-            //                if (breaker <= 4)
-            //                {
-            //                    important.SubTarget.Add(item2);
-            //                    DeleteListImportant.Remove(item2);
-            //                    item2.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
-            //                }
-            //                important.IndicatorUnitID = item2.IndicatorUnitID;
-            //                important.level = i;
-            //            }
-            //                indicators.ImportantIndicatorTargetMeasurement.Add(important);
-            //        }
-            //        else
-            //        {
-            //            foreach (var itemList in DeleteListImportant) { itemList.level = i + 1; }
-            //            foreach (var item2 in DeleteListImportant.Where(b => b.level == indicators.IndicatorXIndicatorTypes.ElementAt(i).level))
-            //            {
-            //                item2.SubTarget = new List<ImportantIndicatorTargetMeasurement> { item2 };
-            //                if (breaker <= 4)
-            //                {
-            //                    important.SubTarget.Add(item2);
-            //                    NewListImportant.Remove(item2);
-            //                    item2.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
-            //                }
-            //                important.IndicatorUnitID = item2.IndicatorUnitID;
-            //                important.level = i;
-            //                important.IndicatorTypeID = item2.IndicatorTypeID;
-            //                important.Indicator = indicators;
-
-            //            }
-            //                indicators.ImportantIndicatorTargetMeasurement.Add(important);
-            //        }
-
-            //    }
-            //}
 
             var x = indicators.IndicatorXIndicatorTypes.ToList();
             var y = db.IndicatorTypes.ToList();
@@ -456,7 +361,6 @@ namespace MRT_Demo.Controllers
 
             return View("Target", indicators);
         }
-
         private void CheckUniqueSOEPlan(Indicator indicators)
         {
             List<int> ListTemp = new List<int>();
@@ -475,12 +379,12 @@ namespace MRT_Demo.Controllers
                 }
             }
         }
-
         [HttpPost]
         public ActionResult Target(Indicator indicators)
         {
             var important = indicators.ImportantIndicatorTargetMeasurement.ToList();
             indicators.ImportantIndicatorTargetMeasurement = null;
+            indicators.ImportantIndicatorResultMeasurement = null;
             indicators.IndicatorXIndicatorTypes = null;
             indicators.IndicatorOwners = null;
             db.Entry(indicators).State = EntityState.Modified;
@@ -504,7 +408,6 @@ namespace MRT_Demo.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", new { id = indicators.indicatorYear });
         }
-        // ---------------------------- Owner -----------------------------
         public ActionResult AddIndicatorOwner(Indicator indicator)
         {
             VoidAddIndicatorOwner(indicator);
@@ -545,7 +448,6 @@ namespace MRT_Demo.Controllers
                 }
             }
         }
-        // ---------------------------- Type ------------------------------
         public ActionResult AddXType(Indicator indicator)
         {
             IndicatorXIndicatorType indicatorXIndicatorType = new IndicatorXIndicatorType();
@@ -590,7 +492,6 @@ namespace MRT_Demo.Controllers
             ViewBag.Xunit = new SelectList(indicator.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
             return View("Target", indicator);
         }
-        // ========================= Result ================================
         [HttpGet]
         public ActionResult Result(int id, int SelectedYear)
         {
@@ -603,73 +504,15 @@ namespace MRT_Demo.Controllers
             indicators.ImportantIndicatorTargetMeasurement = tempTargetList.Where(b => b.IndicatorLevel > 0 && b.Year == SelectedYear).ToList();
             indicators.ListTarget = tempTargetList.Where(b => b.Year == SelectedYear && b.IndicatorLevel == 0).ToList();
 
-            TargetMeasurementFilter(indicators);
+            //filter TargetMeasurement เพื่อแยกระหว่าง ตัวที่มาจาก Goal Indicator
+            TargetMeasurementFilter(indicators, SelectedYear);
+            //**************************************************************//
 
-            //List<ImportantIndicatorTargetMeasurement> NewListImportant = indicators.ImportantIndicatorTargetMeasurement.Where(b => b.IndicatorLevel > 0).ToList();
-            //List<ImportantIndicatorTargetMeasurement> DeleteListImportant = indicators.ImportantIndicatorTargetMeasurement.Where(b => b.IndicatorLevel > 0).ToList();
-            //indicators.ImportantIndicatorTargetMeasurement.Clear();
 
-            //for (int i = indicators.ImportantIndicatorTargetMeasurement.Count; i < NewListImportant.Count / 5; i++)
-            //{
-            //    if (i < indicators.IndicatorXIndicatorTypes.Count)
-            //    {
-            //        //var Xtype = indicators.IndicatorXIndicatorTypes.ElementAt(i);
-            //    }
-            //    else
-            //    {
-            //        IndicatorXIndicatorType indicatorXIndicatorType = new IndicatorXIndicatorType();
-            //        indicatorXIndicatorType.CreateDate = DateTime.Now;
-            //        indicatorXIndicatorType.UpdateDate = DateTime.Now;
-            //        indicatorXIndicatorType.IsDelete = false;
-            //        indicatorXIndicatorType.IsLastDelete = false;
-            //        indicatorXIndicatorType.IndicatorID = indicators.ID;
-            //        indicatorXIndicatorType.level = indicators.IndicatorXIndicatorTypes.Count + 1;
-            //        indicators.IndicatorXIndicatorTypes.Add(indicatorXIndicatorType);
-            //    }
-
-            //    var breaker = 0;
-            //    var important = new ImportantIndicatorTargetMeasurement();
-            //    important.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
-
-            //    var c = 0;
-            //    foreach (var itemList in NewListImportant) { itemList.level = c; c++; }
-            //    if (indicators.IndicatorXIndicatorTypes.ElementAt(i).level == 0)
-            //    {
-            //        foreach (var item2 in NewListImportant.Where(b => b.IndicatorTypeID == indicators.IndicatorXIndicatorTypes.ElementAt(i).IndicatorTypeID && b.level < 15))
-            //        {
-            //            item2.SubTarget = new List<ImportantIndicatorTargetMeasurement> { item2 };
-            //            if (breaker <= 4)
-            //            {
-            //                important.SubTarget.Add(item2);
-            //                DeleteListImportant.Remove(item2);
-            //                item2.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
-            //            }
-            //            important.IndicatorUnitID = item2.IndicatorUnitID;
-            //            important.level = i;
-            //            indicators.ImportantIndicatorTargetMeasurement.Add(important);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        foreach (var itemList in DeleteListImportant) { itemList.level = i + 1; }
-            //        foreach (var item2 in DeleteListImportant.Where(b => b.level == indicators.IndicatorXIndicatorTypes.ElementAt(i).level))
-            //        {
-            //            item2.SubTarget = new List<ImportantIndicatorTargetMeasurement> { item2 };
-            //            if (breaker <= 4)
-            //            {
-            //                important.SubTarget.Add(item2);
-            //                NewListImportant.Remove(item2);
-            //                item2.SubTarget = new List<ImportantIndicatorTargetMeasurement>();
-            //            }
-            //            important.IndicatorUnitID = item2.IndicatorUnitID;
-            //            important.level = i;
-            //            important.IndicatorTypeID = item2.IndicatorTypeID;
-            //            important.Indicator = indicators;
-
-            //            indicators.ImportantIndicatorTargetMeasurement.Add(important);
-            //        }
-            //    }
-            //}
+            //Result
+            var TempResultList = indicators.ImportantIndicatorResultMeasurement.ToList();
+            indicators.ImportantIndicatorResultMeasurement.Clear();
+            indicators.ImportantIndicatorResultMeasurement = TempResultList.Where(b => b.Year == SelectedYear).ToList();
 
             if (indicators.ImportantIndicatorResultMeasurement.Count == 0)
             {
@@ -680,6 +523,7 @@ namespace MRT_Demo.Controllers
                 importantIndicatorResult.Isdelete = false;
                 importantIndicatorResult.IsLastDelete = false;
                 importantIndicatorResult.Indicator = indicators;
+                importantIndicatorResult.Year = SelectedYear;
                 importantIndicatorResult.PeriodMonthOrQuaterOrYearID = 1;
                 for (var i = 0; i < 18; i++)
                 {
@@ -873,6 +717,8 @@ namespace MRT_Demo.Controllers
             SetForecastTool(indicators);
             SetIndicatorImportant(indicators);
             SetForecastPeriod(indicators);
+            IndicatorBag(indicators);
+            IndicatorUnitBag(indicators);
             ViewBag.YearBag = IndicatorYearSelectItem();
             ViewBag.DivisionBag = IndicatorOwnerSelectItem();
             ViewBag.Xunit = new SelectList(indicators.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");
@@ -885,6 +731,8 @@ namespace MRT_Demo.Controllers
             SetForecastTool(indicators);
             SetIndicatorImportant(indicators);
             SetForecastPeriod(indicators);
+            IndicatorBag(indicators);
+            IndicatorUnitBag(indicators);
             ViewBag.YearBag = IndicatorYearSelectItem();
             ViewBag.DivisionBag = IndicatorOwnerSelectItem();
             ViewBag.Xunit = new SelectList(indicators.IndicatorUnits.Select(i => new SelectListItem { Value = i.ID.ToString(), Text = i.Unit }).ToList(), "Value", "Text");

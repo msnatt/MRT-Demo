@@ -14,7 +14,7 @@
             @Html.DisplayName("ปีงบประมาณ:")
         </div>
         <div class="col-md-4">
-            @Html.DropDownList("SelectedYear", new SelectList(ViewBag.YearBag, "Value", "Text", ViewBag.NowYearBag), "All", new { @class = "form-control",value = "", onchange = "OnchangeYear()" })
+            @Html.DropDownList("SelectedYear", new SelectList(ViewBag.YearBag, "Value", "Text", ViewBag.NowYearBag), "All", new { @class = "form-select",value = "", onchange = "OnchangeYear()" })
         </div>
     </div>
     <div class="row">
@@ -22,7 +22,7 @@
             @Html.DisplayName("หน่วยงาน : ")
         </div>
         <div class="col-md-4">
-            @Html.DropDownList("Division", new SelectList(ViewBag.DivisionBag, "Value", "Text"), "All", new { @class = "form-control" })
+            @Html.DropDownList("Division", new SelectList(ViewBag.DivisionBag, "Value", "Text"), "All", new { @class = "form-select" })
         </div>
     </div>
     <div class="row">
@@ -32,8 +32,8 @@
         <div class="col-md-8">
             @Html.Editor("Indicator", new { htmlAttributes = new { @class = "form-control" } })
         </div>
-        <div class="col-md-3">
-            <input value="ค้นหา" class="btn btn-outline-secondary col-md-3" type="submit" /> &nbsp;
+        <div class="col-md-3 text-end">
+            <input value="ค้นหา" class="btn btn-secondary col-md-3" type="submit" /> &nbsp;
         </div>
     </div>
 
@@ -82,14 +82,7 @@
             $("#Years").val($(this).val());
         });
     });
-    function FuncTarget(id_item) {
-        var url = '@Url.Action("Target", "IndicatorTargetAndResults")';
-        url += id_item + '&SelectedYear=' + $("#YearsDropDown").val();
-
-        $("#IndexForm").attr("action", url);
-        //$("#IndexForm").submit();
-    }
-
+    
     function OnchangeYear() {
         $("#IndexForm").submit();
         

@@ -11,10 +11,8 @@ using MRT_Demo.Models;
 
 namespace MRT_Demo.Controllers
 {
-    public class SEOPlansController : Controller
+    public class SEOPlansController : BaseController
     {
-        private MRTEntities db = new MRTEntities();
-
         // GET: SEOPlans
         public ActionResult Index()
         {

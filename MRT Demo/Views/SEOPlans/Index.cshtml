@@ -3,14 +3,15 @@
 @{
     ViewBag.Title = "SOEPlan";
 }
-
 <h2>การจัดการแผนวิสาหกิจ</h2>
+<br />
+<br />
 <div class="row">
     <div class="col-md-2">
     </div>
     <div class="col-md-6">
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 text-end">
         @Html.ActionLink("เพิ่ม", "Create", "SEOPlans","", new { @class = "btn btn-primary col-md-2" })
         @Html.ActionLink("กล่องขยะ", "RecycleBin", "SEOPlans", "", new { @class = "btn btn-secondary col-md-3" })
     </div>

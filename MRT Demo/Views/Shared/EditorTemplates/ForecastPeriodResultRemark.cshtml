@@ -26,7 +26,7 @@
 
     <span>4.</span>
     @Html.DisplayName(" ข้อมูลประกอบและเอกสารเพิ่มเติมอื่นๆ (ส่ง soft file)")<br />
-    @Html.TextBoxFor(m=>m.ListFileA, "", new { type = "file", @multiple = "multiple" }) <br />
+    @Html.TextBoxFor(m => m.ListFileA, "", new { type = "file", @multiple = "multiple" }) <br />
     <br />
 
     @Html.DisplayNameFor(m => m.ReasonForToolChange)<br />
@@ -36,26 +36,54 @@
     <span>6.</span>
     @Html.DisplayName(" ณ (งวดที่คาดการณ์) หากค่าคาดการณ์ผลการดําเนินงาน ณ สิ้นปีงบประมาณ ในคอลัมน์ค่าคาดการณ์ผลดำเนินงานจริงไม่เป็นไปตามเป้าหมายหรือต่ำกว่าระดับ RT")
     @Html.DisplayName(" ท่านดําเนินการอย่างไรเพื่อให้มีความสําเร็จตามเป้าหมายที่กําหนดไว้(หากคาดการณ์ไม่ได้ตามเป้าหมายต้องตอบข้อนี้)")<br />
-    @Html.CheckBoxFor(m => m.IsAnalysisResults, new {onchange = "FuncChangeDisabled("+@Html.IdFor(m=>m.AnalysisResults)+ ");" })
+    @Html.CheckBoxFor(m => m.IsAnalysisResults, new { onchange = "FuncChangeDisabled(" + @Html.IdFor(m => m.AnalysisResults) + ");" })
     @Html.DisplayNameFor(m => m.IsAnalysisResults)<br />
-    @Html.EditorFor(m => m.AnalysisResults, new { HtmlAttributes = new { @class = "form-control" } })
-    @Html.TextBoxFor(m=>m.ListFileB, "", new { type = "file", @multiple = "multiple" }) <br />
+    @if (Model.IsAnalysisResults)
+    {
+        @Html.EditorFor(m => m.AnalysisResults, new { HtmlAttributes = new { @class = "form-control" } })
+    }
+    else
+    {
+        @Html.EditorFor(m => m.AnalysisResults, new { HtmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+    }
+    @Html.TextBoxFor(m => m.ListFileB, "", new { type = "file", @multiple = "multiple" }) <br />
     <br />
 
     @Html.CheckBoxFor(m => m.IsChangeActionPlan, new { onchange = "FuncChangeDisabled(" + @Html.IdFor(m => m.ChangeActionPlan) + ");" })
     @Html.DisplayNameFor(m => m.IsChangeActionPlan)<br />
-    @Html.EditorFor(m => m.ChangeActionPlan, new { HtmlAttributes = new { @class = "form-control" } })
-    @Html.TextBoxFor(m=>m.ListFileC, "", new { type = "file", @multiple = "multiple" }) <br />
+    @if (Model.IsChangeActionPlan)
+    {
+        @Html.EditorFor(m => m.ChangeActionPlan, new { HtmlAttributes = new { @class = "form-control" } })
+    }
+    else
+    {
+        @Html.EditorFor(m => m.ChangeActionPlan, new { HtmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+    }
+    @Html.TextBoxFor(m => m.ListFileC, "", new { type = "file", @multiple = "multiple" }) <br />
     <br />
 
     @Html.CheckBoxFor(m => m.IsChangeOperation, new { onchange = "FuncChangeDisabled(" + @Html.IdFor(m => m.ChangeOperation) + ");" })
     @Html.DisplayNameFor(m => m.IsChangeOperation)<br />
-    @Html.EditorFor(m => m.ChangeOperation, new { HtmlAttributes = new { @class = "form-control" } })
+    @if (Model.IsChangeOperation)
+    {
+        @Html.EditorFor(m => m.ChangeOperation, new { HtmlAttributes = new { @class = "form-control" } })
+    }
+    else
+    {
+        @Html.EditorFor(m => m.ChangeOperation, new { HtmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+    }
     <br />
 
     @Html.CheckBoxFor(m => m.IsOther, new { onchange = "FuncChangeDisabled(" + @Html.IdFor(m => m.Other) + ");" })
     @Html.DisplayNameFor(m => m.IsOther)<br />
-    @Html.EditorFor(m => m.Other, new { HtmlAttributes = new { @class = "form-control" } })
+    @if (Model.IsOther)
+    {
+        @Html.EditorFor(m => m.Other, new { HtmlAttributes = new { @class = "form-control" } })
+    }
+    else
+    {
+        @Html.EditorFor(m => m.Other, new { HtmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+    }
     <br />
     <br />
 

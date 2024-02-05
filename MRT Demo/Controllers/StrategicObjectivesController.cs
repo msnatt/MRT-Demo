@@ -10,10 +10,8 @@ using MRT_Demo.Models;
 
 namespace MRT_Demo.Controllers
 {
-    public class StrategicObjectivesController : Controller
+    public class StrategicObjectivesController : BaseController
     {
-        private MRTEntities db = new MRTEntities();
-
         public ActionResult Index(int? id, string a)
         {
             var seoplans = db.SEOPlans.Find(id);

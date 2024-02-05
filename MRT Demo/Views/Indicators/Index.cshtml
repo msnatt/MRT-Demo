@@ -13,7 +13,7 @@
             @Html.DisplayName("หน่วยงาน : ")
         </div>
         <div class="col-md-4">
-            @Html.DropDownList("Division", new SelectList(ViewBag.DivisionBag, "Value", "Text"),"All", new { @class = "form-control" })
+            @Html.DropDownList("Division", new SelectList(ViewBag.DivisionBag, "Value", "Text"),"All", new { @class = "form-select" })
         </div>
     </div>
     <div class="row">
@@ -29,14 +29,14 @@
                 <div class="col-md-3 text-end">
                     @Html.DisplayName("สถานะของตัวชี้วัด : ")
                 </div>
-                <div class="col-md-5">
-                    @Html.DropDownList("IndicatorDetailStatusID", new SelectList(ViewBag.SelectListStatus, "Value", "Text"),"All",new { @class = "form-control" })
+                <div class="col-md-5 text-end">
+                    @Html.DropDownList("IndicatorDetailStatusID", new SelectList(ViewBag.SelectListStatus, "Value", "Text"),"All",new { @class = "form-select" })
                 </div>
             </div>
 
         </div>
         <div class="col-md-3">
-            <input value="ค้นหา" class="btn btn-outline-secondary col-md-3" type="submit"/> &nbsp;
+            <input value="ค้นหา" class="btn btn-outline-dark col-md-3" type="submit"/> &nbsp;
             @*@Html.ActionLink("ค้นหา", "Index", new { Division =  }, new { @Class = " btn btn-outline-secondary col-md-3" })*@
             @Html.ActionLink("เพิ่ม", "Create", "", new { @Class = " btn btn-primary col-md-3" }) &nbsp;
             @Html.ActionLink("ถังขยะ", "RecycleBin", "", new { @Class = " btn btn-secondary col-md-3" })

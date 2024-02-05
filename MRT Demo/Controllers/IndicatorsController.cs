@@ -11,10 +11,8 @@ using MRT_Demo.Models;
 
 namespace MRT_Demo.Controllers
 {
-    public class IndicatorsController : Controller
+    public class IndicatorsController : BaseController
     {
-        private MRTEntities db = new MRTEntities();
-
         public ActionResult Index(String Division, string Indicator, int? IndicatorDetailStatusID)
         {
             if (Division == "") { Division = null; }
@@ -55,25 +53,14 @@ namespace MRT_Demo.Controllers
         {
             //ViewBag.IndicatorDetailStatusID = new SelectList(db.IndicatorDetailStatus, "ID", "Status");
             Indicator indicator = new Indicator();
-            indicator.CreateDate = DateTime.Now;
-            indicator.UpdateDate = DateTime.Now;
-            indicator.IsDelete = false;
-            indicator.IsLastDelete = false;
-            indicator.IsActive = false;
+            indicator.Insert(db);
 
             List<IndicatorType> indicatorType = db.IndicatorTypes.ToList();
             indicator.IndicatorXIndicatorTypes = new List<IndicatorXIndicatorType>();
             foreach (var item in indicatorType)
             {
                 IndicatorXIndicatorType indicatorXIndicatorType = new IndicatorXIndicatorType();
-                indicatorXIndicatorType.IndicatorTypeID = item.ID;
-                //indicatorXIndicatorType.IndicatorID = indicator.ID;
-                indicatorXIndicatorType.CreateDate = DateTime.Now;
-                indicatorXIndicatorType.UpdateDate = DateTime.Now;
-                indicatorXIndicatorType.IsDelete = false;
-                indicatorXIndicatorType.IsLastDelete = false;
-                indicatorXIndicatorType.IndicatorType = item;
-                indicator.IndicatorXIndicatorTypes.Add(indicatorXIndicatorType);
+                indicatorXIndicatorType.Insert(db, indicator, item);
             }
 
             ViewBag.SelectListStatus = indicatorDetailStatuses();

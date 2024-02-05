@@ -12,10 +12,8 @@ using MRT_Demo.Models;
 
 namespace MRT_Demo.Controllers
 {
-    public class GoalsController : Controller
+    public class GoalsController : BaseController
     {
-        private MRTEntities db = new MRTEntities();
-
         public ActionResult Index()
         {
             var goals = db.Goals.Include(g => g.StrategicObjective);
