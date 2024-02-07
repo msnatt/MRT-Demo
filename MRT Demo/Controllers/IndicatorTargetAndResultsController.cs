@@ -34,22 +34,8 @@ namespace MRT_Demo.Controllers
             ViewBag.DivisionBag = IndicatorOwnerSelectItem();
             return View(indicators.ToList());
         }
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Indicator indicator = db.Indicators.Find(id);
-            if (indicator == null)
-            {
-                return HttpNotFound();
-            }
-            return View(indicator);
-        }
         public ActionResult Create()
         {
-
             return View();
         }
         public ActionResult Create(Indicator indicator)
@@ -191,10 +177,9 @@ namespace MRT_Demo.Controllers
                 }
             }
         }
-        private void ChangeForecastPeriod(Indicator indicators, int? MQYID, int? setvalue)
+        private void ChangeForecastPeriod(Indicator indicators, int? MQYID, int setvalue = 0)
         {
             var count = 0;
-            if (setvalue == null) { setvalue = 0; }
             var Result = indicators.ImportantIndicatorResultMeasurement.First();
             if (MQYID == 1) { setvalue = 0; }
             if (MQYID == 2) { setvalue = 12; }
@@ -321,12 +306,30 @@ namespace MRT_Demo.Controllers
             }
 
         }
+        private void CheckUniqueSOEPlan(Indicator indicators)
+        {
+            List<int> ListTemp = new List<int>();
+            List<SOEPlanIndicator> ListSOEPlan = new List<SOEPlanIndicator>();
+            foreach (var item in indicators.SOEPlanIndicator) { ListTemp.Add((int)item.IndicatorUnitID); ListSOEPlan.Add(item); }
+            ListTemp = ListTemp.Distinct().ToList();
+            indicators.SOEPlanIndicator.Clear();
+            foreach (var item in ListTemp)
+            {
+                foreach (var item2 in ListSOEPlan)
+                {
+                    if (item == item2.IndicatorUnitID)
+                    {
+                        indicators.SOEPlanIndicator.Add(item2);
+                    }
+                }
+            }
+        }
         [HttpGet]
         public ActionResult Target(int? id, int SelectedYear)
         {
             var indicators = db.Indicators.Find(id);
 
-            var tempTargetList = indicators.ImportantIndicatorTargetMeasurement.ToList();
+            var tempTargetList = indicators.ImportantIndicatorTargetMeasurement.Where(b => b.IsDelete != true).ToList();
             indicators.ImportantIndicatorTargetMeasurement.Clear();
 
             //กรองแยก IndicatorTargetMeasurement ออกจาก IndicatorTargetMeasurement ที่มาจาก Goal
@@ -361,24 +364,6 @@ namespace MRT_Demo.Controllers
 
             return View("Target", indicators);
         }
-        private void CheckUniqueSOEPlan(Indicator indicators)
-        {
-            List<int> ListTemp = new List<int>();
-            List<SOEPlanIndicator> ListSOEPlan = new List<SOEPlanIndicator>();
-            foreach (var item in indicators.SOEPlanIndicator) { ListTemp.Add((int)item.IndicatorUnitID); ListSOEPlan.Add(item); }
-            ListTemp = ListTemp.Distinct().ToList();
-            indicators.SOEPlanIndicator.Clear();
-            foreach (var item in ListTemp)
-            {
-                foreach (var item2 in ListSOEPlan)
-                {
-                    if (item == item2.IndicatorUnitID)
-                    {
-                        indicators.SOEPlanIndicator.Add(item2);
-                    }
-                }
-            }
-        }
         [HttpPost]
         public ActionResult Target(Indicator indicators)
         {
@@ -406,7 +391,7 @@ namespace MRT_Demo.Controllers
                 }
             }
             db.SaveChanges();
-            return RedirectToAction("Index", new { id = indicators.indicatorYear });
+            return RedirectToAction("Index", new { SelectedYear = indicators.indicatorYear });
         }
         public ActionResult AddIndicatorOwner(Indicator indicator)
         {
@@ -451,12 +436,9 @@ namespace MRT_Demo.Controllers
         public ActionResult AddXType(Indicator indicator)
         {
             IndicatorXIndicatorType indicatorXIndicatorType = new IndicatorXIndicatorType();
-            indicatorXIndicatorType.CreateDate = DateTime.Now;
-            indicatorXIndicatorType.UpdateDate = DateTime.Now;
-            indicatorXIndicatorType.IsDelete = false;
-            indicatorXIndicatorType.IsLastDelete = false;
             indicatorXIndicatorType.IndicatorID = indicator.ID;
             indicatorXIndicatorType.level = indicator.IndicatorXIndicatorTypes.Count + 1;
+            indicatorXIndicatorType.Insert(db);
             indicator.IndicatorXIndicatorTypes.Add(indicatorXIndicatorType);
 
 
@@ -497,7 +479,7 @@ namespace MRT_Demo.Controllers
         {
             var indicators = db.Indicators.Find(id);
 
-            var tempTargetList = indicators.ImportantIndicatorTargetMeasurement.ToList();
+            var tempTargetList = indicators.ImportantIndicatorTargetMeasurement.Where(b => b.IsDelete != true).ToList();
             indicators.ImportantIndicatorTargetMeasurement.Clear();
 
             //กรองแยก IndicatorTargetMeasurement ออกจาก IndicatorTargetMeasurement ที่มาจาก Goal
@@ -518,52 +500,38 @@ namespace MRT_Demo.Controllers
             {
                 ImportantIndicatorResultMeasurement importantIndicatorResult = new ImportantIndicatorResultMeasurement();
                 importantIndicatorResult.IndicatorID = indicators.ID;
-                importantIndicatorResult.CreateDate = DateTime.Now;
-                importantIndicatorResult.UpdateDate = DateTime.Now;
-                importantIndicatorResult.Isdelete = false;
-                importantIndicatorResult.IsLastDelete = false;
                 importantIndicatorResult.Indicator = indicators;
                 importantIndicatorResult.Year = SelectedYear;
-                importantIndicatorResult.PeriodMonthOrQuaterOrYearID = 1;
+                importantIndicatorResult.Insert(db);
+
                 for (var i = 0; i < 18; i++)
                 {
                     ForecastPeriod forecastPeriod = new ForecastPeriod();
-                    forecastPeriod.CreateDate = DateTime.Now;
-                    forecastPeriod.UpdateDate = DateTime.Now;
-                    forecastPeriod.IsLastDelete = false;
-                    forecastPeriod.IsDelete = false;
                     forecastPeriod.ImportantIndicatorResultMeasurement = importantIndicatorResult;
                     forecastPeriod.ImportantIndicatorResultMeasurementID = importantIndicatorResult.ID;
+                    forecastPeriod.Insert(db);
+
                     ForecastPeriodResultRemark resultRemark = new ForecastPeriodResultRemark();
                     resultRemark.ForecastPeriodID = forecastPeriod.ID;
-                    resultRemark.CreateDate = DateTime.Now;
-                    resultRemark.UpdateDate = DateTime.Now;
-                    resultRemark.IsLastDelete = false;
-                    resultRemark.IsDelete = false;
+                    resultRemark.Insert(db);
                     forecastPeriod.ForecastPeriodResultRemark.Add(resultRemark);
+
                     if (i == 0) { forecastPeriod.IsSelect = true; } else { forecastPeriod.IsSelect = false; }
                     foreach (var item in db.ForecastTool)
                     {
                         ForecastPeriodToolAndMethod toolAndMethod = new ForecastPeriodToolAndMethod();
-                        toolAndMethod.CreateDate = DateTime.Now;
-                        toolAndMethod.UpdateDate = DateTime.Now;
-                        toolAndMethod.IsLastDelete = false;
-                        toolAndMethod.IsDelete = false;
                         toolAndMethod.ForecastToolID = item.ID;
                         toolAndMethod.ForecastPeriod = forecastPeriod;
                         toolAndMethod.ForecastPeriodID = forecastPeriod.ID;
                         toolAndMethod.ForecastTool = item;
-                        toolAndMethod.TempMethod = "";
+                        toolAndMethod.Insert(db);
                         forecastPeriod.ForecastPeriodToolAndMethod.Add(toolAndMethod);
                     }
                     foreach (var item in indicators.IndicatorUnits)
                     {
                         ForecastValueAndRealValue realValue = new ForecastValueAndRealValue();
-                        realValue.CreateDate = DateTime.Now;
-                        realValue.UpdateDate = DateTime.Now;
-                        realValue.IsLastDelete = false;
-                        realValue.IsDelete = false;
                         realValue.UnitsID = item.ID;
+                        realValue.Insert(db);
                         forecastPeriod.ForecastValueAndRealValue.Add(realValue);
                     }
                     importantIndicatorResult.ForecastPeriod.Add(forecastPeriod);
@@ -587,7 +555,7 @@ namespace MRT_Demo.Controllers
                 }
             }
 
-            ChangeForecastPeriod(indicators, indicators.ImportantIndicatorResultMeasurement.First().PeriodMonthOrQuaterOrYearID, null);
+            ChangeForecastPeriod(indicators, indicators.ImportantIndicatorResultMeasurement.First().PeriodMonthOrQuaterOrYearID);
             SetIndicatorImportant(indicators);
             SetTargetIndicator(SelectedYear, indicators);
             IndicatorBag(indicators);
@@ -602,60 +570,72 @@ namespace MRT_Demo.Controllers
         [HttpPost]
         public ActionResult Result(Indicator indicators)
         {
-            var PeriodTemp = indicators.ImportantIndicatorResultMeasurement.First().ForecastPeriod;
+            //ล้าง ForecastPeriod จาก Indicator.ImportantIndicatorResultMeasurement และนำไปเก็บใน PeriodTemp
+            List<ForecastPeriod> PeriodTemp = indicators.ImportantIndicatorResultMeasurement.First().ForecastPeriod.ToList();
             indicators.ImportantIndicatorResultMeasurement.First().ForecastPeriod = null;
 
+            //เช็ค ResultMeasurement ว่าเพิ่มเข้า Database หรือ อัพเดต
             if (indicators.ImportantIndicatorResultMeasurement.First().ID == 0) { db.ImportantIndicatorResultMeasurement.Add(indicators.ImportantIndicatorResultMeasurement.First()); } else { db.Entry(indicators.ImportantIndicatorResultMeasurement.First()).State = EntityState.Modified; }
+
+            //PeriodTemp มาวนเช็ค ว่าเพิ่มเข้า Database หรือ อัพเดต
             foreach (var item in PeriodTemp)
             {
-                var c = item.ForecastPeriodCompetitorValue;
-                var a = item.ForecastPeriodToolAndMethod;
-                var d = item.ForecastPeriodResultRemark;
-                var b = item.ForecastValueAndRealValue;
+                var Compe = item.ForecastPeriodCompetitorValue;
+                var Tool = item.ForecastPeriodToolAndMethod;
+                var Remark = item.ForecastPeriodResultRemark;
+                var Real = item.ForecastValueAndRealValue;
                 item.ForecastPeriodCompetitorValue = null;
                 item.ForecastPeriodToolAndMethod = null;
                 item.ForecastPeriodResultRemark = null;
                 item.ForecastValueAndRealValue = null;
                 if (item.ID == 0)
                 {
+                    //เพิ่มลง Database
                     item.ImportantIndicatorResultMeasurement = null;
                     item.ImportantIndicatorResultMeasurementID = indicators.ImportantIndicatorResultMeasurement.First().ID;
                     db.ForecastPeriod.Add(item);
                 }
                 else
                 {
+                    //อัพเดต Database
                     item.ImportantIndicatorResultMeasurement = null;
                     db.Entry(item).State = EntityState.Modified;
                 }
 
                 db.SaveChanges();
-                foreach (var ToolItem in a)
+
+                //เช็ค Tool ว่าเพิ่มเข้า Database หรือ อัพเดต
+                foreach (var ToolItem in Tool)
                 {
                     if (ToolItem.ID == 0) { ToolItem.ForecastPeriodID = item.ID; db.ForecastPeriodToolAndMethod.Add(ToolItem); } else { db.Entry(ToolItem).State = EntityState.Modified; }
                 }
-                foreach (var ValueItem in b)
+                //เช็ค RealValue ว่าเพิ่มเข้า Database หรือ อัพเดต
+                foreach (var ValueItem in Real)
                 {
                     if (ValueItem.ID == 0) { ValueItem.ForecastPeriodID = item.ID; db.ForecastValueAndRealValue.Add(ValueItem); } else { db.Entry(ValueItem).State = EntityState.Modified; }
                 }
-                foreach (var CompeItem in c)
+                //เช็ค Competitor ว่าเพิ่มเข้า Database หรือ อัพเดต
+                foreach (var CompeItem in Compe)
                 {
                     if (CompeItem.ID == 0) { CompeItem.ForecastPeriodID = item.ID; db.ForecastPeriodCompetitorValue.Add(CompeItem); } else { db.Entry(CompeItem).State = EntityState.Modified; }
                 }
-                foreach (var Remarkitem in d)
+                //เช็ค Remark ว่าเพิ่มเข้า Database หรือ อัพเดต
+                foreach (var RemarkItem in Remark)
                 {
-                    if (Remarkitem.ID == 0) { Remarkitem.ForecastPeriodID = item.ID; db.ForecastPeriodResultRemark.Add(Remarkitem); } else { db.Entry(Remarkitem).State = EntityState.Modified; }
+                    if (RemarkItem.ID == 0) { RemarkItem.ForecastPeriodID = item.ID; db.ForecastPeriodResultRemark.Add(RemarkItem); } else { db.Entry(RemarkItem).State = EntityState.Modified; }
                 }
-                if (d.First().ListFileA.First() != null) { ActionSaveFile(d.First().ListFileA, d.First().ID, 1); }
-                if (d.First().ListFileB.First() != null) { ActionSaveFile(d.First().ListFileB, d.First().ID, 2); }
-                if (d.First().ListFileC.First() != null) { ActionSaveFile(d.First().ListFileC, d.First().ID, 3); }
+                if (Remark.First().ListFileA.First() != null) { ActionSaveFile(Remark.First().ListFileA, Remark.First().ID, 1); }
+                if (Remark.First().ListFileB.First() != null) { ActionSaveFile(Remark.First().ListFileB, Remark.First().ID, 2); }
+                if (Remark.First().ListFileC.First() != null) { ActionSaveFile(Remark.First().ListFileC, Remark.First().ID, 3); }
 
             }
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { SelectedYear = indicators.indicatorYear });
         }
         private void ActionSaveFile(List<HttpPostedFileBase> listFile, int ID, int runnumber)
         {
+            //วนเซฟไฟล์ทีละตัว
             foreach (var fileitem in listFile)
             {
                 string FileName = DateTime.Now.ToString("HHmmss-ddMMyyyy") + "_" + Path.GetFileName(fileitem.FileName);
@@ -713,7 +693,7 @@ namespace MRT_Demo.Controllers
         }
         public ActionResult ChangePeriod(Indicator indicators)
         {
-            ChangeForecastPeriod(indicators, indicators.ImportantIndicatorResultMeasurement.First().PeriodMonthOrQuaterOrYearID, null);
+            ChangeForecastPeriod(indicators, indicators.ImportantIndicatorResultMeasurement.First().PeriodMonthOrQuaterOrYearID);
             SetForecastTool(indicators);
             SetIndicatorImportant(indicators);
             SetForecastPeriod(indicators);
@@ -725,7 +705,7 @@ namespace MRT_Demo.Controllers
             ViewBag.MQY = db.PeriodMonthOrQuaterOrYear.ToList();
             return View("Result", indicators);
         }
-        public ActionResult ChangeMonthQuarterHailfYear(Indicator indicators, int? IndexInList)
+        public ActionResult ChangeMonthQuarterHailfYear(Indicator indicators, int IndexInList)
         {
             ChangeForecastPeriod(indicators, null, IndexInList);
             SetForecastTool(indicators);

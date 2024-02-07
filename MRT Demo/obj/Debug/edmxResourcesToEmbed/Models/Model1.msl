@@ -20,6 +20,7 @@
     <EntitySetMapping Name="ImportantIndicatorTargetMeasurements">
       <EntityTypeMapping TypeName="MRTModel.ImportantIndicatorTargetMeasurement">
         <MappingFragment StoreEntitySet="ImportantIndicatorTargetMeasurement">
+          <ScalarProperty Name="GoalID" ColumnName="GoalID" />
           <ScalarProperty Name="IsLastDelete" ColumnName="IsLastDelete" />
           <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />

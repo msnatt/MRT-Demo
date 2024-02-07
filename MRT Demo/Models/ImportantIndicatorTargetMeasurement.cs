@@ -27,9 +27,11 @@ namespace MRT_Demo.Models
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<bool> IsDelete { get; set; }
         public Nullable<bool> IsLastDelete { get; set; }
+        public Nullable<int> GoalID { get; set; }
     
         public virtual Indicator Indicator { get; set; }
         public virtual IndicatorType IndicatorType { get; set; }
         public virtual IndicatorUnit IndicatorUnit { get; set; }
+        public virtual Goal Goal { get; set; }
     }
 }

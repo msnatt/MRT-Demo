@@ -14,5 +14,12 @@ namespace MRT_Demo.Models
     {
         public bool IsSelect { get; set; }
         public bool IsAddCompetitor { get; set; }
+        public void Insert(MRTEntities db)
+        {
+            this.CreateDate = DateTime.Now;
+            this.UpdateDate = DateTime.Now;
+            this.IsLastDelete = false;
+            this.IsDelete = false;
+        }
     }
 }

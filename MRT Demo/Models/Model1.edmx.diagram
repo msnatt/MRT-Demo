@@ -59,6 +59,7 @@
         <EntityTypeShape EntityType="MRTModel.SOEPlanIndicator" Width="1.5" PointX="7.25" PointY="2.25" />
         <AssociationConnector Association="MRTModel.FK_SOEPlanIndicator_Goal" />
         <AssociationConnector Association="MRTModel.FK_SOEPlanIndicator_Indicator" />
+        <AssociationConnector Association="MRTModel.FK_Goal_ID___ImportantIndicatorTargetMeasurement_GoalID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

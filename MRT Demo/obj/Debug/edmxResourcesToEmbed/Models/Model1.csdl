@@ -139,6 +139,10 @@
       <End Role="Indicator" EntitySet="Indicators" />
       <End Role="SOEPlanIndicator" EntitySet="SOEPlanIndicator" />
     </AssociationSet>
+    <AssociationSet Name="FK_Goal_ID___ImportantIndicatorTargetMeasurement_GoalID" Association="MRTModel.FK_Goal_ID___ImportantIndicatorTargetMeasurement_GoalID">
+      <End Role="Goal" EntitySet="Goals" />
+      <End Role="ImportantIndicatorTargetMeasurement" EntitySet="ImportantIndicatorTargetMeasurements" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Goal">
     <Key>
@@ -156,6 +160,7 @@
     <Property Name="IsLastDelete" Type="Boolean" />
     <NavigationProperty Name="StrategicObjective" Relationship="MRTModel.FK_StrategicObjective_ID_Goal_StrategicObjectiveID" FromRole="Goal" ToRole="StrategicObjective" />
     <NavigationProperty Name="SOEPlanIndicator" Relationship="MRTModel.FK_SOEPlanIndicator_Goal" FromRole="Goal" ToRole="SOEPlanIndicator" />
+    <NavigationProperty Name="ImportantIndicatorTargetMeasurement" Relationship="MRTModel.FK_Goal_ID___ImportantIndicatorTargetMeasurement_GoalID" FromRole="Goal" ToRole="ImportantIndicatorTargetMeasurement" />
   </EntityType>
   <EntityType Name="ImportantIndicatorTargetMeasurement">
     <Key>
@@ -177,6 +182,8 @@
     <NavigationProperty Name="Indicator" Relationship="MRTModel.FK_Indicator_ID__ImportantIndicatorTargetMeasurement_IndicatorID" FromRole="ImportantIndicatorTargetMeasurement" ToRole="Indicator" />
     <NavigationProperty Name="IndicatorType" Relationship="MRTModel.FK_IndicatorType_ID__ImportantIndicatorTargetMeasurement_IndicatorTypeID" FromRole="ImportantIndicatorTargetMeasurement" ToRole="IndicatorType" />
     <NavigationProperty Name="IndicatorUnit" Relationship="MRTModel.FK_IndicatorUnit_ID__ImportantIndicatorTargetMeasurement_IndicatorUnitID" FromRole="ImportantIndicatorTargetMeasurement" ToRole="IndicatorUnit" />
+    <Property Name="GoalID" Type="Int32" />
+    <NavigationProperty Name="Goal" Relationship="MRTModel.FK_Goal_ID___ImportantIndicatorTargetMeasurement_GoalID" FromRole="ImportantIndicatorTargetMeasurement" ToRole="Goal" />
   </EntityType>
   <EntityType Name="Indicator">
     <Key>
@@ -912,6 +919,18 @@
       </Principal>
       <Dependent Role="SOEPlanIndicator">
         <PropertyRef Name="IndicatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Goal_ID___ImportantIndicatorTargetMeasurement_GoalID">
+    <End Type="MRTModel.Goal" Role="Goal" Multiplicity="0..1" />
+    <End Type="MRTModel.ImportantIndicatorTargetMeasurement" Role="ImportantIndicatorTargetMeasurement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goal">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ImportantIndicatorTargetMeasurement">
+        <PropertyRef Name="GoalID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

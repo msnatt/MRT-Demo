@@ -12,15 +12,15 @@ namespace MRT_Demo.Controllers
 {
     public class StategiesController : BaseController
     {
-        // GET: Stategies
         public ActionResult Index(int? id)
         {
+            //ดึงจาก Database
             var strategic = db.StrategicObjectives.Find(id);
+
+            //กรอกเอาเฉพาะตัวที่ IsDelete เป็น false
             strategic.Stategies = strategic.Stategies.Where(s => s.IsDelete == false).ToList();
             return View(strategic);
         }
-
-        // GET: Stategies/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -34,31 +34,14 @@ namespace MRT_Demo.Controllers
             }
             return View(stategy);
         }
-
-        // GET: Stategies/Create
         public ActionResult Create(int? id)
         {
-
-            //ViewBag.StrategicObjectiveID = new SelectList(db.StrategicObjectives, "ID", "StrategicObjective1");
-
             Stategy stategy = new Stategy();
-            stategy.CreateDate = DateTime.Now;
-            stategy.UpdateDate = DateTime.Now;
-            stategy.IsDelete = false;
-            stategy.IsLastDelete = false;
-            var last = db.Stategies.ToList().LastOrDefault();
-            if (last == null)
-            {
-                last = new Stategy();
-                last.No = 0;
-            }
-            stategy.No = last.No + 1;
             stategy.StrategicObjectiveID = id;
+            stategy.Insert(db);
 
             return View(stategy);
         }
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Stategy stategy)
@@ -74,11 +57,7 @@ namespace MRT_Demo.Controllers
             db.Stategies.Add(stategy);
             db.SaveChanges();
             return RedirectToAction("Index", new { id = stategy.StrategicObjectiveID });
-
-            //ViewBag.StrategicObjectiveID = new SelectList(db.StrategicObjectives, "ID", "StrategicObjective1", stategy.StrategicObjectiveID);
         }
-
-        // GET: Stategies/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,13 +69,9 @@ namespace MRT_Demo.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.StrategicObjectiveID = new SelectList(db.StrategicObjectives, "ID", "StrategicObjective1", stategy.StrategicObjectiveID);
-
             stategy.Tactics = stategy.Tactics.Where(s => s.IsDelete == false).ToList();
             return View(stategy);
         }
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Stategy stategy)
@@ -115,27 +90,7 @@ namespace MRT_Demo.Controllers
             db.Entry(stategy).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index", new { id = stategy.StrategicObjectiveID });
-            //ViewBag.StrategicObjectiveID = new SelectList(db.StrategicObjectives, "ID", "StrategicObjective1", stategy.StrategicObjectiveID);
         }
-
-        // GET: Stategies/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Stategy stategy = db.Stategies.Find(id);
-        //    if (stategy == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(stategy);
-        //}
-
-        // POST: Stategies/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Stategy stategy = db.Stategies.Find(id);
@@ -144,7 +99,6 @@ namespace MRT_Demo.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", new { id = stategy.StrategicObjectiveID });
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -169,10 +123,6 @@ namespace MRT_Demo.Controllers
             if (stategy.isAddHere)
             {
                 Tactic tactic = new Tactic();
-                tactic.IsDelete = false;
-                tactic.IsLastDelete = false;
-                tactic.UpdateDate = DateTime.Now;
-                tactic.CreateDate = DateTime.Now;
                 tactic.StategyID = stategy.ID;
                 var lastTac = db.Tactics.ToList().LastOrDefault();
                 if (lastTac == null)
@@ -181,35 +131,32 @@ namespace MRT_Demo.Controllers
                     lastTac.No = 0;
                 }
                 tactic.No = lastTac.No + stategy.Tactics.Count + 1;
+                tactic.Insert(db);
                 stategy.Tactics.Add(tactic);
 
             }
 
         }
-
-        public ActionResult DelTacticEdit(int? id, Stategy stategy)
+        public ActionResult DelTacticEdit(Stategy stategy)
         {
             return View("Edit", stategy);
         }
-
-        public ActionResult DelTactic(int? id, Stategy stategy)
+        public ActionResult DelTactic(Stategy stategy)
         {
             return View("Create", stategy);
         }
-
         public ActionResult RecycleBin(int strategicID)
         {
+            //กรอกเอาเฉพาะ IsDelete เป็น True และ IsLastDelete เป็น false
             var stategies = db.Stategies.Where(s => s.IsDelete == true && s.StrategicObjectiveID == strategicID && s.IsLastDelete == false).ToList();
-            //ViewBag.SEOPlanID = id;
             return View(stategies);
         }
         public ActionResult Revert(int id)
         {
             var stategy = db.Stategies.Find(id);
-            stategy.IsDelete = false;
 
             db.Entry(stategy).State = EntityState.Modified;
-
+            stategy.IsDelete = false;
             db.SaveChanges();
 
             return RedirectToAction("RecycleBin", new { strategicID = stategy.StrategicObjectiveID });

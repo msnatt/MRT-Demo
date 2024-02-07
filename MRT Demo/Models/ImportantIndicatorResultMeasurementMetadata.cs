@@ -6,19 +6,19 @@ using System.Web;
 
 namespace MRT_Demo.Models
 {
-    public class ForecastValueAndRealValueMetadata
+    public class ImportantIndicatorResultMeasurementMetadata
     {
     }
-    [MetadataType(typeof(ForecastValueAndRealValueMetadata))]
-    public partial class ForecastValueAndRealValue
+    [MetadataType(typeof(ImportantIndicatorResultMeasurementMetadata))]
+    public partial class ImportantIndicatorResultMeasurement
     {
-        public int UnitsID { get; set; }
         public void Insert(MRTEntities db)
         {
             this.CreateDate = DateTime.Now;
             this.UpdateDate = DateTime.Now;
+            this.Isdelete = false;
             this.IsLastDelete = false;
-            this.IsDelete = false;
+            this.PeriodMonthOrQuaterOrYearID = 1;
         }
     }
 }

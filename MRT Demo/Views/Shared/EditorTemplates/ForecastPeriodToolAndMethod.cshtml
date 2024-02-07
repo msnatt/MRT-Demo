@@ -12,33 +12,16 @@
 
 @if (ViewBag.j < 3)
 {
-    if (Model.ForecastPeriod.ImportantIndicatorResultMeasurement.PeriodMonthOrQuaterOrYearID == 1)
-    {
-        @Html.CheckBoxFor(m => m.IsUse, new { @class = "mb-4", onchange = "FuncChangeDisabled("+@Html.IdFor(m=>m.Method)+");" })
-        @Html.DisplayFor(m => m.ForecastTool.ForecastTool1)
-    }
-    else
-    {
-        @Html.CheckBoxFor(m => m.IsUse, new { @class = "mb-4", onchange = "FuncChangeDisabled("+@Html.IdFor(m=>m.Method)+");", disabled = "disabled" })
-        @Html.DisplayFor(m => m.ForecastTool.ForecastTool1, new { htmlAttributes = new { disabled = "disabled" } })
-    }
+    @Html.CheckBoxFor(m => m.IsUse, new { @class = "mb-4", onchange = "FuncChangeDisabled(" + @Html.IdFor(m => m.Method) + ");" })
+    @Html.DisplayFor(m => m.ForecastTool.ForecastTool1)
 
 }
 
 else
 {
-    if (Model.ForecastPeriod.ImportantIndicatorResultMeasurement.PeriodMonthOrQuaterOrYearID == 1)
-    {
-        @Html.CheckBoxFor(m => m.IsUse, new { onchange = "FuncChangeDisabled("+@Html.IdFor(m=>m.Method)+");" })
-        @Html.DisplayName("อื่นๆ โปรดระบุ")
-        @Html.EditorFor(m => m.OtherTool, new { htmlAttributes = new { @class = "form-control" } })
-    }
-    else
-    {
-        @Html.CheckBoxFor(m => m.IsUse, new { onchange = "FuncChangeDisabled("+@Html.IdFor(m=>m.Method)+");", disabled = "disabled" })
-        @Html.DisplayName("อื่นๆ โปรดระบุ")
-        @Html.EditorFor(m => m.OtherTool, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-    }
+    @Html.CheckBoxFor(m => m.IsUse, new { onchange = "FuncChangeDisabled(" + @Html.IdFor(m => m.Method) + ");" })
+    @Html.DisplayName("อื่นๆ โปรดระบุ")
+    @Html.EditorFor(m => m.OtherTool, new { htmlAttributes = new { @class = "form-control" } })
 }
 <br />
 

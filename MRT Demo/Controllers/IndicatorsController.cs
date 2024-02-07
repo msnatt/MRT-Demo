@@ -13,45 +13,36 @@ namespace MRT_Demo.Controllers
 {
     public class IndicatorsController : BaseController
     {
-        public ActionResult Index(String Division, string Indicator, int? IndicatorDetailStatusID)
+        private List<Indicator> FilterIndicators(IQueryable<Indicator> indicators, string division, string indicator, int? indicatorDetailStatusID)
         {
-            if (Division == "") { Division = null; }
-            if (Indicator == "") { Indicator = null; }
+            if (division == "") { division = null; }
+            if (indicator == "") { indicator = null; }
+            if (indicator != null)
+            {
+                indicators = indicators.Where(s => s.Indicator1.Contains(indicator));
+            }
+            if (division != null)
+            {
+                indicators = indicators.Where(s => s.IndicatorOwners.Where(q => q.Division == division).Count() > 0);
+            }
+            if (indicatorDetailStatusID != null)
+            {
+                indicators = indicators.Where(s => s.IndicatorDetailStatusID == indicatorDetailStatusID);
+            }
+            return indicators.ToList();
+        }
+        public ActionResult Index(string Division, string Indicator, int? IndicatorDetailStatusID)
+        {
             var indicators = db.Indicators.Where(s => s.IsDelete == false);
-            if (Indicator != null)
-            {
-                indicators = indicators.Where(s => s.Indicator1.Contains(Indicator));
-            }
-            if (Division != null)
-            {
-                indicators = indicators.Where(s => s.IndicatorOwners.Where(q => q.Division == Division).Count() > 0);
-            }
-            if (IndicatorDetailStatusID != null)
-            {
-                indicators = indicators.Where(s => s.IndicatorDetailStatusID == IndicatorDetailStatusID);
-            }
+            List<Indicator> indicator = FilterIndicators(indicators, Division, Indicator, IndicatorDetailStatusID);
 
             ViewBag.DivisionBag = IndicatorOwnerSelectList();
             ViewBag.SelectListStatus = indicatorDetailStatuses();
 
-            return View(indicators.ToList());
-        }
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Indicator indicator = db.Indicators.Find(id);
-            if (indicator == null)
-            {
-                return HttpNotFound();
-            }
-            return View(indicator);
+            return View(indicator.ToList());
         }
         public ActionResult Create()
         {
-            //ViewBag.IndicatorDetailStatusID = new SelectList(db.IndicatorDetailStatus, "ID", "Status");
             Indicator indicator = new Indicator();
             indicator.Insert(db);
 
@@ -60,7 +51,10 @@ namespace MRT_Demo.Controllers
             foreach (var item in indicatorType)
             {
                 IndicatorXIndicatorType indicatorXIndicatorType = new IndicatorXIndicatorType();
-                indicatorXIndicatorType.Insert(db, indicator, item);
+                indicatorXIndicatorType.IndicatorTypeID = item.ID;
+                indicatorXIndicatorType.IndicatorType = item;
+                indicatorXIndicatorType.Insert(db);
+                indicator.IndicatorXIndicatorTypes.Add(indicatorXIndicatorType);
             }
 
             ViewBag.SelectListStatus = indicatorDetailStatuses();
@@ -84,8 +78,6 @@ namespace MRT_Demo.Controllers
 
             }
             return RedirectToAction("Index");
-
-            //ViewBag.IndicatorDetailStatusID = new SelectList(db.IndicatorDetailStatus, "ID", "Status", indicator.IndicatorDetailStatusID);
         }
         public ActionResult Edit(int? id)
         {
@@ -98,7 +90,6 @@ namespace MRT_Demo.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.IndicatorDetailStatusID = new SelectList(db.IndicatorDetailStatus, "ID", "Status", indicator.IndicatorDetailStatusID);
             ViewBag.DivisionBag = IndicatorOwnerSelectList();
             ViewBag.SelectListStatus = indicatorDetailStatuses();
             return View(indicator);
@@ -164,25 +155,14 @@ namespace MRT_Demo.Controllers
             return RedirectToAction("Index");
             //ViewBag.IndicatorDetailStatusID = new SelectList(db.IndicatorDetailStatus, "ID", "Status", indicator.IndicatorDetailStatusID);
         }
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Indicator indicator = db.Indicators.Find(id);
-            if (indicator == null)
-            {
-                return HttpNotFound();
-            }
-            return View(indicator);
-        }
         public ActionResult DeleteConfirmed(int id)
         {
             Indicator indicator = db.Indicators.Find(id);
-            //db.Indicators.Remove(indicator);
+
+            //Fake Deleted
             indicator.IsDelete = true;
             db.SaveChanges();
+
             ViewBag.SelectListStatus = indicatorDetailStatuses();
             ViewBag.DivisionBag = IndicatorOwnerSelectList();
 

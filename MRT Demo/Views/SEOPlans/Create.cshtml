@@ -5,7 +5,8 @@
 }
 
 <h2>จัดการแผนวิสาหกิจ</h2>
-
+<br />
+<br />
 
 @using (Html.BeginForm("Create", "SEOPlans", FormMethod.Post, new { @class = "form-horizontal", id = "SEOform", name = "SEOform" }))
 {
@@ -18,27 +19,26 @@
     @Html.HiddenFor(m => m.IsDelete)
     @Html.HiddenFor(m => m.IsLastDelete)
     @*@Html.Hidden("SY")
-    @Html.Hidden("EY")*@
+        @Html.Hidden("EY")*@
 
 
     <div class="form-horizontal">
-        <h4>SEOPlan</h4>
         <hr />
         <div class="row">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(m=>m.StartYear)
+            <div class="col-md-2 text-end align-self-center">
+                @Html.DisplayNameFor(m => m.StartYear):
             </div>
-            <div class="form-group col-md-3">
+            <div class="col-md-2">
                 @*@Html.LabelFor(model => model.StartYear, htmlAttributes: new { @class = "control-label" })*@
-                @Html.DropDownListFor(m =>m.StartYear, new SelectList(ViewBag.StartYear, "Value", "Text"), "Select Start Year", new { @class = "form-control", onchange = "funcSY();" })
+                @Html.DropDownListFor(m => m.StartYear, new SelectList(ViewBag.StartYear, "Value", "Text"), "Select Start Year", new { @class = "form-select", onchange = "funcSY();" })
                 @Html.ValidationMessageFor(model => model.StartYear, "", new { @class = "text-danger" })
             </div>
-            <div class="col-md-1">
+            <div class="col-auto">
                 @Html.DisplayName("ถึง")
             </div>
-            <div class="form-group col-md-5">
+            <div class="col-md-2">
                 @*@Html.LabelFor(model => model.EndYear, htmlAttributes: new { @class = "control-label" })*@
-                @Html.DropDownListFor(m=>m.EndYear, new SelectList(ViewBag.StartYear, "Value", "Text"), "Select End Year", new { @class = "form-control", onchange = "funcEY();" })
+                @Html.DropDownListFor(m => m.EndYear, new SelectList(ViewBag.EndYear, "Value", "Text"), "Select End Year", new { @class = "form-select", onchange = "funcEY();" })
                 @Html.ValidationMessageFor(model => model.EndYear, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -47,10 +47,9 @@
     <br />
     <br />
     <div class="row">
-        <div class="col-sm-2"></div>
-        @Html.ActionLink("ย้อนกลับ", "Index", "SEOPlans", "", new { @class = "btn btn-secondary col-md-1" })
-        <div class="col-sm-1"></div>
-        <input type="submit" value="เพิ่ม" class="btn  col-md-2 btn-success" />
+        <div class="col-md-1"></div>
+        @Html.ActionLink("ย้อนกลับ", "Index", "SEOPlans", "", new { @class = "btn btn-secondary col-md-1 m-2" })
+        <input type="submit" value="บันทึก" class="btn col-md-1 btn-success m-2" />
     </div>
 }
 

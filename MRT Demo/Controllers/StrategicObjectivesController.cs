@@ -28,10 +28,8 @@ namespace MRT_Demo.Controllers
         [HttpPost]
         public ActionResult SearchTextFunc(string isAcc, StrategicObjective strategic)
         {
-
             return RedirectToAction("Index", new { id = strategic.SEOPlanID, a = isAcc });
         }
-
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -45,7 +43,6 @@ namespace MRT_Demo.Controllers
             }
             return View(strategicObjective);
         }
-
         public ActionResult Create(int SEOPlanID)
         {
             StrategicObjective strategicObjective = new StrategicObjective();
@@ -53,7 +50,6 @@ namespace MRT_Demo.Controllers
 
             return View(strategicObjective);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(StrategicObjective strategicObjective)
@@ -75,24 +71,9 @@ namespace MRT_Demo.Controllers
 
             return RedirectToAction("Index", new { id = strategicObjective.SEOPlanID, a = "" });
         }
-
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            StrategicObjective strategicObjective = db.StrategicObjectives.Find(id);
-            if (strategicObjective == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.SEOPlanID = new SelectList(db.SEOPlans, "ID", "ID", strategicObjective.SEOPlanID);
-            return View(strategicObjective);
-        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,No,StrategicObjective1,SEOPlanID,CreateBy,UpdateBy,CreateDate,UpdateDate,IsDelete,IsLastDelete")] StrategicObjective strategicObjective)
+        public ActionResult Edit(StrategicObjective strategicObjective)
         {
             if (ModelState.IsValid)
             {
@@ -110,7 +91,6 @@ namespace MRT_Demo.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", new { id = strategicObjective.SEOPlanID, a = "" });
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

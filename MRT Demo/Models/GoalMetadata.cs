@@ -40,5 +40,21 @@ namespace MRT_Demo.Models
             }
         }
         public bool IsAddIndiacator { get; set; }
+
+        public void Insert(MRTEntities db)
+        {
+            this.CreateDate = DateTime.Now;
+            this.UpdateDate = DateTime.Now;
+            this.IsDelete = false;
+            this.IsLastDelete = false;
+            this.IsAddIndiacator = false;
+            var last = db.Goals.ToList().LastOrDefault();
+            if (last == null)
+            {
+                last.No = 0;
+            }
+            this.No = last.No + 1;
+        }
+
     }
 }

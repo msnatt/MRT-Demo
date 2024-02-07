@@ -25,5 +25,12 @@ namespace MRT_Demo.Models
     public partial class Tactic
     {
          
+        public void Insert(MRTEntities db)
+        {
+            this.IsDelete = false;
+            this.IsLastDelete = false;
+            this.UpdateDate = DateTime.Now;
+            this.CreateDate = DateTime.Now;
+        }
     }
 }

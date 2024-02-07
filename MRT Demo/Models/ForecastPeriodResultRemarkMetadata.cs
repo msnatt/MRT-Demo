@@ -50,8 +50,16 @@ namespace MRT_Demo.Models
     [MetadataType(typeof(ForecastPeriodResultRemarkMetadata))]
     public partial class ForecastPeriodResultRemark
     {
-         public List<HttpPostedFileBase> ListFileA { get; set; }
-         public List<HttpPostedFileBase> ListFileB { get; set; }
-         public List<HttpPostedFileBase> ListFileC { get; set; }
+        public List<HttpPostedFileBase> ListFileA { get; set; }
+        public List<HttpPostedFileBase> ListFileB { get; set; }
+        public List<HttpPostedFileBase> ListFileC { get; set; }
+        public void Insert(MRTEntities db)
+        {
+            this.CreateDate = DateTime.Now;
+            this.UpdateDate = DateTime.Now;
+            this.IsLastDelete = false;
+            this.IsDelete = false;
+        }
+
     }
 }

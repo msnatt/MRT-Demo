@@ -13,9 +13,16 @@ namespace MRT_Demo.Models
     public partial class ImportantIndicatorTargetMeasurement
     {
         public int level { get; set; }
-        
-        public int GoalID { get; set; }
-        public List<ImportantIndicatorTargetMeasurement> SubTarget { get; set;}
-    
+        public List<ImportantIndicatorTargetMeasurement> SubTarget { get; set; }
+
+        public void Insert(MRTEntities db)
+        {
+            this.CreateDate = DateTime.Now;
+            this.UpdateDate = DateTime.Now;
+            this.IsDelete = false;
+            this.IsLastDelete = false;
+            this.IndicatorLevel = 0;
+        }
+
     }
 }

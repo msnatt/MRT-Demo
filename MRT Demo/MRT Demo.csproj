@@ -186,6 +186,7 @@
     <Compile Include="Models\ImportantIndicatorResultMeasurement.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ImportantIndicatorResultMeasurementMetadata.cs" />
     <Compile Include="Models\ImportantIndicatorTargetMeasurement.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

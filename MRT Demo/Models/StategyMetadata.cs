@@ -30,5 +30,22 @@ namespace MRT_Demo.Models
     public partial class Stategy
     {
         public bool isAddHere { get; set; }
+        public void Insert(MRTEntities db)
+        {
+            this.CreateDate = DateTime.Now;
+            this.UpdateDate = DateTime.Now;
+            this.IsDelete = false;
+            this.IsLastDelete = false;
+            var last = db.Stategies.ToList().LastOrDefault();
+            if (last == null)
+            {
+                last = new Stategy();
+                last.No = 0;
+            }
+            this.No = last.No + 1;
+
+        }
+
     }
+
 }

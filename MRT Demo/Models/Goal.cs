@@ -18,6 +18,7 @@ namespace MRT_Demo.Models
         public Goal()
         {
             this.SOEPlanIndicator = new HashSet<SOEPlanIndicator>();
+            this.ImportantIndicatorTargetMeasurement = new HashSet<ImportantIndicatorTargetMeasurement>();
         }
     
         public int ID { get; set; }
@@ -34,5 +35,7 @@ namespace MRT_Demo.Models
         public virtual StrategicObjective StrategicObjective { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SOEPlanIndicator> SOEPlanIndicator { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ImportantIndicatorTargetMeasurement> ImportantIndicatorTargetMeasurement { get; set; }
     }
 }
